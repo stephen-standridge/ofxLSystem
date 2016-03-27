@@ -1,0 +1,15 @@
+﻿<settings>
+<treed>
+<rule>
+A(x,y): y&lt;=3 -> A(x*2,x+y);
+A(x,y): y&gt;3 -> B(x)A(x/y,0);
+B(x) :x&lt;1 -> C;
+B(x) : x&gt;=1 -> B(x-1);
+</rule>
+<axiom>B(2)A(4,4)</axiom>
+<maxDepth>2</maxDepth>
+<theta>25</theta>
+<bg_color>100, 100, 140, 255</bg_color>
+		<tree_color>255, 0, 0, 255</tree_color>
+	</treed>
+</settings>

@@ -1,0 +1,10 @@
+<settings>
+<treed>
+<rule>F -> F--F--F--GG; G -> GG</rule>
+<axiom>F--F--F</axiom>
+<maxDepth>3</maxDepth>
+<theta>60</theta>
+<bg_color>100, 162, 5, 255</bg_color>
+		<tree_color>37, 255, 255, 255</tree_color>
+	</treed>
+</settings>

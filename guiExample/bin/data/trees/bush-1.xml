@@ -1,0 +1,10 @@
+<settings>
+<treed>
+<rule>F -> F[-F][+F]</rule>
+<axiom>F</axiom>
+<maxDepth>2</maxDepth>
+<theta>25</theta>
+<bg_color>100, 100, 140, 255</bg_color>
+		<tree_color>255, 0, 0, 255</tree_color>
+	</treed>
+</settings>
