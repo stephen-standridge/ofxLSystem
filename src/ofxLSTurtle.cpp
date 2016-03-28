@@ -1,6 +1,6 @@
 #include "ofxLSTurtle.h"
 
-void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, string _geometry, const ofVec3f _position, bool _randomZRotation) {
+void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxLSGeometryAvailable _geometry, const ofVec3f _position, bool _randomZRotation) {
     defaultLength = _moveLength;
     width = _width;
     theta = _turnAngle;

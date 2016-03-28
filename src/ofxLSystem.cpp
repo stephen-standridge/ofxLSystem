@@ -1,14 +1,14 @@
 #include "ofxLSystem.h"
 
 void ofxLSystem::setup(
-                    int _depth,
                     string _axiom,
-                    float _theta,
                     vector<string> _strRules,
+                    int _depth,
+                    float _theta,
                     ofVec3f _position,
                     map<string, float> _constants,
                     bool _randomYRotation,
-                    string _geometry){
+                    ofxLSGeometryAvailable _geometry){
     axiom = _axiom;
     rulesContainer = _strRules;
     depth = _depth;
@@ -41,13 +41,20 @@ void ofxLSystem::build(){
     turtle.generate(mesh, sentences.back(), depth);
 }
 
-void ofxLSystem::setMeshMode(string _geometry){
-    if(_geometry == "line"){
-        mesh.setMode(OF_PRIMITIVE_LINES);
-    }else if(_geometry == "tube"){
-        mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-    }else {
-        mesh.setMode(OF_PRIMITIVE_TRIANGLES);
+void ofxLSystem::setMeshMode(ofxLSGeometryAvailable _geometry){
+    switch (_geometry) {
+        case LINES:
+            mesh.setMode(OF_PRIMITIVE_LINES);
+            break;
+        case TUBES:
+            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
+            break;
+        case TUBES_DEFORMED:
+            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
+            break;
+        default:
+            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
+            break;
     }
 }
 

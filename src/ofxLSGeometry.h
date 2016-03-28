@@ -4,14 +4,16 @@
 #include "ofxLSTube.h"
 #include "ofxLSTubeDeformed.h"
 #include "ofxLSLine.h"
+#include "ofxLSGeometryAvailable.h"
 
 class ofxLSGeometry{
 public:
-    void putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, const float width, const string _geometryType);
+    void putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, const float width, ofxLSGeometryAvailable _geometryType);
     
 private:
     //avoid to save values in instance vars in these classes, they should simply
     // add stuff into the mesh
+    ofxLSGeometryAvailable geometry;
     ofxLSTube tube;
     ofxLSTubeDeformed tubeDeformed;
     ofxLSLine line;

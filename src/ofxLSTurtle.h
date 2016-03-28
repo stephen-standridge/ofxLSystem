@@ -6,16 +6,17 @@
 #include "ofxLSGeometry.h"
 #include "ofxLSInstruction.h"
 #include "ofxLSUtils.h"
+#include "ofxLSGeometryAvailable.h"
 
 class ofxLSTurtle {
 public:
-    void setup( float moveLength, float width, float turnAngle, string geometry, const ofVec3f pos, bool randomZRotation = false);
+    void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry, const ofVec3f pos, bool randomZRotation = false);
     void generate(ofVboMesh& mesh, const string ruleStr, const int depth);
 private:
     float   defaultLength = 100;
     float   width;
     float   theta;
-    string  geometry;
+    ofxLSGeometryAvailable  geometry;
     bool    debug = false;
     bool    randomZRotation = false;
     ofVec3f position;
