@@ -28,7 +28,7 @@ public:
     void fileSaved(int & file);
 
 private:
-    void loadSettings(string filename = "first.xml");
+    void loadSettings(string filename = "bush-1.xml");
     void readFilesDirectory();
     map<string,float> getConstants(string _constants) const;
     vector<string> getRules(string rules) const;
