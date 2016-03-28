@@ -7,6 +7,19 @@
 
 typedef map<string,float> Constants;
 
+//Input error class
+
+class ofxLSInputError : public exception{
+public:
+    ofxLSInputError(string m="exception!") : msg(m) {}
+    ofxLSInputError() throw() {}
+    const char* what() const throw() { return msg.c_str(); }
+
+private:
+    string msg;
+};
+
+
 class ofxLSystem {
 public:
     void setup(
@@ -35,4 +48,8 @@ private:
     ofxLSTurtle       turtle;
     ofVboMesh         mesh;
     mutable ofMesh    normalsMesh;
+    //validations
+    bool thetaValueIsinRange(float theta);
+    bool isAxiomInRules(string _axiom, vector<string> _strRules);
+    void validateInput(string _axiom, vector<string> _strRules, float theta);
 };

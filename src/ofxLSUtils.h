@@ -17,6 +17,16 @@ public:
         return buffer.str();
     }
 
+    static int countSubstring(const std::string& str, const std::string& sub){
+        if (sub.length() == 0) return 0;
+        int count = 0;
+        for (size_t offset = str.find(sub); offset != std::string::npos;
+             offset = str.find(sub, offset + sub.length())){
+            ++count;
+        }
+        return count;
+    }
+
     static vector<string> matchesInRegex(string subject, string reg){
         vector<string> results;
         try {

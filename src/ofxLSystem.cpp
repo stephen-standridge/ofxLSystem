@@ -9,13 +9,28 @@ void ofxLSystem::setup(
                     map<string, float> _constants,
                     bool _randomYRotation,
                     ofxLSGeometryAvailable _geometry){
-    axiom = _axiom;
-    rulesContainer = _strRules;
-    depth = _depth;
-    constants = _constants;
-    turtle.setup(100.0, 10, _theta, _geometry, _position, _randomYRotation);
-    mesh.clear();
-    setMeshMode(_geometry);
+    try {
+        validateInput(_axiom, _strRules, theta);
+        axiom = _axiom;
+        rulesContainer = _strRules;
+        depth = _depth;
+        constants = _constants;
+        turtle.setup(100.0, 10, _theta, _geometry, _position, _randomYRotation);
+        mesh.clear();
+        setMeshMode(_geometry);
+    } catch (ofxLSInputError& e) {
+        ofLogError(e.what());
+        // do not brake the program, initialize some standard variables
+        // and return an error message. This behaviour is suggested in the OF dev styleguide
+        axiom = "F";
+        rulesContainer = vector<string>{"F -> FF"};
+        depth = 1;
+        constants = Constants();
+        turtle.setup(100.0, 10, 25.00, TUBES, ofVec3f(100,100,0), false);
+        mesh.clear();
+        setMeshMode(_geometry);
+    }
+
 }
 
 void ofxLSystem::draw(){
@@ -34,10 +49,6 @@ void ofxLSystem::build(){
     const vector<string> sentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
     normalsMesh.clear();
     mesh.clear();
-//    for(auto sentence : sentences){
-//        turtle.generate(mesh, sentence, depth);
-//    }
-
     turtle.generate(mesh, sentences.back(), depth);
 }
 
@@ -92,4 +103,30 @@ void ofxLSystem::drawNormals(float length, bool bFaceNormals) const{
         }
     }
     normalsMesh.draw();
+}
+
+bool ofxLSystem::isAxiomInRules(string _axiom, vector<string> _rulesContainer){
+    auto lettersInAxiom = ofxLSUtils::matchesInRegex(_axiom, "[a-zA-Z]");
+    for(auto letter : lettersInAxiom){
+        for(string rule : _rulesContainer){
+            if(ofxLSUtils::countSubstring(rule, letter) > 0){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool ofxLSystem::thetaValueIsinRange(float theta){
+    return (theta >= -360.00 && theta <= 360.00) ? true : false;
+}
+
+void ofxLSystem::validateInput(string _axiom, vector<string> _strRules, float theta){
+    if(!isAxiomInRules(_axiom, _strRules)){
+        throw ofxLSInputError("axiom is not in rules container");
+    }
+    if(!thetaValueIsinRange(theta)){
+        throw ofxLSInputError("theta has to be between -360.00 and 360.00");
+    }
 }
