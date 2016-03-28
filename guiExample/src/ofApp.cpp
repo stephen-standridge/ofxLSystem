@@ -60,7 +60,7 @@ void ofApp::startLSystem(string axiom,
                          bool randomZRotation){
     auto constants = getConstants(_constants);
     auto rules = getRules(rulesString);
-    lsystem.setup(depth, axiom, theta, rules, position, constants, randomZRotation);
+    lsystem.setup(axiom, rules, depth, theta, position, constants, randomZRotation);
     lsystem.build();
 }
 
@@ -75,12 +75,10 @@ void ofApp::draw(){
     ofDrawAxis(100);
     //plane.drawWireframe();
     material.begin();
-    //shader.begin();
-    //lsystem.draw();
-    lsystem.drawWireframe();
+    lsystem.draw();
+    //lsystem.drawWireframe();
     //lsystem.drawNormals(20);
     material.end();
-    //shader.end();
     cam.end();
     ofDisableDepthTest();
 }
@@ -112,6 +110,7 @@ void ofApp::selectedThetaChanghed(float & aselectedTheta){
 
 void ofApp::selectedDepthChanghed(int & aselectedDepth){
     if(oldDepth!= aselectedDepth){
+        oldDepth = aselectedDepth;
         startLSystem(axiom,
                      selectedRule,
                      selectedTheta,
