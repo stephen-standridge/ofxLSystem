@@ -50,13 +50,14 @@ void ofApp::update(){
 }
 
 void ofApp::startLSystem(string axiom,
-                         string singleRule,
+                         string rulesString,
                          float theta,
                          int depth,
                          ofVec3f position,
                          string _constants){
     auto constants = getConstants(_constants);
-    lsystem.setup(depth, axiom, theta, singleRule, position, constants);
+    auto rules = getRules(rulesString);
+    lsystem.setup(depth, axiom, theta, rules, position, constants);
     lsystem.build();
 }
 
@@ -155,6 +156,21 @@ map<string,float>ofApp::getConstants(string _constant) const{
         }
     }
     return result;
+}
+
+vector<string>ofApp::getRules(string rules) const{
+    vector<string> stringRules;
+    if(rules.find(";") != std::string::npos){
+        //multiple rules
+        auto rule_container = ofSplitString(rules, ";");
+        for(auto r:rule_container){
+            stringRules.push_back(r);
+        }
+    }else{
+        //single rule
+        stringRules.push_back(rules);
+    }
+    return stringRules;
 }
 
 //--------------------------------------------------------------

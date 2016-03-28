@@ -12,7 +12,7 @@ public:
                int depth,
                string axiom,
                float theta,
-               string rules,
+               vector<string> rules,
                ofVec3f position,
                map<string, float> _constants = Constants(),
                bool randomYRotation = true,
@@ -25,7 +25,7 @@ public:
 
 private:
     void              setMeshMode(string geometry);
-    string            ruleString;
+    vector<string>    rulesContainer;
     string            axiom = "F";
     bool              randomYRotation = false;
     int               depth = 0;

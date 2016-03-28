@@ -12,9 +12,6 @@ public:
     void update();
     void draw();
 
-    // added only for the fakeDropdown
-    //void exit();
-
     void keyPressed(int key);
     void keyReleased(int key);
     void mouseMoved(int x, int y );
@@ -35,9 +32,10 @@ private:
     void loadSettings(string filename = "first.xml");
     void readFilesDirectory();
     map<string,float> getConstants(string _constants) const;
+    vector<string> getRules(string rules) const;
     void startLSystem(
                       string axiom,
-                      string singleRule,
+                      string selectedRule,
                       float theta,
                       int depth,
                       ofVec3f position,
@@ -66,7 +64,7 @@ private:
 
     ofEasyCam        cam;
     ofLight          light;
-    ofxLSystem          lsystem;
+    ofxLSystem       lsystem;
     ofPlanePrimitive plane;
     ofMaterial       material;
     ofTrueTypeFont   font;

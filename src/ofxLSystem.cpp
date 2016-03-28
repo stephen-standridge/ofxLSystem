@@ -4,13 +4,13 @@ void ofxLSystem::setup(
                     int _depth,
                     string _axiom,
                     float _theta,
-                    string _strRules,
+                    vector<string> _strRules,
                     ofVec3f _position,
                     map<string, float> _constants,
                     bool _randomYRotation,
                     string _geometry){
     axiom = _axiom;
-    ruleString = _strRules;
+    rulesContainer = _strRules;
     depth = _depth;
     constants = _constants;
     turtle.setup(100.0, 10, _theta, _geometry, _position, _randomYRotation);
@@ -31,7 +31,7 @@ void ofxLSystem::drawFaces(){
 }
 
 void ofxLSystem::build(){
-    const vector<string> sentences = ofxLSystemGrammar::buildSentences(ruleString, depth, axiom, constants);
+    const vector<string> sentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
     normalsMesh.clear();
     mesh.clear();
 //    for(auto sentence : sentences){
