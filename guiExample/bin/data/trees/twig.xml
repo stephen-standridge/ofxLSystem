@@ -1,8 +1,12 @@
 <treed>
-	<rule>F -> F[-F][+F]</rule>
+	<rule>F -&gt; F[-F][+F]</rule>
 	<maxDepth>2</maxDepth>
 	<theta>25</theta>
 	<bg_color>100, 100, 140, 255</bg_color>
 	<tree_color>255, 0, 0, 255</tree_color>
 <treed/>
+<axiom>B</axiom>
+	<Random_Z_Rotation>0</Random_Z_Rotation>
+	<constants>R=1.456</constants>
+	<depth>4</depth>
 </treed>

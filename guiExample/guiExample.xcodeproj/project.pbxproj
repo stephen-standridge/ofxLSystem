@@ -709,6 +709,21 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>0166DA4C6B09A4119C3BB972</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxLSInputError.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxLSystem/src/ofxLSInputError.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>2C7EB768B2FE4559EDD5A6DA</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -769,6 +784,7 @@
 					<string>8A3DE88BFD13EB54745D9152</string>
 					<string>25F0065D15D1F9FF2662B0F5</string>
 					<string>2C7EB768B2FE4559EDD5A6DA</string>
+					<string>0166DA4C6B09A4119C3BB972</string>
 					<string>567DFB2A61BCD6663D0CA3FE</string>
 					<string>0A2F46A9539A290D359A4BCA</string>
 					<string>FB9ABDB6C59F21AA1F957B2A</string>
