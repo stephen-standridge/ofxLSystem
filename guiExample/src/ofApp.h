@@ -28,7 +28,6 @@ public:
     void fileSaved(int & file);
 
 private:
-    bool clickNotOnTheGui(int x, int y);
     void loadSettings(string filename = "first.xml");
     void readFilesDirectory();
     map<string,float> getConstants(string _constants) const;
@@ -39,7 +38,8 @@ private:
                       float theta,
                       int depth,
                       ofVec3f position,
-                      string constants);
+                      string constants,
+                      bool randomZRotation);
     void maybeDrawGui();
     string trim(string str);
     bool drawGui = true;
@@ -53,6 +53,7 @@ private:
     ofParameter<string> definedConstant;
     ofParameter<string> axiom;
     ofParameter<int>    selectedDepth;
+    ofParameter<bool>   randomZRotation;
     unsigned int oldDepth = 1;
     ofParameter<float>  selectedTheta;
     ofxColorSlider bgColor;

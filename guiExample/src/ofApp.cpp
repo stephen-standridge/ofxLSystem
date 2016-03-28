@@ -14,6 +14,7 @@ void ofApp::setup(){
     gui.add(selectedRule.set("rule","F->F[-F][+F]"));
     axiom.setName("axiom");
     gui.add(axiom);
+    gui.add(randomZRotation.set("Random Z Rotation", false));
     gui.add(definedConstant.set("constants", ""));
     gui.add(selectedDepth.set("depth", 2, 1, 9));
     gui.add(selectedTheta.set("theta", 25.00, 0.00, 45.00));
@@ -40,7 +41,8 @@ void ofApp::setup(){
                  selectedTheta,
                  selectedDepth,
                  ofVec3f(100, 50, 0),
-                 definedConstant
+                 definedConstant,
+                 randomZRotation
                  );
 }
 
@@ -54,10 +56,11 @@ void ofApp::startLSystem(string axiom,
                          float theta,
                          int depth,
                          ofVec3f position,
-                         string _constants){
+                         string _constants,
+                         bool randomZRotation){
     auto constants = getConstants(_constants);
     auto rules = getRules(rulesString);
-    lsystem.setup(depth, axiom, theta, rules, position, constants);
+    lsystem.setup(depth, axiom, theta, rules, position, constants, randomZRotation);
     lsystem.build();
 }
 
@@ -103,7 +106,8 @@ void ofApp::selectedThetaChanghed(float & aselectedTheta){
                  selectedTheta,
                  selectedDepth,
                  ofVec3f(100, 200),
-                 definedConstant);
+                 definedConstant,
+                 randomZRotation);
 }
 
 void ofApp::selectedDepthChanghed(int & aselectedDepth){
@@ -113,7 +117,8 @@ void ofApp::selectedDepthChanghed(int & aselectedDepth){
                      selectedTheta,
                      selectedDepth,
                      ofVec3f(100, 200),
-                     definedConstant);
+                     definedConstant,
+                     randomZRotation);
     }
 }
 
@@ -191,13 +196,6 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 
-}
-
-bool ofApp::clickNotOnTheGui(int x, int y){
-    auto guiPos = gui.getPosition();
-    return
-    (x < guiPos.x || x > (guiPos.x + gui.getWidth())) ||
-    (y < guiPos.y || y > (guiPos.y + gui.getHeight()));
 }
 
 void ofApp::maybeDrawGui(){

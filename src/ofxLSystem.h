@@ -15,7 +15,7 @@ public:
                vector<string> rules,
                ofVec3f position,
                map<string, float> _constants = Constants(),
-               bool randomYRotation = true,
+               bool randomZRotation = true,
                string geometry = "tube");
     void build();
     void drawFaces();
@@ -27,7 +27,7 @@ private:
     void              setMeshMode(string geometry);
     vector<string>    rulesContainer;
     string            axiom = "F";
-    bool              randomYRotation = false;
+    bool              randomZRotation = false;
     int               depth = 0;
     float             theta = 20;
     map<string,float> constants;

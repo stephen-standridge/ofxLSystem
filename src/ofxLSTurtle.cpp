@@ -1,11 +1,11 @@
 #include "ofxLSTurtle.h"
 
-void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, string _geometry, const ofVec3f _position, bool _randomYRotation) {
+void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, string _geometry, const ofVec3f _position, bool _randomZRotation) {
     defaultLength = _moveLength;
     width = _width;
     theta = _turnAngle;
     geometry = _geometry;
-    randomYRotation = _randomYRotation;
+    randomZRotation = _randomZRotation;
     bookmarks.clear();
     branchContainer.clear();
     shared_ptr<ofNode> root(new ofNode);
@@ -32,7 +32,7 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
             newJoin->pan(+inst.getAngle(theta));
-            if(randomYRotation){
+            if(randomZRotation){
                 newJoin->roll(ofRandom(30.00, 330.00));
             }
             branchContainer.push_back(newJoin);
@@ -40,7 +40,7 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
             newJoin->pan(-inst.getAngle(theta));
-            if(randomYRotation){
+            if(randomZRotation){
                 newJoin->roll(ofRandom(30.00, 330.00));
             }
             branchContainer.push_back(newJoin);
