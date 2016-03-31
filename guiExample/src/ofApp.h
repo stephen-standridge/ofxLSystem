@@ -58,7 +58,6 @@ private:
     ofParameter<float>  selectedTheta;
     ofxColorSlider bgColor;
     ofxColorSlider treeColor;
-    ofxButton addGenerationButton;
 
     vector<string> fileNames;
     ofDirectory dir;
@@ -69,5 +68,4 @@ private:
     ofPlanePrimitive plane;
     ofMaterial       material;
     ofTrueTypeFont   font;
-    ofXml            settings;
 };
