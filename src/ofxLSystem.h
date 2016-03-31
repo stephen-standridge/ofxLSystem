@@ -5,10 +5,11 @@
 #include "ofxLSystemGrammar.h"
 #include "ofxLSGeometryAvailable.h"
 #include "ofxLSInputError.h"
+#include "of3dPrimitives.h"
 
 typedef map<string,float> Constants;
 
-class ofxLSystem {
+class ofxLSystem  : public of3dPrimitive{
 public:
     void setup(
                string axiom,
@@ -20,9 +21,8 @@ public:
                bool randomZRotation = true,
                ofxLSGeometryAvailable geometry = TUBES);
     void build();
-    void drawFaces();
-    void drawWireframe();
-    void draw();
+    // i've to redifine this method because i can not get it working
+    // that one inherited from of3DPrimive, i get this warning of3dPrimitive: drawNormals(): mesh normals are disabled
     void drawNormals( float length, bool bFaceNormals=false ) const;
 
 private:
@@ -36,6 +36,7 @@ private:
     ofxLSTurtle       turtle;
     ofVboMesh         mesh;
     mutable ofMesh    normalsMesh;
+
     //validations
     bool thetaValueIsinRange(float theta);
     bool isAxiomInRules(string _axiom, vector<string> _strRules);

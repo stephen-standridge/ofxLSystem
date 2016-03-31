@@ -11,6 +11,7 @@ void ofxLSystem::setup(
                     ofxLSGeometryAvailable _geometry){
     try {
         validateInput(_axiom, _strRules, theta);
+        this->setGlobalPosition(_position);
         axiom = _axiom;
         rulesContainer = _strRules;
         depth = _depth;
@@ -30,26 +31,19 @@ void ofxLSystem::setup(
         mesh.clear();
         setMeshMode(_geometry);
     }
-
 }
 
-void ofxLSystem::draw(){
-    mesh.draw();
-}
-
-void ofxLSystem::drawWireframe(){
-    mesh.drawWireframe();
-}
-
-void ofxLSystem::drawFaces(){
-    mesh.drawFaces();
-}
 
 void ofxLSystem::build(){
     const vector<string> sentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
     normalsMesh.clear();
     mesh.clear();
     turtle.generate(mesh, sentences.back(), depth);
+
+    // this part is needed by of3DPrimitive
+    getMesh() = mesh;
+    //getMesh().enableNormals(); it does not work
+    normalizeAndApplySavedTexCoords();
 }
 
 void ofxLSystem::setMeshMode(ofxLSGeometryAvailable _geometry){
@@ -69,7 +63,7 @@ void ofxLSystem::setMeshMode(ofxLSGeometryAvailable _geometry){
     }
 }
 
-// this code is copy&pastef from of3DPrimitive
+//this code is copy&pastef from of3DPrimitive
 void ofxLSystem::drawNormals(float length, bool bFaceNormals) const{
     const vector<ofVec3f>& normals    = mesh.getNormals();
     const vector<ofVec3f>& vertices   = mesh.getVertices();
