@@ -20,6 +20,8 @@ public:
                map<string, float> _constants = Constants(),
                bool randomZRotation = true,
                ofxLSGeometryAvailable geometry = TUBES);
+
+
     void build();
     // i've to redifine this method because i can not get it working
     // that one inherited from of3DPrimive, i get this warning of3dPrimitive: drawNormals(): mesh normals are disabled
@@ -32,6 +34,8 @@ private:
     bool              randomZRotation = false;
     int               depth = 1;
     float             theta = 25.00;
+    float             stepWidth = 10.00;
+    float             stepLength = 100.00;
     map<string,float> constants;
     ofxLSTurtle       turtle;
     ofVboMesh         mesh;
