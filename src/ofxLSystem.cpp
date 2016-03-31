@@ -1,14 +1,16 @@
 #include "ofxLSystem.h"
-
 void ofxLSystem::setup(
-                    string _axiom,
-                    vector<string> _strRules,
-                    int _depth,
-                    float _theta,
-                    ofVec3f _position,
-                    map<string, float> _constants,
-                    bool _randomYRotation,
-                    ofxLSGeometryAvailable _geometry){
+    string _axiom,
+    vector<string> _strRules,
+    int _depth,
+    float _theta,
+    float _stepWidth,
+    float _stepLength,
+    ofVec3f _position,
+    map<string, float> _constants,
+    bool _randomZRotation,
+    ofxLSGeometryAvailable _geometry){
+
     try {
         validateInput(_axiom, _strRules, theta);
         this->setGlobalPosition(_position);
@@ -16,7 +18,7 @@ void ofxLSystem::setup(
         rulesContainer = _strRules;
         depth = _depth;
         constants = _constants;
-        turtle.setup(stepLength, stepWidth, _theta, _geometry, _position, _randomYRotation);
+        turtle.setup(_stepLength, _stepWidth, _theta, _geometry, _position, _randomZRotation);
         mesh.clear();
         setMeshMode(_geometry);
     } catch (ofxLSInputError& e) {
@@ -27,11 +29,37 @@ void ofxLSystem::setup(
         rulesContainer = vector<string>{"F -> FF"};
         depth = 1;
         constants = Constants();
-        turtle.setup(stepLength, stepWidth, 25.00, TUBES, ofVec3f(100,100,0), false);
+        turtle.setup(_stepLength, _stepWidth, 25.00, TUBES, ofVec3f(100,100,0), false);
         mesh.clear();
         setMeshMode(_geometry);
     }
 }
+
+//begin method overloading of setup:
+void ofxLSystem::setup(
+                    string _axiom,
+                    vector<string> _strRules,
+                    int _depth,
+                    float _theta,
+                    ofVec3f _position,
+                    map<string, float> _constants,
+                    bool _randomZRotation,
+                    ofxLSGeometryAvailable _geometry){
+    setup(_axiom, _strRules, _depth, _theta, stepWidth, stepLength, _position, _constants, _randomZRotation, _geometry);
+}
+
+void ofxLSystem::setup(
+                       string _axiom,
+                       vector<string> _strRules,
+                       int _depth,
+                       float _theta,
+                       float _stepWidth,
+                       float _stepLength,
+                       ofVec3f _position){
+    map<string, float> _constants = Constants();
+    setup(_axiom, _strRules, _depth, _theta, _stepWidth, _stepLength, _position, _constants, true, TUBES);
+}
+
 
 
 void ofxLSystem::build(){
