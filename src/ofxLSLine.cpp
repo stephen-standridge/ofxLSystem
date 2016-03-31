@@ -5,7 +5,6 @@ ofxLSLine::ofxLSLine(){
 }
 
 void ofxLSLine::generate(ofMesh& mesh, ofxLSBranch branch, int radius){
-    vector<ofVec3f> container;
     auto start = branch.begin.getGlobalPosition();
     auto end = branch.end.getGlobalPosition();
     auto numberCurrentVertices = mesh.getNumVertices();
