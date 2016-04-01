@@ -2,13 +2,6 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-//    light.setup();
-//    light.setPosition(-100, 200,0);
-//    // we set up a plane on which the car will move
-//    plane.set(10000, 10000);
-//    plane.rotate(270, 1, 0 , 0);
-//    plane.move(0, -49, 0);
-
     //light
     light.setPosition(500, 1000, 1600);
     light.enable();
@@ -21,7 +14,7 @@ void ofApp::setup(){
 
     //plane
     plane.setPosition(100, 50, 0);
-    plane.set(10000, 10000);
+    plane.set(20000, 20000);
     plane.setResolution(20, 20);
 
     roadMaterial.setDiffuseColor(ofFloatColor::moccasin);

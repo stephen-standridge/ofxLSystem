@@ -8,6 +8,7 @@ This addon can be used to generate meshes as the following ones:
 ![example](img/violet.png)
 ![example](img/green.png)
 ![example](img/yellow.png)
+![example](img/forest.png)
 
 ## Usage
 
