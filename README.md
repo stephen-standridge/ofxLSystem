@@ -37,7 +37,9 @@ void ofApp::draw(){
 }
 ```
 
-To see how to pass other parameters, see the guiExample, or have a look at the `ofxLSystem` constructor
+In `tree.setup("F", vector<string>{"F -> FF[+F][-F]"}, 4)` we tell to ofxLSystem to use `F` as axiom, to use `F -> FF[+F][-F]` as reproduction rule and to iterate 4 times. Have a look into ofxLSystemGrammar or in the 2 examples in this project for more L-System examples.
+
+To see how to pass other parameters, check the signature of the `ofxLSystem` constructor.
 
 ## Examples
 
