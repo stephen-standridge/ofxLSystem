@@ -10,6 +10,8 @@ This addon can be used to generate meshes as the following ones:
 ![example](img/yellow.png)
 ![example](img/forest.png)
 
+It is currently tested on mac and OF >= 0.9.3.
+
 ## Usage
 
 In your header file include `ofxLSystem` and declare an instance of it. Declare also a material, it will be applied to the tree's mesh.
