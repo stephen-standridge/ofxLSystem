@@ -49,6 +49,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     material.setDiffuseColor(ofColor(treeColor));
+    lsystem.roll(2.00);
 }
 
 void ofApp::startLSystem(string axiom,

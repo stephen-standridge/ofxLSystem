@@ -10,9 +10,10 @@
 
 class ofxLSTurtle {
 public:
-    void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry, const ofVec3f pos, bool randomZRotation = false);
+    void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry, bool randomZRotation = false);
     void generate(ofVboMesh& mesh, const string ruleStr, const int depth);
 private:
+    const ofVec3f     origin = ofVec3f(0,0,0);
     float   defaultLength = 100;
     float   width;
     float   theta;

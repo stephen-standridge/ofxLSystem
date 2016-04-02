@@ -1,6 +1,6 @@
 #include "ofxLSTurtle.h"
 
-void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxLSGeometryAvailable _geometry, const ofVec3f _position, bool _randomZRotation) {
+void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxLSGeometryAvailable _geometry, bool _randomZRotation) {
     defaultLength = _moveLength;
     width = _width;
     theta = _turnAngle;
@@ -9,7 +9,7 @@ void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxL
     bookmarks.clear();
     branchContainer.clear();
     shared_ptr<ofNode> root(new ofNode);
-    root->setPosition(_position);
+    root->setPosition(origin);
     branchContainer.push_back(root);
 }
 

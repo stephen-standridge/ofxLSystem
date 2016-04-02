@@ -18,7 +18,7 @@ void ofxLSystem::setup(
         rulesContainer = _strRules;
         depth = _depth;
         constants = _constants;
-        turtle.setup(_stepLength, _stepWidth, _theta, _geometry, _position, _randomZRotation);
+        turtle.setup(_stepLength, _stepWidth, _theta, _geometry, _randomZRotation);
         mesh.clear();
         setMeshMode(_geometry);
     } catch (ofxLSInputError& e) {
@@ -29,7 +29,7 @@ void ofxLSystem::setup(
         rulesContainer = vector<string>{"F -> FF"};
         depth = 1;
         constants = Constants();
-        turtle.setup(_stepLength, _stepWidth, 25.00, TUBES, ofVec3f(100,100,0), false);
+        turtle.setup(_stepLength, _stepWidth, 25.00, TUBES, false);
         mesh.clear();
         setMeshMode(_geometry);
     }
