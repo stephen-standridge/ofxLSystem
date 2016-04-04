@@ -97,7 +97,7 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
 }
 
 vector<string> ofxLSTurtle::getInstructionsFromString(string _str){
-    // This regex deserves an explanation. Taking a string like:
+    // This regex deserves an explanation. Taking a string like:
     // "F[+F-F(1.0,3.2)^F&F\\F/F?|]YU(2.0)A(2.232)?\\/"
     // it returns a vector containing
     //    F
