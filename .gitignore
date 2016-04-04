@@ -1,11 +1,11 @@
-guiExample/bin/guiExampleDebug
-guiExample/bin/guiExampleDebug.app
+example-gui/bin/guiExampleDebug
+example-gui/bin/guiExampleDebug.app
 
-forestExample/bin/forestExampleDebug
-forestExample/bin/forestExampleDebug.app
+example-forest/bin/forestExampleDebug
+example-forest/bin/forestExampleDebug.app
 
 build-forestExample-Desktop-Debug/
 build-guiExample-Desktop-Debug/
-forestExample/bin/forestExample_debug
-guiExample/bin/guiExample_debug
+example-forest/bin/forestExample_debug
+example-gui/bin/guiExample_debug
 
