@@ -37,7 +37,6 @@ private:
                       string selectedRule,
                       float theta,
                       int depth,
-                      ofVec3f position,
                       string constants,
                       bool randomZRotation);
     void maybeDrawGui();

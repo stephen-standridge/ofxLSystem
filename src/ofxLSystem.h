@@ -16,33 +16,9 @@ public:
                vector<string> rules,
                int depth = 2,
                float theta = 25.00,
-               float stepWidth = 10.00,
-               float stepLength = 100.00,
-               ofVec3f position = ofVec3f(0, 0, 0),
                map<string, float> _constants = Constants(),
                bool randomZRotation = true,
                ofxLSGeometryAvailable geometry = TUBES);
-
-    //begin setup method overloading
-    void setup(
-               string axiom,
-               vector<string> rules,
-               int depth = 2,
-               float theta = 25.00,
-               ofVec3f position = ofVec3f(0, 0, 0),
-               map<string, float> _constants = Constants(),
-               bool randomZRotation = true,
-               ofxLSGeometryAvailable geometry = TUBES);
-
-    void setup(
-               string axiom,
-               vector<string> rules,
-               int depth = 2,
-               float theta = 25.00,
-               float stepWidth = 10.00,
-               float stepLength = 100.00,
-               ofVec3f position = ofVec3f(0, 0, 0));
-    //end setup method overloading
 
     void build();
     // i've to redifine this method because i can not get it working

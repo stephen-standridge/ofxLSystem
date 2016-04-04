@@ -4,21 +4,17 @@ void ofxLSystem::setup(
     vector<string> _strRules,
     int _depth,
     float _theta,
-    float _stepWidth,
-    float _stepLength,
-    ofVec3f _position,
     map<string, float> _constants,
     bool _randomZRotation,
     ofxLSGeometryAvailable _geometry){
 
     try {
         validateInput(_axiom, _strRules, theta);
-        this->setGlobalPosition(_position);
         axiom = _axiom;
         rulesContainer = _strRules;
         depth = _depth;
         constants = _constants;
-        turtle.setup(_stepLength, _stepWidth, _theta, _geometry, _randomZRotation);
+        turtle.setup(150, 15, _theta, _geometry, _randomZRotation);
         mesh.clear();
         setMeshMode(_geometry);
     } catch (ofxLSInputError& e) {
@@ -29,38 +25,11 @@ void ofxLSystem::setup(
         rulesContainer = vector<string>{"F -> FF"};
         depth = 1;
         constants = Constants();
-        turtle.setup(_stepLength, _stepWidth, 25.00, TUBES, false);
+        turtle.setup(150, 15, 25.00, TUBES, false);
         mesh.clear();
         setMeshMode(_geometry);
     }
 }
-
-//begin method overloading of setup:
-void ofxLSystem::setup(
-                    string _axiom,
-                    vector<string> _strRules,
-                    int _depth,
-                    float _theta,
-                    ofVec3f _position,
-                    map<string, float> _constants,
-                    bool _randomZRotation,
-                    ofxLSGeometryAvailable _geometry){
-    setup(_axiom, _strRules, _depth, _theta, stepWidth, stepLength, _position, _constants, _randomZRotation, _geometry);
-}
-
-void ofxLSystem::setup(
-                       string _axiom,
-                       vector<string> _strRules,
-                       int _depth,
-                       float _theta,
-                       float _stepWidth,
-                       float _stepLength,
-                       ofVec3f _position){
-    map<string, float> _constants = Constants();
-    setup(_axiom, _strRules, _depth, _theta, _stepWidth, _stepLength, _position, _constants, true, TUBES);
-}
-
-
 
 void ofxLSystem::build(){
     const vector<string> sentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);

@@ -40,7 +40,6 @@ void ofApp::setup(){
                  selectedRule,
                  selectedTheta,
                  selectedDepth,
-                 ofVec3f(100, 50, 0),
                  definedConstant,
                  randomZRotation
                  );
@@ -49,19 +48,18 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     material.setDiffuseColor(ofColor(treeColor));
-    lsystem.roll(2.00);
+    lsystem.roll(0.6);
 }
 
 void ofApp::startLSystem(string axiom,
                          string rulesString,
                          float theta,
                          int depth,
-                         ofVec3f position,
                          string _constants,
                          bool randomZRotation){
     auto constants = getConstants(_constants);
     auto rules = getRules(rulesString);
-    lsystem.setup(axiom, rules, depth, theta, position, constants, randomZRotation);
+    lsystem.setup(axiom, rules, depth, theta, constants, randomZRotation);
     lsystem.build();
 }
 
@@ -104,7 +102,6 @@ void ofApp::selectedThetaChanghed(float & aselectedTheta){
                  selectedRule,
                  selectedTheta,
                  selectedDepth,
-                 ofVec3f(100, 200),
                  definedConstant,
                  randomZRotation);
 }
@@ -116,7 +113,6 @@ void ofApp::selectedDepthChanghed(int & aselectedDepth){
                      selectedRule,
                      selectedTheta,
                      selectedDepth,
-                     ofVec3f(100, 200),
                      definedConstant,
                      randomZRotation);
     }
