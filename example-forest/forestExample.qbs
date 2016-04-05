@@ -12,6 +12,7 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
+            "bin/data/trees/bush-1.xml",
             'src/main.cpp',
             'src/ofApp.cpp',
             'src/ofApp.h',

@@ -7,7 +7,7 @@ void ofApp::setup(){
     selectedDepth.addListener(this, &ofApp::selectedDepthChanghed);
     // on writing xml files, take care of this
     // https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
-    gui.loadFromFile("trees/twig.xml");
+    gui.loadFromFile("trees/bush-1.xml");
     gui.setup();
     gui.setPosition(ofPoint(5, 50));
     gui.setName("treed");
