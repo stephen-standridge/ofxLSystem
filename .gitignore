@@ -6,6 +6,9 @@ example-forest/bin/forestExampleDebug.app
 
 build-forestExample-Desktop-Debug/
 build-guiExample-Desktop-Debug/
-example-forest/bin/forestExample_debug
-example-gui/bin/guiExample_debug
+
+build-example-forest-Desktop-Debug/
+build-example-gui-Desktop-Debug/
+example-forest/bin/example-forest_debug
+example-gui/bin/example-gui_debug
 
