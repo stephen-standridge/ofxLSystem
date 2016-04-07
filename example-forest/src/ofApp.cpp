@@ -25,7 +25,8 @@ void ofApp::setup(){
     for(unsigned int i =0; i<= 80; i++){
         ofxLSystem lystem;
         ofVec3f position = ofVec3f(ofRandom(-5000.f,5000.f), ofRandom(-5000.f,5000.f), 0);
-        lsystem.setup("F", vector<string>{"F -> FF[+F][-F]"}, 4, 36.00, position);
+        lsystem.setup("F", vector<string>{"F -> FF[+F][-F]"}, 4, 36.00);
+        lsystem.setPosition(position);
         lsystem.build();
         treeContainer.push_back(lsystem);
     }
