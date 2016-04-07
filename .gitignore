@@ -1,5 +1,7 @@
 example-gui/bin/guiExampleDebug
 example-gui/bin/guiExampleDebug.app
+example-gui/bin/example-guiDebug
+example-gui/bin/example-guiDebug.app
 
 example-forest/bin/forestExampleDebug
 example-forest/bin/forestExampleDebug.app

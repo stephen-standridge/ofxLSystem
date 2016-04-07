@@ -7,14 +7,14 @@
     "3998ED1A39B3A3908ED7716C4F9FB3DEAA7F29C2" : 0,
     "727ED838D711BA8796C3B24BEA5DBFF3FD89F4A5" : 0
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "976D9803-D69B-4957-A163-220E0A37D1B1",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "49EBD843-E8B9-4E48-BB0B-2F6794383FD9",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "3998ED1A39B3A3908ED7716C4F9FB3DEAA7F29C2" : "ofxLSystem\/",
     "727ED838D711BA8796C3B24BEA5DBFF3FD89F4A5" : "ofxLSystemGrammar\/"
   },
-  "DVTSourceControlWorkspaceBlueprintNameKey" : "guiExample",
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "example-gui",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "guiExample\/guiExample.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "example-gui\/example-gui.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:edap\/ofxLSystem.git",
