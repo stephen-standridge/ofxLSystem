@@ -33,7 +33,9 @@ In your `ofApp.cpp`
 ```cpp
 void ofApp::setup(){
   treeMaterial.setDiffuseColor(ofFloatColor::blueSteel)
-  tree.setup("F", vector<string>{"F -> FF[+F][-F]"}, 4);
+  tree.setAxiom("F");
+  tree.setStep(4);
+  tree.setRules({"F -> FF[+F][-F]"});
   tree.build();
 }
 
@@ -45,11 +47,11 @@ void ofApp::draw(){
 }
 ```
 
-In `tree.setup("F", vector<string>{"F -> FF[+F][-F]"}, 4)` we tell to ofxLSystem to use `F` as axiom, to use `F -> FF[+F][-F]` as reproduction rule and to iterate 4 times. Have a look into ofxLSystemGrammar or in the 2 examples in this project for more L-System examples.
+`tree.setAxiom("F")` tells to ofxLSystem to use `F` as axiom, `tree.setRules({"F -> FF[+F][-F]"})` to use `F -> FF[+F][-F]` as reproduction rule and `tree.setStep(4)` to iterate 4 times. Have a look into ofxLSystemGrammar or in the 2 examples in this project for more L-System examples.
 
 To see how to pass other parameters, check the signature of the `ofxLSystem` constructor.
 
 ## Examples
 
-- *guiExample* contains ~10 differents L-Systems, with a GUI to change colors, rotation angle, n steps ecc. It saves the settings for each tree on a separate xml file
-- *exampleForest* It use a `vector<ofxLSystem>` to create a forest of ~80 trees.
+- *example-gui* contains ~10 differents L-Systems, with a GUI to change colors, rotation angle, n steps ecc. It saves the settings for each tree on a separate xml file
+- *example-forest* It use a `vector<ofxLSystem>` to create a forest of ~80 trees.
