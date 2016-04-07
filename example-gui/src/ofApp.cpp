@@ -59,7 +59,12 @@ void ofApp::startLSystem(string axiom,
                          bool randomZRotation){
     auto constants = getConstants(_constants);
     auto rules = getRules(rulesString);
-    lsystem.setup(axiom, rules, depth, theta, constants, randomZRotation);
+    lsystem.setAxiom(axiom);
+    lsystem.setRules(rules);
+    lsystem.setTheta(theta);
+    lsystem.setStep(depth);
+    lsystem.setConstants(constants);
+    lsystem.setRandomZRotation(randomZRotation);
     lsystem.build();
 }
 
