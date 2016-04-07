@@ -3,6 +3,8 @@ example-gui/bin/guiExampleDebug.app
 
 example-forest/bin/forestExampleDebug
 example-forest/bin/forestExampleDebug.app
+example-forest/bin/example-forestDebug
+example-forest/bin/example-forestDebug.app
 
 build-forestExample-Desktop-Debug/
 build-guiExample-Desktop-Debug/
