@@ -45,5 +45,9 @@ public:
         }
         return results;
     }
+
+    static string validTurtleInstruction(string str){
+        return grepStringInRegex(str, "[F-G]|-|\\+|\\]|\\[|\\||\\^|&|/|\\\\");
+    }
 };
 

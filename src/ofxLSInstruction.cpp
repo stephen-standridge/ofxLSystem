@@ -47,5 +47,5 @@ void ofxLSInstruction::setValues(string text){
 }
 
 void ofxLSInstruction::setHead(string _text){
-    head = ofxLSUtils::grepStringInRegex(_text, "([A-Z|\\^|&|\\+|\\-|\\?|\\||\\]|\\[|/|\\\\])");
+    head = ofxLSUtils::validTurtleInstruction(_text);
 }
