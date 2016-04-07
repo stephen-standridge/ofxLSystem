@@ -1,43 +1,52 @@
 #include "ofxLSystem.h"
-void ofxLSystem::setup(
-    string _axiom,
-    vector<string> _strRules,
-    int _depth,
-    float _theta,
-    map<string, float> _constants,
-    bool _randomZRotation,
-    ofxLSGeometryAvailable _geometry){
 
-    try {
-        validateInput(_axiom, _strRules, theta);
-        axiom = _axiom;
-        rulesContainer = _strRules;
-        depth = _depth;
-        constants = _constants;
-        turtle.setup(150, 15, _theta, _geometry, _randomZRotation);
-        mesh.clear();
-        setMeshMode(_geometry);
-    } catch (ofxLSInputError& e) {
-        ofLogError(e.what());
-        // do not brake the program, initialize some standard variables
-        // and return an error message. This behaviour is suggested in the OF dev styleguide
-        axiom = "F";
-        rulesContainer = vector<string>{"F -> FF"};
-        depth = 1;
-        constants = Constants();
-        turtle.setup(150, 15, 25.00, TUBES, false);
-        mesh.clear();
-        setMeshMode(_geometry);
-    }
+ofxLSystem::ofxLSystem(){
+
 }
 
-void ofxLSystem::build(){
-    const vector<string> sentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
-    normalsMesh.clear();
-    mesh.clear();
-    turtle.generate(mesh, sentences.back(), depth);
+void ofxLSystem::setAxiom(string _axiom){
+    axiom = _axiom;
+    try {
+        validateInput(axiom, rulesContainer, theta);
+    } catch (ofxLSInputError& e) {
+        ofLogError(e.what());
+        axiom = "F";
+    }
+};
 
-    // this part is needed by of3DPrimitive
+void ofxLSystem::setRules(vector<string> _rulesContainer){
+    rulesContainer = _rulesContainer;
+    try {
+        validateInput(axiom, rulesContainer, theta);
+    } catch (ofxLSInputError& e) {
+        ofLogError(e.what());
+        rulesContainer = {"F -> F[+F][-F]"};
+    }
+};
+
+void ofxLSystem::setTheta(float _theta){ theta = _theta;
+    theta = _theta;
+    try {
+        validateInput(axiom, rulesContainer, theta);
+    } catch (ofxLSInputError& e) {
+        ofLogError(e.what());
+        theta = 25.00;
+    }
+};
+
+void ofxLSystem::build(){
+    //clear the mesh
+    mesh.clear();
+    normalsMesh.clear();
+
+    // setup the turtle, the sentences and the geometry
+    setMeshMode(geometry);
+    turtle.setup(stepLength, stepWidth, theta, geometry, randomZRotation);
+    const vector<string> sentences =
+        ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
+
+    // populate the mesh
+    turtle.generate(mesh, sentences.back(), depth);
     getMesh() = mesh;
     //getMesh().enableNormals(); it does not work
     normalizeAndApplySavedTexCoords();

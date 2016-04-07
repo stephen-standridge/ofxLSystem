@@ -11,33 +11,39 @@ typedef map<string,float> Constants;
 
 class ofxLSystem  : public of3dPrimitive{
 public:
-    void setup(
-               string axiom,
-               vector<string> rules,
-               int depth = 2,
-               float theta = 25.00,
-               map<string, float> _constants = Constants(),
-               bool randomZRotation = true,
-               ofxLSGeometryAvailable geometry = TUBES);
+    ofxLSystem();
+
+    void setAxiom(string _axiom);
+    void setRules(vector<string> _rulesContainer);
+    void setTheta(float _theta);
+
+    void setRandomZRotation(bool _randomZRotation)    { randomZRotation = _randomZRotation; };
+    void setGeometry(ofxLSGeometryAvailable _geometry){ofxLSGeometryAvailable geometry = _geometry;};
+    void setStep(int _depth)                          { depth = _depth; };
+    void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
+    void setStepLength(float _stepLength)             { stepLength = _stepLength; };
+    void setConstants(map<string,float> _Constants)   { constants = _Constants; };
 
     void build();
     // i've to redifine this method because i can not get it working
     // that one inherited from of3DPrimive, i get this warning of3dPrimitive: drawNormals(): mesh normals are disabled
     void drawNormals( float length, bool bFaceNormals=false ) const;
-
 private:
-    void              setMeshMode(ofxLSGeometryAvailable geometry);
-    vector<string>    rulesContainer;
+
+    vector<string>    rulesContainer = {"F -> F[+F][-F]"};
     string            axiom = "F";
     bool              randomZRotation = false;
+    ofxLSGeometryAvailable geometry = TUBES;
     int               depth = 1;
     float             theta = 25.00;
     float             stepWidth = 10.00;
     float             stepLength = 100.00;
-    map<string,float> constants;
+    map<string,float> constants = Constants();
     ofxLSTurtle       turtle;
     ofVboMesh         mesh;
     mutable ofMesh    normalsMesh;
+
+    void              setMeshMode(ofxLSGeometryAvailable geometry);
 
     //validations
     bool thetaValueIsinRange(float theta);
