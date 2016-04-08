@@ -20,6 +20,7 @@ public:
     void setRandomZRotation(bool _randomZRotation)    { randomZRotation = _randomZRotation; };
     void setGeometry(ofxLSGeometryAvailable _geometry){ofxLSGeometryAvailable geometry = _geometry;};
     void setStep(int _depth)                          { depth = _depth; };
+    void setScaleWidth(bool _scaleWidht)              { scaleWidth = _scaleWidht; };
     void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
     void setStepLength(float _stepLength)             { stepLength = _stepLength; };
     void setConstants(map<string,float> _Constants)   { constants = _Constants; };
@@ -37,6 +38,7 @@ private:
     int               depth = 1;
     float             theta = 25.00;
     float             stepWidth = 10.00;
+    bool              scaleWidth = false;
     float             stepLength = 100.00;
     map<string,float> constants = Constants();
     ofxLSTurtle       turtle;

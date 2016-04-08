@@ -41,7 +41,7 @@ void ofxLSystem::build(){
 
     // setup the turtle, the sentences and the geometry
     setMeshMode(geometry);
-    turtle.setup(stepLength, stepWidth, theta, geometry, randomZRotation);
+    turtle.setup(stepLength, stepWidth, theta, geometry, randomZRotation, scaleWidth);
     const vector<string> sentences =
         ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
 

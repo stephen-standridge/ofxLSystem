@@ -1,11 +1,12 @@
 #include "ofxLSTurtle.h"
 
-void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxLSGeometryAvailable _geometry, bool _randomZRotation) {
+void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxLSGeometryAvailable _geometry, bool _randomZRotation, bool _scaleWidth) {
     defaultLength = _moveLength;
     width = _width;
     theta = _turnAngle;
     geometry = _geometry;
     randomZRotation = _randomZRotation;
+    scaleWidth = _scaleWidth;
     bookmarks.clear();
     branchContainer.clear();
     shared_ptr<ofNode> root(new ofNode);
@@ -15,7 +16,6 @@ void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxL
 
 void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int _depth) {
     bool branching = false;
-    int currentLength = defaultLength;
     auto instructions = getInstructionsFromString(_instruction);
 
     for (auto stringInstruction : instructions) {
@@ -26,7 +26,7 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
         }else if( head == "G") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->dolly(inst.getLength(currentLength));
+            newJoin->dolly(inst.getLength(defaultLength));
             branchContainer.push_back(newJoin);
         }else if (head == "+") {
             shared_ptr<ofNode> newJoin(new ofNode);
@@ -82,18 +82,30 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
         }
 
         if (branching) {
+            float length = inst.getLength(defaultLength);
             auto beginBranch = branchContainer.back();
             shared_ptr<ofNode> endBranch(new ofNode);
             endBranch->setParent(*branchContainer.back());
-            endBranch->move(ofVec3f(0, 0, inst.getLength(currentLength)));
+            endBranch->move(ofVec3f(0, 0, length));
             auto newBranch = ofxLSBranch(*beginBranch, *endBranch);
-            geometryBuilder.putIntoMesh(newBranch, mesh, width, geometry);
+            float currentWidth = (scaleWidth) ? getScaledWidth(length) : width;
+            geometryBuilder.putIntoMesh(newBranch, mesh, currentWidth, geometry);
             branchContainer.push_back(endBranch);
             branching = false;
         }
     }
     branchContainer.clear();
     bookmarks.clear();
+}
+
+float ofxLSTurtle::getScaledWidth(float currentLength){
+    auto ratio = defaultLength / currentLength;
+    float currentWidth = width / ratio;
+    if (currentWidth < 1) {
+        return 1;
+    } else {
+        return currentWidth;
+    }
 }
 
 vector<string> ofxLSTurtle::getInstructionsFromString(string _str){

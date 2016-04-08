@@ -9,7 +9,8 @@
 
 class ofxLSTurtle {
 public:
-    void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry, bool randomZRotation = false);
+    void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry,
+               bool randomZRotation = false, bool scaleWidth = false);
     void generate(ofVboMesh& mesh, const string ruleStr, const int depth);
 private:
     const ofVec3f     origin = ofVec3f(0,0,0);
@@ -19,10 +20,13 @@ private:
     ofxLSGeometryAvailable  geometry;
     bool    debug = false;
     bool    randomZRotation = false;
-    ofVec3f position;
+    bool    scaleWidth = false;
+    ofVec3f position; // it can be removed?
     vector<string> getInstructionsFromString(string sentence);
 
     ofxLSGeometry                    geometryBuilder;
     std::vector<shared_ptr<ofNode> > bookmarks;
     std::vector<shared_ptr<ofNode> > branchContainer;
+
+    float getScaledWidth(float currentLength);
 };
