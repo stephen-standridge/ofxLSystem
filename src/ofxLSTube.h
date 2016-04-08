@@ -5,7 +5,7 @@
 class ofxLSTube {
 public:
     ofxLSTube();
-    void generate(ofMesh& mesh, const ofxLSBranch branch, const int radius);
+    void generate(ofMesh& mesh, const ofxLSBranch branch, const int radius,  const int scaledRadius);
 private:
     int resolution = 32;
 };

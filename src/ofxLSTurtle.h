@@ -27,6 +27,7 @@ private:
     ofxLSGeometry                    geometryBuilder;
     std::vector<shared_ptr<ofNode> > bookmarks;
     std::vector<shared_ptr<ofNode> > branchContainer;
-
+    map<float, float> historySizes;
+    pair<float, float> getPrevAndCurrentWidth(float currentLength);
     float getScaledWidth(float currentLength);
 };

@@ -4,7 +4,7 @@ ofxLSTube::ofxLSTube(){
     
 }
 
-void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radius){
+void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radius, const int scaledRadius){
     ofMatrix4x4 beginMatrix = branch.begin.getGlobalTransformMatrix();
     ofMatrix4x4 endMatrix = branch.end.getGlobalTransformMatrix();
 

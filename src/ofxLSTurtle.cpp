@@ -9,6 +9,7 @@ void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxL
     scaleWidth = _scaleWidth;
     bookmarks.clear();
     branchContainer.clear();
+    historySizes.clear();
     shared_ptr<ofNode> root(new ofNode);
     root->setPosition(origin);
     branchContainer.push_back(root);
@@ -83,19 +84,43 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
 
         if (branching) {
             float length = inst.getLength(defaultLength);
+
             auto beginBranch = branchContainer.back();
             shared_ptr<ofNode> endBranch(new ofNode);
             endBranch->setParent(*branchContainer.back());
             endBranch->move(ofVec3f(0, 0, length));
             auto newBranch = ofxLSBranch(*beginBranch, *endBranch);
-            float currentWidth = (scaleWidth) ? getScaledWidth(length) : width;
-            geometryBuilder.putIntoMesh(newBranch, mesh, currentWidth, geometry);
+            auto widths = getPrevAndCurrentWidth(length);
+            geometryBuilder.putIntoMesh(newBranch, mesh, widths.first, widths.second, geometry);
             branchContainer.push_back(endBranch);
             branching = false;
         }
     }
     branchContainer.clear();
     bookmarks.clear();
+}
+
+// This method not only return the previous and current width, but it keeps track
+// of all the the change in size that the tree has experienced.
+// The first value is the length, the second the width.
+
+pair<float, float> ofxLSTurtle::getPrevAndCurrentWidth(float currentLength){
+    float currentWidth = (scaleWidth) ? getScaledWidth(currentLength) : width;
+    if (historySizes.empty()) {
+        historySizes.insert(make_pair(currentLength, currentWidth));
+        return (make_pair(currentWidth, currentWidth));
+    } else {
+        map<float, float>::iterator current;
+        if (historySizes.find(currentLength) == historySizes.end()) {
+            historySizes.insert(make_pair(currentLength, currentWidth));
+            current = historySizes.begin();
+        } else {
+            current = historySizes.find(currentLength);
+        }
+        auto prev = current;
+        ++prev;
+        return make_pair(prev->second, current->second);
+    }
 }
 
 float ofxLSTurtle::getScaledWidth(float currentLength){
