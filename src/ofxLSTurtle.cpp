@@ -98,13 +98,22 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
     }
     branchContainer.clear();
     bookmarks.clear();
+    historySizes.clear();
 }
 
-// This method not only return the previous and current width, but it keeps track
-// of all the the change in size that the tree has experienced.
-// The first value is the length, the second the width.
-
+// In case there is the need to keep track of the differents branches width and lenght,
+// as in the case when scaleWidth is set to true, this method does 2 things:
+// 1) it stores all the sizes in the container historySizes, for each pair, the first calue is the lenght
+// the second the width.
+// 2) It returns the current width and the previous one, as the method name says.
+// If there is no need to keep track of the branch  width, just returns a pair containing
+// the default width, both for the prev and current width.
 pair<float, float> ofxLSTurtle::getPrevAndCurrentWidth(float currentLength){
+    if(!scaleWidth){
+        return make_pair(width, width);
+    }
+
+
     float currentWidth = (scaleWidth) ? getScaledWidth(currentLength) : width;
     if (historySizes.empty()) {
         historySizes.insert(make_pair(currentLength, currentWidth));
