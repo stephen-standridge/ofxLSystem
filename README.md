@@ -49,7 +49,57 @@ void ofApp::draw(){
 
 `tree.setAxiom("F")` tells to ofxLSystem to use `F` as axiom, `tree.setRules({"F -> FF[+F][-F]"})` to use `F -> FF[+F][-F]` as reproduction rule and `tree.setStep(4)` to iterate 4 times. Have a look into ofxLSystemGrammar or in the 2 examples in this project for more L-System examples.
 
-To see how to pass other parameters, check the signature of the `ofxLSystem` constructor.
+By default, each L-System is initialized with this parameters:
+
+```cpp
+typedef map<string,float> Constants;
+
+vector<string>    rulesContainer = {"F -> F[+F][-F]"};
+string            axiom = "F";
+bool              randomZRotation = false;
+int               depth = 1;
+float             theta = 25.00;
+float             stepWidth = 10.00;
+bool              scaleWidth = false;
+float             stepLength = 100.00;
+map<string,float> constants = Constants();
+```
+
+you can overwrite the default parameters using these methods:
+
+```cpp
+void setAxiom(string _axiom);
+void setRules(vector<string> _rulesContainer);
+void setTheta(float _theta);
+void setRandomZRotation(bool _randomZRotation);
+void setStep(int _depth);
+void setScaleWidth(bool _scaleWidht);
+void setStepWidth(float _stepWidth);
+void setStepLength(float _stepLength);
+void setConstants(map<string,float> _Constants);
+```
+
+For example, the following snippet:
+
+```cpp
+ofxLSystem tree;
+map<string, float> constants;
+constants.insert(make_pair("R", 1.456));
+
+tree.setAxiom("A(100)");
+tree.setRules({"A(s) -> F(s)[+A(s/R)][-A(s/R)]"});
+tree.setRandomZRotation(true);
+tree.setConstants(constants);
+tree.setStep(4);
+tree.setScaleWidth(true);
+tree.setStepLength(90);
+```
+
+Generates a tree like this:
+
+![example](img/scaleWidth.png)
+
+
 
 ## Examples
 
