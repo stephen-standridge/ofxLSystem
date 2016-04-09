@@ -33,9 +33,7 @@ In your `ofApp.cpp`
 ```cpp
 void ofApp::setup(){
   treeMaterial.setDiffuseColor(ofFloatColor::blueSteel)
-  tree.setAxiom("F");
   tree.setStep(4);
-  tree.setRules({"F -> FF[+F][-F]"});
   tree.build();
 }
 
