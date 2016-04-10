@@ -17,6 +17,7 @@ public:
     void setRules(vector<string> _rulesContainer);
     void setTheta(float _theta);
 
+    void setResolution(int _resolution)               {resolution = _resolution;};
     void setRandomZRotation(bool _randomZRotation)    { randomZRotation = _randomZRotation; };
     void setGeometry(ofxLSGeometryAvailable _geometry){ofxLSGeometryAvailable geometry = _geometry;};
     void setStep(int _depth)                          { depth = _depth; };
@@ -35,6 +36,7 @@ private:
     string            axiom = "F";
     bool              randomZRotation = false;
     ofxLSGeometryAvailable geometry = TUBES;
+    int               resolution = 32;
     int               depth = 1;
     float             theta = 25.00;
     float             stepWidth = 10.00;

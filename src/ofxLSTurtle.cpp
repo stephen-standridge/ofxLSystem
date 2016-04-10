@@ -1,9 +1,10 @@
 #include "ofxLSTurtle.h"
 
-void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxLSGeometryAvailable _geometry, bool _randomZRotation, bool _scaleWidth) {
+void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxLSGeometryAvailable _geometry, bool _randomZRotation, bool _scaleWidth, int _resolution) {
     defaultLength = _moveLength;
     width = _width;
     theta = _turnAngle;
+    resolution = _resolution;
     geometry = _geometry;
     randomZRotation = _randomZRotation;
     scaleWidth = _scaleWidth;
@@ -84,14 +85,13 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
 
         if (branching) {
             float length = inst.getLength(defaultLength);
-
             auto beginBranch = branchContainer.back();
             shared_ptr<ofNode> endBranch(new ofNode);
             endBranch->setParent(*branchContainer.back());
             endBranch->move(ofVec3f(0, 0, length));
             auto newBranch = ofxLSBranch(*beginBranch, *endBranch);
             auto widths = getPrevAndCurrentWidth(length);
-            geometryBuilder.putIntoMesh(newBranch, mesh, widths.first, widths.second, geometry);
+            geometryBuilder.putIntoMesh(newBranch, mesh, widths.first, widths.second, geometry, resolution);
             branchContainer.push_back(endBranch);
             branching = false;
         }
