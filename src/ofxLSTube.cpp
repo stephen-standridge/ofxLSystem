@@ -63,10 +63,10 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radiu
     // As the imperfection is difficult to see, i prefer to have wrong normals but less vertices. I do not exclude that this would change in the future
 
     int topMiddlePoint = mesh.getNumVertices();
-    ofVec3f topDir = branch.end.getZAxis().getNormalized();
+    ofVec3f topDir =branch.end.getPosition().getNormalized();
     mesh.addVertex(branch.end.getGlobalPosition()); //exp
-    mesh.addNormal(topDir); //exp
-    if(false){
+    mesh.addNormal(topDir * endMatrix.getRotate()); //exp
+    if(semplifiedCap){
         for (int i = 0; i < resolution; i++){
             if (i == (resolution-1)) {
                 //closing triangle
@@ -98,9 +98,9 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radiu
             float x = radius * cosf(theta);
             float y = radius * sinf(theta);
             ofVec3f circleTemp = ofVec3f(x, y, 0.0);
-            ofVec3f topDir = branch.end.getZAxis().getNormalized();
+            ofVec3f topDir = branch.end.getPosition().getNormalized();
             mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
-            mesh.addNormal(topDir);
+            mesh.addNormal(topDir * endMatrix.getRotate());
         }
 
     }
