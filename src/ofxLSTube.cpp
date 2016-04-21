@@ -37,19 +37,18 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radiu
         float x = radius * cosf(theta);
         float y = radius * sinf(theta);
         ofVec3f circleBottom = ofVec3f(x, y, 0.0);
-        ofVec3f directionBottom = (ofVec3f() + circleBottom).getNormalized();
+        ofVec3f direction = (ofVec3f() + circleBottom).getNormalized();
 
         float xTop = scaledRadius * cosf(theta);
         float yTop = scaledRadius * sinf(theta);
         ofVec3f circleTop = ofVec3f(xTop, yTop, 0.0);
-        ofVec3f directionTop = (ofVec3f() + circleTop).getNormalized();
 
         // bottom
         mesh.addVertex(circleBottom * beginMatrix);
-        mesh.addNormal(directionBottom * beginMatrix.getRotate());
+        mesh.addNormal(direction * beginMatrix.getRotate());
         //top
         mesh.addVertex(circleTop * endMatrix);
-        mesh.addNormal(directionTop * endMatrix.getRotate());
+        mesh.addNormal(direction * endMatrix.getRotate());
     }
 
     //cap on the top
