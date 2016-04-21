@@ -51,4 +51,58 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radiu
         mesh.addVertex(circleTop * endMatrix);
         mesh.addNormal(directionTop * endMatrix.getRotate());
     }
+
+    //cap on the top
+    // As that one on the bottom is normally not visible, we skip it
+    // Please note: the cap is done adding only one vertex in the middle of
+    // the cylinder in the top part, and using the indexes to connect the
+    // top vertexes that make the body of the cylinder with this middle point.
+    // Therefore, the normal are not correct, because the top vertices of
+    // the cilynder body are looking perpendicular to the faces of the cylinder
+    // as they should. To have correct normals, I should add another circle on the top
+    // (the code is that one above, commented), but that would have meant to add N resolution vertices for each tube.
+    // As the imperfection is difficult to see, i prefer to have wrong normals but less vertices. I do not exclude that this would change in the future
+
+    int topMiddlePoint = mesh.getNumVertices();
+    ofVec3f topDir = branch.end.getZAxis().getNormalized();
+    mesh.addVertex(branch.end.getGlobalPosition()); //exp
+    mesh.addNormal(topDir); //exp
+    if(false){
+        for (int i = 0; i < resolution; i++){
+            if (i == (resolution-1)) {
+                //closing triangle
+                mesh.addIndex(topMiddlePoint);
+                mesh.addIndex(first+ (2*i + 1));
+                mesh.addIndex(first+1);
+            } else {
+                //indices
+                mesh.addIndex(topMiddlePoint);
+                mesh.addIndex(first+ (2*i + 1));
+                mesh.addIndex(first+ (2*i + 1) + 2);
+            }
+        }
+    }else{
+        for (int i = 0; i < resolution; i++){
+            if (i == (resolution-1)) {
+                //closing triangle
+                mesh.addIndex(topMiddlePoint);
+                mesh.addIndex(topMiddlePoint+ i + 1);
+                mesh.addIndex(topMiddlePoint+1);
+            } else {
+                //indices
+                mesh.addIndex(topMiddlePoint);
+                mesh.addIndex(topMiddlePoint+ i + 1);
+                mesh.addIndex(topMiddlePoint+ i + 2);
+            }
+            //add vertex
+            float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
+            float x = radius * cosf(theta);
+            float y = radius * sinf(theta);
+            ofVec3f circleTemp = ofVec3f(x, y, 0.0);
+            ofVec3f topDir = branch.end.getZAxis().getNormalized();
+            mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
+            mesh.addNormal(topDir);
+        }
+
+    }
 }
