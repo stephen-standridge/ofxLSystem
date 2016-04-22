@@ -9,5 +9,4 @@ public:
     void setResolution(int _resolution){resolution = _resolution;};
 private:
     int resolution = 32;
-    bool semplifiedCap = false;
 };

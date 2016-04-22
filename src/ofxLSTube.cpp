@@ -63,45 +63,27 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radiu
     // As the imperfection is difficult to see, i prefer to have wrong normals but less vertices. I do not exclude that this would change in the future
 
     int topMiddlePoint = mesh.getNumVertices();
-    ofVec3f topDir =branch.end.getPosition().getNormalized();
-    mesh.addVertex(branch.end.getGlobalPosition()); //exp
-    mesh.addNormal(topDir * endMatrix.getRotate()); //exp
-    if(semplifiedCap){
-        for (int i = 0; i < resolution; i++){
-            if (i == (resolution-1)) {
-                //closing triangle
-                mesh.addIndex(topMiddlePoint);
-                mesh.addIndex(first+ (2*i + 1));
-                mesh.addIndex(first+1);
-            } else {
-                //indices
-                mesh.addIndex(topMiddlePoint);
-                mesh.addIndex(first+ (2*i + 1));
-                mesh.addIndex(first+ (2*i + 1) + 2);
-            }
+    ofVec3f topDir = branch.end.getPosition().getNormalized();
+    mesh.addVertex(branch.end.getGlobalPosition());
+    mesh.addNormal(topDir * endMatrix.getRotate());
+    for (int i = 0; i < resolution; i++){
+        if (i == (resolution-1)) {
+            //closing triangle
+            mesh.addIndex(topMiddlePoint);
+            mesh.addIndex(topMiddlePoint+ i + 1);
+            mesh.addIndex(topMiddlePoint+1);
+        } else {
+            //indices
+            mesh.addIndex(topMiddlePoint);
+            mesh.addIndex(topMiddlePoint+ i + 1);
+            mesh.addIndex(topMiddlePoint+ i + 2);
         }
-    }else{
-        for (int i = 0; i < resolution; i++){
-            if (i == (resolution-1)) {
-                //closing triangle
-                mesh.addIndex(topMiddlePoint);
-                mesh.addIndex(topMiddlePoint+ i + 1);
-                mesh.addIndex(topMiddlePoint+1);
-            } else {
-                //indices
-                mesh.addIndex(topMiddlePoint);
-                mesh.addIndex(topMiddlePoint+ i + 1);
-                mesh.addIndex(topMiddlePoint+ i + 2);
-            }
-            //add vertex
-            float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
-            float x = radius * cosf(theta);
-            float y = radius * sinf(theta);
-            ofVec3f circleTemp = ofVec3f(x, y, 0.0);
-            ofVec3f topDir = branch.end.getPosition().getNormalized();
-            mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
-            mesh.addNormal(topDir * endMatrix.getRotate());
-        }
-
+        //add vertex
+        float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
+        float x = radius * cosf(theta);
+        float y = radius * sinf(theta);
+        ofVec3f circleTemp = ofVec3f(x, y, 0.0);
+        mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
+        mesh.addNormal(topDir * endMatrix.getRotate());
     }
 }
