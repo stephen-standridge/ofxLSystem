@@ -3,5 +3,6 @@
 enum ofxLSGeometryAvailable{
   TUBES = 0,
   TUBES_DEFORMED,
-  LINES
+  LINES,
+  TRIANGLES
 };

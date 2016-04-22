@@ -4,6 +4,7 @@
 #include "ofxLSTube.h"
 #include "ofxLSTubeDeformed.h"
 #include "ofxLSLine.h"
+#include "ofxLSTriangle.h"
 #include "ofxLSGeometryAvailable.h"
 
 class ofxLSGeometry{
@@ -17,4 +18,5 @@ private:
     ofxLSTube tube;
     ofxLSTubeDeformed tubeDeformed;
     ofxLSLine line;
+    ofxLSTriangle triangle;
 };
