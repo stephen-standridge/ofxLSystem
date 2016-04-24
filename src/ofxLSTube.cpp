@@ -80,8 +80,8 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radiu
         }
         //add vertex
         float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
-        float x = radius * cosf(theta);
-        float y = radius * sinf(theta);
+        float x = scaledRadius * cosf(theta);
+        float y = scaledRadius * sinf(theta);
         ofVec3f circleTemp = ofVec3f(x, y, 0.0);
         mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
         mesh.addNormal(topDir * endMatrix.getRotate());
