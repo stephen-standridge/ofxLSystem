@@ -35,7 +35,7 @@ private:
     vector<string>    rulesContainer = {"F -> F[+F][-F]"};
     string            axiom = "F";
     bool              randomZRotation = false;
-    ofxLSGeometryAvailable geometry = TRIANGLES;
+    ofxLSGeometryAvailable geometry = TUBES;
     int               resolution = 10;
     int               depth = 1;
     float             theta = 25.00;
