@@ -6,35 +6,27 @@ ofxLSystem::ofxLSystem(){
 
 void ofxLSystem::setAxiom(string _axiom){
     axiom = _axiom;
-    try {
-        validateInput(axiom, rulesContainer, theta);
-    } catch (ofxLSInputError& e) {
-        ofLogError(e.what());
-        axiom = "F";
-    }
 };
 
 void ofxLSystem::setRules(vector<string> _rulesContainer){
     rulesContainer = _rulesContainer;
-    try {
-        validateInput(axiom, rulesContainer, theta);
-    } catch (ofxLSInputError& e) {
-        ofLogError(e.what());
-        rulesContainer = {"F -> F[+F][-F]"};
-    }
 };
 
 void ofxLSystem::setTheta(float _theta){ theta = _theta;
     theta = _theta;
+};
+
+void ofxLSystem::build(){
+    //check if axiom, rules and theta are ok,
+    // if not, define some default
     try {
         validateInput(axiom, rulesContainer, theta);
     } catch (ofxLSInputError& e) {
         ofLogError(e.what());
         theta = 25.00;
+        axiom = "F";
+        rulesContainer = {"F -> F[+F][-F]"};
     }
-};
-
-void ofxLSystem::build(){
     //clear the mesh
     mesh.clear();
     normalsMesh.clear();
