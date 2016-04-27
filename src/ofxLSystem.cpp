@@ -55,6 +55,9 @@ void ofxLSystem::setMeshMode(ofxLSGeometryAvailable _geometry){
         case TUBES_DEFORMED:
             mesh.setMode(OF_PRIMITIVE_TRIANGLES);
             break;
+        case TRIANGLES:
+            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
+            break;
         default:
             mesh.setMode(OF_PRIMITIVE_TRIANGLES);
             break;

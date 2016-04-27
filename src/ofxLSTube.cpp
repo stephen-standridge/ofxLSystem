@@ -8,6 +8,7 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const int radiu
     ofMatrix4x4 beginMatrix = branch.begin.getGlobalTransformMatrix();
     ofMatrix4x4 endMatrix = branch.end.getGlobalTransformMatrix();
 
+    // Cylinder body
     int first = mesh.getNumVertices();
     for (int i = 0; i < resolution; i++){
         // if it is the last face, close it where the first face
