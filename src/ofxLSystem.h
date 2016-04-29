@@ -19,7 +19,7 @@ public:
 
     void setResolution(int _resolution)               {resolution = _resolution;};
     void setRandomZRotation(bool _randomZRotation)    { randomZRotation = _randomZRotation; };
-    void setGeometry(ofxLSGeometryAvailable _geometry){ofxLSGeometryAvailable geometry = _geometry;};
+    void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry;};
     void setStep(int _depth)                          { depth = _depth; };
     void setScaleWidth(bool _scaleWidht)              { scaleWidth = _scaleWidht; };
     void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
