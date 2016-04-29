@@ -4,7 +4,9 @@ ofxLSTriangle::ofxLSTriangle(){
     
 }
 
-void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch, const int radius, const int scaledRadius){
+void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch){
+    const int radius = branch.capSizes.first;
+    const int scaledRadius = branch.capSizes.second;
     ofMatrix4x4 beginMatrix = branch.begin.getGlobalTransformMatrix();
     ofMatrix4x4 endMatrix = branch.end.getGlobalTransformMatrix();
     vector<ofVec3f> topValues;

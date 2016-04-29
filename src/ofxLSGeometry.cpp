@@ -5,16 +5,16 @@ void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, const
     // uno per la fine. Tutto il resto viene implementato dalla geometria
     switch (_geometryType) {
         case TUBES:
-            tube.generate(mesh, branch, width, scaledWidth);
+            tube.generate(mesh, branch);
             break;
-        case TUBES_DEFORMED:
-            tubeDeformed.generate(mesh, branch, width);
-            break;
-        case LINES:
-            tubeDeformed.generate(mesh, branch, width);
-            break;
+//        case TUBES_DEFORMED:
+//            tubeDeformed.generate(mesh, branch, width);
+//            break;
+//        case LINES:
+//            tubeDeformed.generate(mesh, branch, width);
+//            break;
         case TRIANGLES:
-            triangle.generate(mesh, branch, width, scaledWidth);
+            triangle.generate(mesh, branch);
             break;
         default:
             line.generate(mesh, branch, width);
