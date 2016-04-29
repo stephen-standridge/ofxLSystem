@@ -4,7 +4,7 @@ ofxLSLine::ofxLSLine(){
     
 }
 
-void ofxLSLine::generate(ofMesh& mesh, ofxLSBranch branch, int radius){
+void ofxLSLine::generate(ofMesh& mesh, ofxLSBranch branch){
     auto start = branch.begin.getGlobalPosition();
     auto end = branch.end.getGlobalPosition();
     auto numberCurrentVertices = mesh.getNumVertices();

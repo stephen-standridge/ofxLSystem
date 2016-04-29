@@ -1,6 +1,6 @@
 #include "ofxLSGeometry.h"
 
-void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, const float width, const float scaledWidth, ofxLSGeometryAvailable _geometryType, int resolution){
+void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh,ofxLSGeometryAvailable _geometryType, int resolution){
     //Branch deve contenere solo 2 ofNode, uno per l'inizio del segmento e
     // uno per la fine. Tutto il resto viene implementato dalla geometria
     switch (_geometryType) {
@@ -17,7 +17,7 @@ void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, const
             triangle.generate(mesh, branch);
             break;
         default:
-            line.generate(mesh, branch, width);
+            line.generate(mesh, branch);
             break;
     }
 }

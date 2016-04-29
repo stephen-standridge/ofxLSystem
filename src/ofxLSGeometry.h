@@ -9,7 +9,7 @@
 
 class ofxLSGeometry{
 public:
-    void putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, const float width, const float scaledWidth, ofxLSGeometryAvailable _geometryType, int resolution);
+    void putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, ofxLSGeometryAvailable _geometryType, int resolution);
     
 private:
     //avoid to save values in instance vars in these classes, they should simply

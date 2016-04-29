@@ -5,6 +5,6 @@
 class ofxLSLine {
 public:
     ofxLSLine();
-    void generate(ofMesh& mesh, ofxLSBranch branch, int radius);
+    void generate(ofMesh& mesh, ofxLSBranch branch);
     
 };
