@@ -52,7 +52,7 @@ private:
     ofParameter<string> definedConstant;
     ofParameter<string> axiom;
     ofParameter<int>    selectedDepth;
-    ofParameter<bool>   randomZRotation;
+    ofParameter<bool>   randomYRotation;
     unsigned int oldDepth = 1;
     ofParameter<float>  selectedTheta;
     ofxColorSlider bgColor;
@@ -64,7 +64,6 @@ private:
     ofEasyCam        cam;
     ofLight          light;
     ofxLSystem       lsystem;
-    ofPlanePrimitive plane;
     ofMaterial       material;
     ofTrueTypeFont   font;
 };

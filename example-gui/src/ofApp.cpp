@@ -14,7 +14,7 @@ void ofApp::setup(){
     gui.add(selectedRule.set("rule","F->F[-F][+F]"));
     axiom.setName("axiom");
     gui.add(axiom);
-    gui.add(randomZRotation.set("Random Z Rotation", false));
+    gui.add(randomYRotation.set("Random Y Rotation", false));
     gui.add(definedConstant.set("constants", ""));
     gui.add(selectedDepth.set("depth", 2, 1, 9));
     gui.add(selectedTheta.set("theta", 25.00, 0.00, 45.00));
@@ -28,27 +28,22 @@ void ofApp::setup(){
     light.enable();
 
     //camera
-    cam.setPosition(0, -640, 300);
-    cam.lookAt(ofVec3f(0, 0, 20));
-
-    //plane
-    plane.setPosition(100, 50, 0);
-    plane.set(640, 480);
-    plane.setResolution(20, 20);
+    cam.setPosition(0, 100, 200);
+    cam.lookAt(ofVec3f(0, -20, 0));
 
     startLSystem(axiom,
                  selectedRule,
                  selectedTheta,
                  selectedDepth,
                  definedConstant,
-                 randomZRotation
+                 randomYRotation
                  );
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     material.setDiffuseColor(ofColor(treeColor));
-    lsystem.roll(0.6);
+    //lsystem.roll(0.6);
 }
 
 void ofApp::startLSystem(string axiom,
@@ -64,7 +59,7 @@ void ofApp::startLSystem(string axiom,
     lsystem.setTheta(theta);
     lsystem.setStep(depth);
     lsystem.setConstants(constants);
-    lsystem.setRandomZRotation(randomZRotation);
+    lsystem.setRandomYRotation(randomYRotation);
     lsystem.build();
 }
 
@@ -77,7 +72,6 @@ void ofApp::draw(){
     // scene
     cam.begin();
     ofDrawAxis(100);
-    //plane.drawWireframe();
     material.begin();
     lsystem.draw();
     //lsystem.drawWireframe();
@@ -108,7 +102,7 @@ void ofApp::selectedThetaChanghed(float & aselectedTheta){
                  selectedTheta,
                  selectedDepth,
                  definedConstant,
-                 randomZRotation);
+                 randomYRotation);
 }
 
 void ofApp::selectedDepthChanghed(int & aselectedDepth){
@@ -119,7 +113,7 @@ void ofApp::selectedDepthChanghed(int & aselectedDepth){
                      selectedTheta,
                      selectedDepth,
                      definedConstant,
-                     randomZRotation);
+                     randomYRotation);
     }
 }
 
