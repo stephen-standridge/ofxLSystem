@@ -18,7 +18,7 @@ public:
     void setTheta(float _theta);
 
     void setResolution(int _resolution)               {resolution = _resolution;};
-    void setRandomZRotation(bool _randomZRotation)    { randomZRotation = _randomZRotation; };
+    void setRandomYRotation(bool _randomYRotation)    { randomYRotation = _randomYRotation; };
     void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry;};
     void setStep(int _depth)                          { depth = _depth; };
     void setScaleWidth(bool _scaleWidht)              { scaleWidth = _scaleWidht; };
@@ -34,7 +34,7 @@ private:
 
     vector<string>    rulesContainer = {"F -> F[+F][-F]"};
     string            axiom = "F";
-    bool              randomZRotation = false;
+    bool              randomYRotation = false;
     ofxLSGeometryAvailable geometry = TUBES;
     int               resolution = 10;
     int               depth = 1;
