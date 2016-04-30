@@ -38,13 +38,14 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
         //calculate x and y component
         float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
         float x = radius * cosf(theta);
-        float y = radius * sinf(theta);
-        ofVec3f circleBottom = ofVec3f(x, y, 0.0);
+        float z = radius * sinf(theta);
+        ofVec3f circleBottom = ofVec3f(x, 0.0, z);
         ofVec3f direction = (ofVec3f() + circleBottom).getNormalized();
 
         float xTop = scaledRadius * cosf(theta);
-        float yTop = scaledRadius * sinf(theta);
-        ofVec3f circleTop = ofVec3f(xTop, yTop, 0.0);
+        float zTop = scaledRadius * sinf(theta);
+        ofVec3f circleTop = ofVec3f(xTop, 0.0, zTop);
+        ofVec2f tcoord;
 
         // bottom
         mesh.addVertex(circleBottom * beginMatrix);
@@ -54,21 +55,12 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
         mesh.addNormal(direction * endMatrix.getRotate());
     }
 
-    //cap on the top
-    // As that one on the bottom is normally not visible, we skip it
-    // Please note: the cap is done adding only one vertex in the middle of
-    // the cylinder in the top part, and using the indexes to connect the
-    // top vertexes that make the body of the cylinder with this middle point.
-    // Therefore, the normal are not correct, because the top vertices of
-    // the cilynder body are looking perpendicular to the faces of the cylinder
-    // as they should. To have correct normals, I should add another circle on the top
-    // (the code is that one above, commented), but that would have meant to add N resolution vertices for each tube.
-    // As the imperfection is difficult to see, i prefer to have wrong normals but less vertices. I do not exclude that this would change in the future
-
+    // Cylinder cap
     int topMiddlePoint = mesh.getNumVertices();
     ofVec3f topDir = branch.end.getPosition().getNormalized();
     mesh.addVertex(branch.end.getGlobalPosition());
     mesh.addNormal(topDir * endMatrix.getRotate());
+
     for (int i = 0; i < resolution; i++){
         if (i == (resolution-1)) {
             //closing triangle
@@ -84,8 +76,9 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
         //add vertex
         float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
         float x = scaledRadius * cosf(theta);
-        float y = scaledRadius * sinf(theta);
-        ofVec3f circleTemp = ofVec3f(x, y, 0.0);
+        float z = scaledRadius * sinf(theta);
+
+        ofVec3f circleTemp = ofVec3f(x, 0.0, z);
         mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
         mesh.addNormal(topDir * endMatrix.getRotate());
     }
