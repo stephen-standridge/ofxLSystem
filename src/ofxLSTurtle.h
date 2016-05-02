@@ -19,15 +19,16 @@ private:
     float   theta;
     ofxLSGeometryAvailable  geometry;
     bool    debug = false;
-    bool    randomZRotation = false;
+    bool    randomYRotation = false;
     bool    scaleWidth = false;
-    int     resolution = 32;
+    int     resolution = 4;
     ofVec3f position; // it can be removed?
     vector<string> getInstructionsFromString(string sentence);
 
     ofxLSGeometry                    geometryBuilder;
     std::vector<shared_ptr<ofNode> > bookmarks;
     std::vector<shared_ptr<ofNode> > branchContainer;
+    //std::vector<shared_ptr<ofxLSBranch> > rBranchContainer;
     map<float, float> historySizes;
     pair<float, float> getPrevAndCurrentWidth(float currentLength);
     float getScaledWidth(float currentLength);

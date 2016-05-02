@@ -88,17 +88,31 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
             auto beginBranch = branchContainer.back();
             shared_ptr<ofNode> endBranch(new ofNode);
             endBranch->setParent(*branchContainer.back());
-            endBranch->move(ofVec3f(0, 0, length));
+            endBranch->move(ofVec3f(0, length, 0));
+
             auto widths = getPrevAndCurrentWidth(length);
             auto newBranch = ofxLSBranch(*beginBranch, *endBranch, widths);
-            geometryBuilder.putIntoMesh(newBranch, mesh, widths.first, widths.second, geometry, resolution);
+            geometryBuilder.putIntoMesh(newBranch, mesh, geometry, resolution);
             branchContainer.push_back(endBranch);
             branching = false;
         }
     }
 
-// TODO, separate the generation of
+    //TODO, separate the generation of the node skeleton to mesh construction
+//    float distance;
 //    for(auto b : branchContainer){
+//        if(b->getParent() != nullptr){
+//            cout << "Start"<< endl;
+//            cout << b->getParent()->getGlobalPosition().x;
+//            cout << b->getParent()->getGlobalPosition().y;
+//            cout << b->getParent()->getGlobalPosition().x;
+//            cout << "End" << endl;
+//            cout << b->getGlobalPosition().x;
+//            cout << b->getGlobalPosition().y;
+//            cout << b->getGlobalPosition().x;
+//        }else{
+//            //root point
+//        }
 //
 //    }
     branchContainer.clear();
