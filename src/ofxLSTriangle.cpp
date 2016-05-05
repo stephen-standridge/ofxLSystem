@@ -4,15 +4,17 @@ ofxLSTriangle::ofxLSTriangle(){
     
 }
 
-void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch){
+void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch, const float length){
     //if you set offsetBetweenBranches to 0, all the triangles composing
     // the branch will start exactly where the previous one finish,
     // to make them look a bit more intricates, I've overlapped them a bit
     const int offsetBetweenBranches = 20;
     const int radius = branch.capSizes.first;
     const int scaledRadius = branch.capSizes.second;
+    const float stepLenght = length;
     ofMatrix4x4 beginMatrix = branch.begin.getGlobalTransformMatrix();
     ofMatrix4x4 endMatrix = branch.end.getGlobalTransformMatrix();
+
     vector<ofVec3f> topValues;
     vector<ofVec3f> bottomValues;
 
@@ -38,12 +40,14 @@ void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch){
 
     int n_triangles = resolution;
     int firstIndex = mesh.getNumVertices();
+    float middleLength = stepLenght /2;
+
     for (unsigned int i = 0; i< (n_triangles*3); i += 3) {
         ofVec3f firstV = topValues.at(i/3);
         ofVec3f thirdV = bottomValues.at(i/3);
         ofVec3f secondV = bottomValues.at(i/3);
         secondV.z = ofRandom(-scaledRadius*2, radius*2);
-        secondV.y = ofRandom(30, 60);
+        secondV.y = ofRandom(middleLength -radius, middleLength + radius);
 
         mesh.addIndex(firstIndex +i);
         mesh.addIndex(firstIndex +i+1);

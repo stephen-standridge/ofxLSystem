@@ -92,7 +92,7 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
 
             auto widths = getPrevAndCurrentWidth(length);
             auto newBranch = ofxLSBranch(*beginBranch, *endBranch, widths);
-            geometryBuilder.putIntoMesh(newBranch, mesh, geometry, resolution);
+            geometryBuilder.putIntoMesh(newBranch, mesh, geometry, resolution, length);
             branchContainer.push_back(endBranch);
             branching = false;
         }

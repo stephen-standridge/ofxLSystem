@@ -1,6 +1,6 @@
 #include "ofxLSGeometry.h"
 
-void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh,ofxLSGeometryAvailable _geometryType, int resolution){
+void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh,ofxLSGeometryAvailable _geometryType, int resolution, float length){
     //Branch deve contenere solo 2 ofNode, uno per l'inizio del segmento e
     // uno per la fine. Tutto il resto viene implementato dalla geometria
     switch (_geometryType) {
@@ -14,7 +14,7 @@ void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh,ofxLSG
 //            tubeDeformed.generate(mesh, branch, width);
 //            break;
         case TRIANGLES:
-            triangle.generate(mesh, branch);
+            triangle.generate(mesh, branch, length);
             break;
         default:
             line.generate(mesh, branch);

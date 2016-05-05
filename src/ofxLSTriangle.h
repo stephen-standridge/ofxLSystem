@@ -5,8 +5,8 @@
 class ofxLSTriangle {
 public:
     ofxLSTriangle();
-    void generate(ofMesh& mesh, const ofxLSBranch branch);
+    void generate(ofMesh& mesh, const ofxLSBranch branch, const float length);
     void setResolution(int _resolution){resolution = _resolution;};
 private:
-    int resolution = 32;
+    int resolution = 12;
 };
