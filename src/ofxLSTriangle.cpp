@@ -5,6 +5,10 @@ ofxLSTriangle::ofxLSTriangle(){
 }
 
 void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch){
+    //if you set offsetBetweenBranches to 0, all the triangles composing
+    // the branch will start exactly where the previous one finish,
+    // to make them look a bit more intricates, I've overlapped them a bit
+    const int offsetBetweenBranches = 20;
     const int radius = branch.capSizes.first;
     const int scaledRadius = branch.capSizes.second;
     ofMatrix4x4 beginMatrix = branch.begin.getGlobalTransformMatrix();
@@ -12,55 +16,34 @@ void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch){
     vector<ofVec3f> topValues;
     vector<ofVec3f> bottomValues;
 
+    // create top and bottom points
     for (int i = 0; i < resolution; i++){
         float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
         float x = radius * cosf(theta);
-        float y = radius * sinf(theta);
-        float z = ofRandom(0.0, radius);
-        ofVec3f circleBottom = ofVec3f(x, y, z);
+        float z = radius * sinf(theta);
+        float y = 0;
+        ofVec3f circleBottom = ofVec3f(x, y-offsetBetweenBranches, z);
         bottomValues.push_back(circleBottom);
-    }
 
-    for (int i = 0; i < resolution; i++){
-        float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
-        float x = scaledRadius * cosf(theta);
-        float y = scaledRadius * sinf(theta);
-        float z = ofRandom(200, 200-scaledRadius);
-        ofVec3f circleTop = ofVec3f(x, y, 0.0);
+        float topX = scaledRadius * cosf(theta);
+        float topZ = scaledRadius * sinf(theta);
+        float topY = 0;
+        ofVec3f circleTop = ofVec3f(topX, topY+offsetBetweenBranches, topZ);
         topValues.push_back(circleTop);
     }
 
+    //random shuffle them
+    random_shuffle(topValues.begin(), topValues.end());
+    random_shuffle(bottomValues.begin(), bottomValues.end());
 
     int n_triangles = resolution;
-//    ofVec3f top = branch.end.getGlobalPosition();
-//    ofVec3f bottom = branch.begin.getGlobalPosition();
-//    float minX = bottom.x -radius;
-//    float minY = bottom.y-radius;
-//    float maxX = top.x + radius;
-//    float maxY = top.y +radius;
-//    float maxZ = top.z + radius*2;
-//    float minZ = bottom.z;
     int firstIndex = mesh.getNumVertices();
     for (unsigned int i = 0; i< (n_triangles*3); i += 3) {
-        int pickTop = ofRandom(0, topValues.size());
-        int pickBottom = ofRandom(0, bottomValues.size());
-        int pickMiddle = ofRandom(0, bottomValues.size());
-        ofVec3f firstV = topValues.at(pickTop);
-        ofVec3f thirdV = bottomValues.at(pickBottom);
-        ofVec3f secondV = bottomValues.at(pickBottom);
-        secondV.z = ofRandom(50, 150);
-//        ofVec3f firstV;
-//        firstV.x = ofRandom(minX,maxX);
-//        firstV.y = ofRandom(minY,maxY);
-//        firstV.z = ofRandom(minZ,maxZ);
-//        ofVec3f secondV;
-//        secondV.x = ofRandom(minX,maxX);
-//        secondV.y = ofRandom(minY,maxY);
-//        secondV.z = ofRandom(minZ,maxZ);
-//        ofVec3f thirdV;
-//        thirdV.x = ofRandom(minX,maxX);
-//        thirdV.y = ofRandom(minY,maxY);
-//        thirdV.z = ofRandom(bottom.z);
+        ofVec3f firstV = topValues.at(i/3);
+        ofVec3f thirdV = bottomValues.at(i/3);
+        ofVec3f secondV = bottomValues.at(i/3);
+        secondV.z = ofRandom(-scaledRadius*2, radius*2);
+        secondV.y = ofRandom(30, 60);
 
         mesh.addIndex(firstIndex +i);
         mesh.addIndex(firstIndex +i+1);
