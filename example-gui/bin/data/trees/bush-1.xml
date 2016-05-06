@@ -1,6 +1,6 @@
 <settings>
 <treed>
-<rule>F -> F[-F][+F]</rule>
+<rule>F -> FF+[+F-F-F]-[-F+F+F]</rule>
 <axiom>F</axiom>
 <maxDepth>2</maxDepth>
 <theta>25</theta>
