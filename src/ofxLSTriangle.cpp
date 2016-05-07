@@ -46,8 +46,8 @@ void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch, const float
         ofVec3f firstV = topValues.at(i/3);
         ofVec3f thirdV = bottomValues.at(i/3);
         ofVec3f secondV = bottomValues.at(i/3);
-        secondV.z = ofRandom(-scaledRadius*2, radius*2);
-        secondV.y = ofRandom(middleLength -radius, middleLength + radius);
+        //secondV.z = ofRandom(-scaledRadius, radius);
+        secondV.y = ofRandom(middleLength -radius*2, middleLength + radius*2);
 
         mesh.addIndex(firstIndex +i);
         mesh.addIndex(firstIndex +i+1);
