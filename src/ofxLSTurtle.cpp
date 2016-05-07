@@ -151,11 +151,14 @@ pair<float, float> ofxLSTurtle::getPrevAndCurrentWidth(float currentLength){
     }
 }
 
+//it scales the with proportionally to the scaled length
+//
 float ofxLSTurtle::getScaledWidth(float currentLength){
-    auto ratio = defaultLength / currentLength;
+    auto ratio = (defaultLength / currentLength );
     float currentWidth = width / ratio;
-    if (currentWidth < 1) {
-        return 1;
+    return currentWidth;
+    if (currentWidth < 0.2) {
+        return 0.2;
     } else {
         return currentWidth;
     }
