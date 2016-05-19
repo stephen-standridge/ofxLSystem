@@ -5,6 +5,7 @@ ofxLSTube::ofxLSTube(){
 }
 
 void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
+    bool cap = true;
     const int radius = branch.capSizes.first;
     const int scaledRadius = branch.capSizes.second;
     ofMatrix4x4 beginMatrix = branch.begin.getGlobalTransformMatrix();
@@ -56,30 +57,32 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
     }
 
     // Cylinder cap
-    int topMiddlePoint = mesh.getNumVertices();
-    ofVec3f topDir = branch.end.getPosition().getNormalized();
-    mesh.addVertex(branch.end.getGlobalPosition());
-    mesh.addNormal(topDir * endMatrix.getRotate());
-
-    for (int i = 0; i < resolution; i++){
-        if (i == (resolution-1)) {
-            //closing triangle
-            mesh.addIndex(topMiddlePoint);
-            mesh.addIndex(topMiddlePoint+ i + 1);
-            mesh.addIndex(topMiddlePoint+1);
-        } else {
-            //indices
-            mesh.addIndex(topMiddlePoint);
-            mesh.addIndex(topMiddlePoint+ i + 1);
-            mesh.addIndex(topMiddlePoint+ i + 2);
-        }
-        //add vertex
-        float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
-        float x = scaledRadius * cosf(theta);
-        float z = scaledRadius * sinf(theta);
-
-        ofVec3f circleTemp = ofVec3f(x, 0.0, z);
-        mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
+    if (cap) {
+        int topMiddlePoint = mesh.getNumVertices();
+        ofVec3f topDir = branch.end.getPosition().getNormalized();
+        mesh.addVertex(branch.end.getGlobalPosition());
         mesh.addNormal(topDir * endMatrix.getRotate());
+
+        for (int i = 0; i < resolution; i++){
+            if (i == (resolution-1)) {
+                //closing triangle
+                mesh.addIndex(topMiddlePoint);
+                mesh.addIndex(topMiddlePoint+ i + 1);
+                mesh.addIndex(topMiddlePoint+1);
+            } else {
+                //indices
+                mesh.addIndex(topMiddlePoint);
+                mesh.addIndex(topMiddlePoint+ i + 1);
+                mesh.addIndex(topMiddlePoint+ i + 2);
+            }
+            //add vertex
+            float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
+            float x = scaledRadius * cosf(theta);
+            float z = scaledRadius * sinf(theta);
+
+            ofVec3f circleTemp = ofVec3f(x, 0.0, z);
+            mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
+            mesh.addNormal(topDir * endMatrix.getRotate());
+        }
     }
 }
