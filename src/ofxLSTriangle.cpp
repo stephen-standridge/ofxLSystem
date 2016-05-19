@@ -8,7 +8,7 @@ void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch, const float
     //if you set offsetBetweenBranches to 0, all the triangles composing
     // the branch will start exactly where the previous one finish,
     // to make them look a bit more intricates, I've overlapped them a bit
-    const int offsetBetweenBranches = 20;
+    const int offsetBetweenBranches = 10;
     const int radius = branch.capSizes.first;
     const int scaledRadius = branch.capSizes.second;
     const float stepLenght = length;

@@ -8,5 +8,5 @@ public:
     void generate(ofMesh& mesh, const ofxLSBranch branch, const float length);
     void setResolution(int _resolution){resolution = _resolution;};
 private:
-    int resolution = 12;
+    int resolution = 7;
 };
