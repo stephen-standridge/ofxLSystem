@@ -44,6 +44,10 @@ void ofxLSystem::build(){
     normalizeAndApplySavedTexCoords();
 }
 
+void ofxLSystem::save(string filename){
+    mesh.save(filename);
+}
+
 void ofxLSystem::setMeshMode(ofxLSGeometryAvailable _geometry){
     switch (_geometry) {
         case LINES:

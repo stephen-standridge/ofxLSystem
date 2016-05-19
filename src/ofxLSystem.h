@@ -27,6 +27,7 @@ public:
     void setConstants(map<string,float> _Constants)   { constants = _Constants; };
 
     void build();
+    void save(string filename);
     // i've to redifine this method because i can not get it working
     // that one inherited from of3DPrimive, i get this warning of3dPrimitive: drawNormals(): mesh normals are disabled
     void drawNormals( float length, bool bFaceNormals=false ) const;
