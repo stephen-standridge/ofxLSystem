@@ -129,3 +129,18 @@ void ofxLSystem::validateInput(string _axiom, vector<string> _strRules, float th
         throw ofxLSInputError("theta has to be between -360.00 and 360.00");
     }
 }
+
+void ofxLSystem::computeBoundingBox(){
+    for(auto v : mesh.getVertices()){
+        if (v.x < boundingBox.min.x) boundingBox.min.x = v.x;
+        if (v.y < boundingBox.min.y) boundingBox.min.y = v.y;
+        if (v.z < boundingBox.min.z) boundingBox.min.z = v.z;
+
+        if (v.x > boundingBox.max.x) boundingBox.max.x = v.x;
+        if (v.y > boundingBox.max.y) boundingBox.max.y = v.y;
+        if (v.z > boundingBox.max.z) boundingBox.max.z = v.z;
+    }
+}
+BoundingBox ofxLSystem::getBoundingBox() const {
+    return boundingBox;
+};

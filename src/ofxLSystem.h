@@ -9,6 +9,11 @@
 
 typedef map<string,float> Constants;
 
+typedef struct{
+    ofVec3f min = ofVec3f(0,0,0);
+    ofVec3f max = ofVec3f(0,0,0);
+} BoundingBox;
+
 class ofxLSystem  : public of3dPrimitive{
 public:
     ofxLSystem();
@@ -25,6 +30,8 @@ public:
     void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
     void setStepLength(float _stepLength)             { stepLength = _stepLength; };
     void setConstants(map<string,float> _Constants)   { constants = _Constants; };
+    void computeBoundingBox();
+    BoundingBox getBoundingBox() const;
 
     void build();
     void save(string filename);
@@ -47,6 +54,7 @@ private:
     ofxLSTurtle       turtle;
     ofVboMesh         mesh;
     mutable ofMesh    normalsMesh;
+    BoundingBox       boundingBox;
 
     void              setMeshMode(ofxLSGeometryAvailable geometry);
 
