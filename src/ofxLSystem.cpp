@@ -42,7 +42,6 @@ void ofxLSystem::build(){
     getMesh() = mesh;
     setBoundingBox(turtle.getBuildedBoundingBox());
     //getMesh().enableNormals(); it does not work
-    normalizeAndApplySavedTexCoords();
 }
 
 void ofxLSystem::save(string filename){

@@ -13,10 +13,10 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
 
     // Cylinder body
     int first = mesh.getNumVertices();
-    for (int i = 0; i < resolution; i++){
+    for (int i = 0; i <= resolution; i++) {
         // if it is the last face, close it where the first face
         // was started
-        if(i == resolution -1){
+        if (i == resolution) {
             mesh.addIndex(first+(i*2));
             mesh.addIndex(first);
             mesh.addIndex(first+1);
@@ -24,7 +24,7 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
             mesh.addIndex(first+1);
             mesh.addIndex(first+(i*2)+1);
             mesh.addIndex(first+(i*2));
-        }else{
+        } else {
             mesh.addIndex(first+(i*2));
             mesh.addIndex(first+(i*2)+2);
             mesh.addIndex(first+(i*2)+3);
@@ -35,7 +35,7 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
         }
     }
     
-    for (int i = 0; i < resolution; i++){
+    for (int i = 0; i <= resolution; i++) {
         //calculate x and y component
         float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
         float x = radius * cosf(theta);
@@ -49,11 +49,18 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
         ofVec2f tcoord;
 
         // bottom
+        tcoord.y = 0;
+        tcoord.x = ofMap(i, 0.f, resolution, 0.f, 1.f);
         mesh.addVertex(circleBottom * beginMatrix);
         mesh.addNormal(direction * beginMatrix.getRotate());
+        mesh.addTexCoord(tcoord);
+
         //top
+        tcoord.y = textureRepeatVertically;
+        tcoord.x = ofMap(i, 0, resolution, 0.f, 1.f);
         mesh.addVertex(circleTop * endMatrix);
         mesh.addNormal(direction * endMatrix.getRotate());
+        mesh.addTexCoord(tcoord);
     }
 
     // Cylinder cap
@@ -62,9 +69,10 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
         ofVec3f topDir = branch.end.getPosition().getNormalized();
         mesh.addVertex(branch.end.getGlobalPosition());
         mesh.addNormal(topDir * endMatrix.getRotate());
+        mesh.addTexCoord(ofVec2f(0.5,0.5));
 
-        for (int i = 0; i < resolution; i++){
-            if (i == (resolution-1)) {
+        for (int i = 0; i <= resolution; i++) {
+            if (i == resolution) {
                 //closing triangle
                 mesh.addIndex(topMiddlePoint);
                 mesh.addIndex(topMiddlePoint+ i + 1);
@@ -79,10 +87,14 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
             float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
             float x = scaledRadius * cosf(theta);
             float z = scaledRadius * sinf(theta);
-
             ofVec3f circleTemp = ofVec3f(x, 0.0, z);
+
+            ofVec2f capTcoord;
+            capTcoord.x = ofMap(x, -scaledRadius, scaledRadius, 0.f, 1.f);
+            capTcoord.y = ofMap(z, -scaledRadius, scaledRadius, 0.f, 1.f);
             mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
             mesh.addNormal(topDir * endMatrix.getRotate());
+            mesh.addTexCoord(capTcoord);
         }
     }
 }
