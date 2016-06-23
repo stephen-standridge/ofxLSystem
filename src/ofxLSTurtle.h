@@ -6,12 +6,15 @@
 #include "ofxLSInstruction.h"
 #include "ofxLSUtils.h"
 #include "ofxLSGeometryAvailable.h"
+#include "ofxLSBoundingBox.h"
 
 class ofxLSTurtle {
 public:
     void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry,
                bool randomYRotation, bool scaleWidth, int resolution);
     void generate(ofVboMesh& mesh, const string ruleStr, const int depth);
+    BoundingBox getBuildedBoundingBox() const { return buildedBoundingBox; };
+
 private:
     const ofVec3f     origin = ofVec3f(0,0,0);
     float   defaultLength = 100;
@@ -24,12 +27,17 @@ private:
     int     resolution = 4;
     ofVec3f position; // it can be removed?
     vector<string> getInstructionsFromString(string sentence);
+    void maybeVectorExpandsBoundingBox(ofVec3f v);
 
     ofxLSGeometry                    geometryBuilder;
     std::vector<shared_ptr<ofNode> > bookmarks;
     std::vector<shared_ptr<ofNode> > branchContainer;
     //std::vector<shared_ptr<ofxLSBranch> > rBranchContainer;
+
     map<float, float> historySizes;
     pair<float, float> getPrevAndCurrentWidth(float currentLength);
     float getScaledWidth(float currentLength);
+
+    void resetBoundingBox();
+    BoundingBox buildedBoundingBox;
 };

@@ -17,6 +17,7 @@ void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxL
 }
 
 void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int _depth) {
+    resetBoundingBox();
     bool branching = false;
     auto instructions = getInstructionsFromString(_instruction);
 
@@ -89,6 +90,8 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
             shared_ptr<ofNode> endBranch(new ofNode);
             endBranch->setParent(*branchContainer.back());
             endBranch->move(ofVec3f(0, length, 0));
+
+            maybeVectorExpandsBoundingBox(endBranch->getGlobalPosition());
 
             auto widths = getPrevAndCurrentWidth(length);
             auto newBranch = ofxLSBranch(*beginBranch, *endBranch, widths);
@@ -194,4 +197,23 @@ vector<string> ofxLSTurtle::getInstructionsFromString(string _str){
     // "([A-Z\\^&\\+-\\?\\|/\\]\\[\\\\](\\([0-9\\.,]+\\))*)" this means take any string that start with a capital letter,
     // a ^, a & a +, -, a | a '/', a'\' a'[', a ']'and, if there are, take any number or point '.' enclosed between ()
     return ofxLSUtils::matchesInRegex(_str,"([A-Z\\^&\\+\\-\\?\\|/\\]\\[\\\\](\\([0-9\\.,]+\\))*)");
+}
+
+// keep in mind that this method does not consider the thikness of a branch, but just the position of the vertices
+// that will be used later to generate the cylinder. Therefore, it is not accurate, but is is usefull to get the UV
+// if you want higher precision, call ofxLSystem.computeBoundingBox(), that iterates on all the vertices composing the
+// mesh
+void ofxLSTurtle::maybeVectorExpandsBoundingBox(ofVec3f v){
+    if (v.x < buildedBoundingBox.min.x) buildedBoundingBox.min.x = v.x;
+    if (v.y < buildedBoundingBox.min.y) buildedBoundingBox.min.y = v.y;
+    if (v.z < buildedBoundingBox.min.z) buildedBoundingBox.min.z = v.z;
+
+    if (v.x > buildedBoundingBox.max.x) buildedBoundingBox.max.x = v.x;
+    if (v.y > buildedBoundingBox.max.y) buildedBoundingBox.max.y = v.y;
+    if (v.z > buildedBoundingBox.max.z) buildedBoundingBox.max.z = v.z;
+};
+
+void ofxLSTurtle::resetBoundingBox(){
+    buildedBoundingBox.min = ofVec3f(0,0,0);
+    buildedBoundingBox.max = ofVec3f(0,0,0);
 }

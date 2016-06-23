@@ -6,13 +6,9 @@
 #include "ofxLSGeometryAvailable.h"
 #include "ofxLSInputError.h"
 #include "of3dPrimitives.h"
+#include "ofxLSBoundingBox.h"
 
 typedef map<string,float> Constants;
-
-typedef struct{
-    ofVec3f min = ofVec3f(0,0,0);
-    ofVec3f max = ofVec3f(0,0,0);
-} BoundingBox;
 
 class ofxLSystem  : public of3dPrimitive{
 public:
@@ -32,6 +28,7 @@ public:
     void setConstants(map<string,float> _Constants)   { constants = _Constants; };
     void computeBoundingBox();
     BoundingBox getBoundingBox() const;
+    void setBoundingBox(BoundingBox);
 
     void build();
     void save(string filename);

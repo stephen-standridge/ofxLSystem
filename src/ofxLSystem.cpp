@@ -40,6 +40,7 @@ void ofxLSystem::build(){
     // populate the mesh
     turtle.generate(mesh, sentences.back(), depth);
     getMesh() = mesh;
+    setBoundingBox(turtle.getBuildedBoundingBox());
     //getMesh().enableNormals(); it does not work
     normalizeAndApplySavedTexCoords();
 }
@@ -141,6 +142,11 @@ void ofxLSystem::computeBoundingBox(){
         if (v.z > boundingBox.max.z) boundingBox.max.z = v.z;
     }
 }
+
 BoundingBox ofxLSystem::getBoundingBox() const {
     return boundingBox;
+};
+
+void ofxLSystem::setBoundingBox(BoundingBox _boundingBox) {
+    boundingBox = _boundingBox;
 };
