@@ -4,10 +4,18 @@ ofxLSTube::ofxLSTube(){
     
 }
 
-void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
+void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const float length){
     bool cap = true;
     const int radius = branch.capSizes.first;
     const int scaledRadius = branch.capSizes.second;
+
+    // these variables are used to do not stretch the texture
+    float circumferenceBottom = radius * 3.1415926f;
+    float ratio = length/circumferenceBottom;
+    float ratioCap = (scaledRadius*2)/length;
+    float xWrapLimit = ratio * textureRepeat;
+    float wrapLimitCap = ratioCap * textureRepeat;
+
     ofMatrix4x4 beginMatrix = branch.begin.getGlobalTransformMatrix();
     ofMatrix4x4 endMatrix = branch.end.getGlobalTransformMatrix();
 
@@ -34,7 +42,7 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
             mesh.addIndex(first+(i*2));
         }
     }
-    
+
     for (int i = 0; i <= resolution; i++) {
         //calculate x and y component
         float theta = 2.0f * 3.1415926f * float(i) / float(resolution);
@@ -50,14 +58,15 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
 
         // bottom
         tcoord.y = 0;
-        tcoord.x = ofMap(i, 0.f, resolution, 0.f, 1.f);
+
+        tcoord.x = ofMap(i, 0.f, resolution, 0.f, xWrapLimit);
         mesh.addVertex(circleBottom * beginMatrix);
         mesh.addNormal(direction * beginMatrix.getRotate());
         mesh.addTexCoord(tcoord);
 
         //top
-        tcoord.y = textureRepeatVertically;
-        tcoord.x = ofMap(i, 0, resolution, 0.f, 1.f);
+        tcoord.y = textureRepeat;
+        tcoord.x = ofMap(i, 0, resolution, 0.f, xWrapLimit);
         mesh.addVertex(circleTop * endMatrix);
         mesh.addNormal(direction * endMatrix.getRotate());
         mesh.addTexCoord(tcoord);
@@ -69,7 +78,7 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
         ofVec3f topDir = branch.end.getPosition().getNormalized();
         mesh.addVertex(branch.end.getGlobalPosition());
         mesh.addNormal(topDir * endMatrix.getRotate());
-        mesh.addTexCoord(ofVec2f(0.5,0.5));
+        mesh.addTexCoord(ofVec2f(wrapLimitCap/2,wrapLimitCap/2));
 
         for (int i = 0; i <= resolution; i++) {
             if (i == resolution) {
@@ -90,8 +99,8 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch){
             ofVec3f circleTemp = ofVec3f(x, 0.0, z);
 
             ofVec2f capTcoord;
-            capTcoord.x = ofMap(x, -scaledRadius, scaledRadius, 0.f, 1.f);
-            capTcoord.y = ofMap(z, -scaledRadius, scaledRadius, 0.f, 1.f);
+            capTcoord.x = ofMap(x, -scaledRadius, scaledRadius, 0.f, wrapLimitCap);
+            capTcoord.y = ofMap(z, -scaledRadius, scaledRadius, 0.f, wrapLimitCap);
             mesh.addVertex(circleTemp * branch.end.getGlobalTransformMatrix());
             mesh.addNormal(topDir * endMatrix.getRotate());
             mesh.addTexCoord(capTcoord);

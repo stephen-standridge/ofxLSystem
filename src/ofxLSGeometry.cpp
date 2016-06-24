@@ -5,7 +5,7 @@ void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh,ofxLSG
     // uno per la fine. Tutto il resto viene implementato dalla geometria
     switch (_geometryType) {
         case TUBES:
-            tube.generate(mesh, branch);
+            tube.generate(mesh, branch, length);
             break;
 //        case TUBES_DEFORMED:
 //            tubeDeformed.generate(mesh, branch, width);
