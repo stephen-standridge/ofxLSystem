@@ -12,7 +12,7 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const float len
     // these variables are used to do not stretch the texture
     float circumferenceBottom = radius * 3.1415926f;
     float ratio = circumferenceBottom/length;
-    float ratioCap = (scaledRadius*2)/length;
+    float ratioCap = scaledRadius/length;
     float xWrapLimit = circumferenceBottom/(length/textureRepeat);
     float wrapLimitCap = ratioCap * textureRepeat;
 
