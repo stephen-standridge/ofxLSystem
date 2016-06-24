@@ -130,6 +130,18 @@ void ofxLSystem::validateInput(string _axiom, vector<string> _strRules, float th
     }
 }
 
+void ofxLSystem::setScaleWidth(bool _setScaleWidth){
+    if(
+       ofxLSystemGrammar::detectGrammarType(rulesContainer) != "parametric" &&
+       _setScaleWidth == true
+    ){
+        ofLogError("only parametric grammar supports setScale=true");
+        scaleWidth = false;
+    }else{
+        scaleWidth = _setScaleWidth;
+    }
+}
+
 void ofxLSystem::computeBoundingBox(){
     for(auto v : mesh.getVertices()){
         if (v.x < boundingBox.min.x) boundingBox.min.x = v.x;

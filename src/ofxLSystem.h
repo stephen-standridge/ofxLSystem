@@ -22,7 +22,7 @@ public:
     void setRandomYRotation(bool _randomYRotation)    { randomYRotation = _randomYRotation; };
     void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry;};
     void setStep(int _depth)                          { depth = _depth; };
-    void setScaleWidth(bool _scaleWidht)              { scaleWidth = _scaleWidht; };
+    void setScaleWidth(bool _scaleWidht);
     void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
     void setStepLength(float _stepLength)             { stepLength = _stepLength; };
     void setConstants(map<string,float> _Constants)   { constants = _Constants; };
