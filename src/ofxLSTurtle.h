@@ -11,7 +11,7 @@
 class ofxLSTurtle {
 public:
     void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry,
-               bool randomYRotation, bool scaleWidth, int resolution);
+               bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat);
     void generate(ofVboMesh& mesh, const string ruleStr, const int depth);
     BoundingBox getBuildedBoundingBox() const { return buildedBoundingBox; };
 
@@ -25,6 +25,7 @@ private:
     bool    randomYRotation = false;
     bool    scaleWidth = false;
     int     resolution = 4;
+    int     textureRepeat;
     ofVec3f position; // it can be removed?
     vector<string> getInstructionsFromString(string sentence);
     void maybeVectorExpandsBoundingBox(ofVec3f v);

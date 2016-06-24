@@ -18,9 +18,10 @@ public:
     void setRules(vector<string> _rulesContainer);
     void setTheta(float _theta);
 
-    void setResolution(int _resolution)               {resolution = _resolution;};
+    void setResolution(int _resolution)               { resolution = _resolution; };
+    void setTextureRepeat(int _n)                     { textureRepeat = _n; };
     void setRandomYRotation(bool _randomYRotation)    { randomYRotation = _randomYRotation; };
-    void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry;};
+    void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry; };
     void setStep(int _depth)                          { depth = _depth; };
     void setScaleWidth(bool _scaleWidht);
     void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
@@ -47,6 +48,7 @@ private:
     float             stepWidth = 10.00;
     bool              scaleWidth = false;
     float             stepLength = 100.00;
+    int               textureRepeat = 1;
     map<string,float> constants = Constants();
     ofxLSTurtle       turtle;
     ofVboMesh         mesh;
