@@ -11,9 +11,9 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const float len
 
     // these variables are used to do not stretch the texture
     float circumferenceBottom = radius * 3.1415926f;
-    float ratio = length/circumferenceBottom;
+    float ratio = circumferenceBottom/length;
     float ratioCap = (scaledRadius*2)/length;
-    float xWrapLimit = ratio * textureRepeat;
+    float xWrapLimit = circumferenceBottom/(length/textureRepeat);
     float wrapLimitCap = ratioCap * textureRepeat;
 
     ofMatrix4x4 beginMatrix = branch.begin.getGlobalTransformMatrix();
@@ -55,18 +55,16 @@ void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const float len
         float zTop = scaledRadius * sinf(theta);
         ofVec3f circleTop = ofVec3f(xTop, 0.0, zTop);
         ofVec2f tcoord;
+        tcoord.x = ofMap(i, 0.f, resolution, 0.f, xWrapLimit);
 
         // bottom
         tcoord.y = 0;
-
-        tcoord.x = ofMap(i, 0.f, resolution, 0.f, xWrapLimit);
         mesh.addVertex(circleBottom * beginMatrix);
         mesh.addNormal(direction * beginMatrix.getRotate());
         mesh.addTexCoord(tcoord);
 
         //top
         tcoord.y = textureRepeat;
-        tcoord.x = ofMap(i, 0, resolution, 0.f, xWrapLimit);
         mesh.addVertex(circleTop * endMatrix);
         mesh.addNormal(direction * endMatrix.getRotate());
         mesh.addTexCoord(tcoord);
