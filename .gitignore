@@ -19,5 +19,13 @@ build-textureExample-Desktop-Debug/
 build-example-texture-Desktop-Debug/
 example-texture/bin/example-texture_debug
 
+example-shader/bin/shaderExampleDebug.app
+example-shader/bin/example-shaderDebug
+example-shader/bin/example-shaderDebug.app
+build-shaderExample-Desktop-Debug/
+build-example-shader-Desktop-Debug/
+example-shader/bin/example-shader_debug
+
+
 
 
