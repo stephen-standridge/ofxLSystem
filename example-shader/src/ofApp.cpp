@@ -23,6 +23,7 @@ void ofApp::setup(){
     tree.setStepWidth(21.5);
     tree.setStepLength(100);
     tree.build();
+    uResolution = ofVec3f(ofGetWidth(), ofGetHeight());
 
     if(ofIsGLProgrammableRenderer()){
         //I'm using opengl 4.1 that support the programmable pipeline
@@ -39,6 +40,14 @@ void ofApp::setup(){
     gui.add(materialColor.setup("material color",
                                 ofColor(0, 255, 0), ofColor(0, 0), ofColor(255, 255)));
     ofSetVerticalSync(true);
+    tree.computeBoundingBox();
+    float maxH = tree.getBoundingBox().max.y;
+    for(auto v:tree.getMesh().getVertices()){
+        cout << v.y << endl;
+        cout << "perc: " + ofToString(v.y/maxH) << endl;
+    }
+    cout << maxH << endl;
+
 }
 
 //--------------------------------------------------------------
@@ -56,6 +65,7 @@ void ofApp::draw(){
     shader.setUniform4f("uLightColor", ofColor(lightColor));
     shader.setUniform3f("uLightPosition", lightPos);
     shader.setUniform4f("uMaterialColor", ofColor(materialColor));
+    shader.setUniform2f("uResolution", uResolution );
 
     tree.draw();
 

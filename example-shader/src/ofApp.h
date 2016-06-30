@@ -33,6 +33,7 @@ public:
     ofLight    light;
     ofEasyCam  cam;
     ofShader   shader;
+    ofVec2f    uResolution;
 
     
 };
