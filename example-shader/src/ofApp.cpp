@@ -4,6 +4,7 @@
 void ofApp::setup(){
     ofDisableAlphaBlending();
     ofEnableDepthTest();
+
     light.setup();
     light.enable();
     light.setPosition(ofVec3f(400,300,200));
@@ -31,6 +32,12 @@ void ofApp::setup(){
 
     gui.setup();
     gui.add(scale.set("scale", 10.f, 1.f, 20.f));
+    gui.add(lightColor.setup("light color",
+                             ofColor(255, 0, 0), ofColor(0, 0), ofColor(255, 255)));
+    gui.add(lightPos.set("lightPosition",
+                         ofVec3f(400,300,200), ofVec3f(-800,-800,-800), ofVec3f(800,800,800)));
+    gui.add(materialColor.setup("material color",
+                                ofColor(0, 255, 0), ofColor(0, 0), ofColor(255, 255)));
     ofSetVerticalSync(true);
 }
 
@@ -46,9 +53,12 @@ void ofApp::draw(){
     shader.begin();
     shader.setUniform1f("uTime", ofGetElapsedTimef());
     shader.setUniform2f("mouse", mouseX - ofGetWidth()/2, ofGetHeight()/2-mouseY );
-
+    shader.setUniform4f("uLightColor", ofColor(lightColor));
+    shader.setUniform3f("uLightPosition", lightPos);
+    shader.setUniform4f("uMaterialColor", ofColor(materialColor));
 
     tree.draw();
+
     shader.end();
     cam.end();
 

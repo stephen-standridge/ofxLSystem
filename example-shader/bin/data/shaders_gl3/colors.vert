@@ -1,15 +1,27 @@
 #version 150
+out vec3 vecNormal;
+out vec3 vecPosition;
+
 
 in vec4 position;
-uniform mat4 modelViewProjectionMatrix;
+in vec4 color;
+in vec4 normal;
 
+// these are passed in from OF programmable renderer
+uniform mat4 modelViewProjectionMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 textureMatrix;
+uniform mat4 normalMatrix;
+
+// this are set in the OF app
 uniform float uTime;
 
 void main(){
+    // Since the light is in world coordinates, i need the vertex position in world
+    // coordinates too.
+    vecPosition = (modelViewMatrix * position).xyz;
 
-    //get our current vertex position so we can modify it
-    vec4 pos = modelViewProjectionMatrix * position;
-
-    //finally set the pos to be that actual position rendered
-    gl_Position = pos;
+    vecNormal = normal.xzy;
+    gl_Position = modelViewProjectionMatrix * position;
 }
