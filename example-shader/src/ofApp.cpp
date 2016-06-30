@@ -41,12 +41,12 @@ void ofApp::setup(){
                                 ofColor(0, 255, 0), ofColor(0, 0), ofColor(255, 255)));
     ofSetVerticalSync(true);
     tree.computeBoundingBox();
-    float maxH = tree.getBoundingBox().max.y;
-    for(auto v:tree.getMesh().getVertices()){
-        cout << v.y << endl;
-        cout << "perc: " + ofToString(v.y/maxH) << endl;
-    }
-    cout << maxH << endl;
+    maxHeight = tree.getBoundingBox().max.y;
+//    for(auto v:tree.getMesh().getVertices()){
+//        cout << v.y << endl;
+//        cout << "perc: " + ofToString(v.y/maxHeight) << endl;
+//    }
+//    cout << maxHeight << endl;
 
 }
 
@@ -61,6 +61,7 @@ void ofApp::draw(){
 
     shader.begin();
     shader.setUniform1f("uTime", ofGetElapsedTimef());
+    shader.setUniform1f("uMaxHeight", maxHeight);
     shader.setUniform2f("mouse", mouseX - ofGetWidth()/2, ofGetHeight()/2-mouseY );
     shader.setUniform4f("uLightColor", ofColor(lightColor));
     shader.setUniform3f("uLightPosition", lightPos);

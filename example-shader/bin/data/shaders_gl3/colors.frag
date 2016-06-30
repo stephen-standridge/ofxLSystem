@@ -1,10 +1,12 @@
 #version 150
 //Modes: uncomment to active one modes
 //#define SIMPLE_MIX
-#define PLOT
+//#define PLOT
+#define COLOR_DEPENDING_ON_MESH_HEIGHT
 
 in vec3 vecNormal;
 in vec4 vecPosition;
+in float height;
 
 out vec4 fragColor;
 
@@ -43,13 +45,14 @@ void main(){
     color = mix(colorA, colorB, pct);
     color = mix(color,vec4(1.0,0.0,0.0,1.0),plot(st,pct.r));
     color = mix(color,vec4(0.0,1.0,0.0,1.0),plot(st,pct.g));
-    color = mix(color,vec4(0.0,0.0,1.0,1.0),plot(st,pct.b));
-
-    //just to see how the fragCoord can be used to change the color
-    //color.r = gl_FragCoord.y / uResolution.y;
-
+    color = mix(color,vec4(0.0,0.0,1.0,1.o),plot(st,pct.b));
     #endif
 
+    #ifdef COLOR_DEPENDING_ON_MESH_HEIGHT
+        //just to see how the fragCoord can be used to change the color
+        //color.r = gl_FragCoord.y / uResolution.y;
+        color = mix(colorA, colorB, height);
+    #endif
 
     vec4 col = vec4( vec3( dProd ) * vec3( color ), 1.0 );
     fragColor = col;

@@ -34,6 +34,7 @@ public:
     ofEasyCam  cam;
     ofShader   shader;
     ofVec2f    uResolution;
+    float      maxHeight;
 
     
 };
