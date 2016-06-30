@@ -1,27 +1,22 @@
 #version 150
-out vec3 vecNormal;
-out vec3 vecPosition;
+// https://thebookofshaders.com/06/
 
+out vec3 vecNormal;
+out vec4 vecPosition;
 
 in vec4 position;
-in vec4 color;
 in vec4 normal;
 
 // these are passed in from OF programmable renderer
 uniform mat4 modelViewProjectionMatrix;
-uniform mat4 modelViewMatrix;
-uniform mat4 projectionMatrix;
-uniform mat4 textureMatrix;
-uniform mat4 normalMatrix;
-
-// this are set in the OF app
-uniform float uTime;
+uniform float treeMinHeight;
+uniform float treeMaxHeight;
 
 void main(){
     // Since the light is in world coordinates, i need the vertex position in world
     // coordinates too.
-    vecPosition = (modelViewMatrix * position).xyz;
+    vecPosition = modelViewProjectionMatrix * position;
 
     vecNormal = normal.xzy;
-    gl_Position = modelViewProjectionMatrix * position;
+    gl_Position = vecPosition;
 }

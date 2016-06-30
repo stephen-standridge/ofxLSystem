@@ -110,6 +110,8 @@
 		6FF4B3BE1D250AB900A99A04 /* patterns.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = patterns.vert; sourceTree = "<group>"; };
 		6FF4B3BF1D250AB900A99A04 /* shapes.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shapes.frag; sourceTree = "<group>"; };
 		6FF4B3C01D250AB900A99A04 /* shapes.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shapes.vert; sourceTree = "<group>"; };
+		6FF4B3C71D257F8700A99A04 /* basic.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic.frag; sourceTree = "<group>"; };
+		6FF4B3C81D257F8700A99A04 /* basic.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic.vert; sourceTree = "<group>"; };
 		77666BD5612D89F65C5E708B /* ofxLSGModuleReaderParametric.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSGModuleReaderParametric.h; path = ../../../addons/ofxLSystemGrammar/src/ofxLSGModuleReaderParametric.h; sourceTree = SOURCE_ROOT; };
 		78D67A00EB899FAC09430597 /* ofxLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLabel.cpp; path = ../../../addons/ofxGui/src/ofxLabel.cpp; sourceTree = SOURCE_ROOT; };
 		7A3316D3A8A3D619237B6FAF /* ofxLSGSanitizer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLSGSanitizer.cpp; path = ../../../addons/ofxLSystemGrammar/src/ofxLSGSanitizer.cpp; sourceTree = SOURCE_ROOT; };
@@ -211,6 +213,8 @@
 		6FF4B3B41D250AB900A99A04 /* shaders_gl3 */ = {
 			isa = PBXGroup;
 			children = (
+				6FF4B3C71D257F8700A99A04 /* basic.frag */,
+				6FF4B3C81D257F8700A99A04 /* basic.vert */,
 				6FF4B3B51D250AB900A99A04 /* 2dmatrices.frag */,
 				6FF4B3B61D250AB900A99A04 /* 2dmatrices.vert */,
 				6FF4B3B71D250AB900A99A04 /* colors.frag */,
