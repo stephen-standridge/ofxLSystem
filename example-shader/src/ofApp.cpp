@@ -28,13 +28,11 @@ void ofApp::setup(){
     if(ofIsGLProgrammableRenderer()){
         //I'm using opengl 4.1 that support the programmable pipeline
         //shader.load("shaders_gl3/noise.vert", "shaders_gl3/noise.frag");
-        shader.load("shaders_gl3/colors.vert", "shaders_gl3/colors.frag");
+        shader.load("shaders_gl3/shapes.vert", "shaders_gl3/shapes.frag");
     }
 
     gui.setup();
     gui.add(scale.set("scale", 10.f, 1.f, 20.f));
-    gui.add(lightColor.setup("light color",
-                             ofColor(255, 0, 0), ofColor(0, 0), ofColor(255, 255)));
     gui.add(lightPos.set("lightPosition",
                          ofVec3f(400,300,200), ofVec3f(-800,-800,-800), ofVec3f(800,800,800)));
     gui.add(materialColor.setup("material color",

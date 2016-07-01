@@ -4,6 +4,7 @@
 //#define PLOT
 #define COLOR_DEPENDING_ON_MESH_HEIGHT
 
+
 in vec3 vecNormal;
 in vec4 vecPosition;
 in float height;

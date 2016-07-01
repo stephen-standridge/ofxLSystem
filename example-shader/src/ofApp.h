@@ -25,7 +25,6 @@ public:
 
     ofxLSystem tree;
     ofxPanel   gui;
-    ofxColorSlider lightColor;
     ofParameter<ofVec3f> lightPos;
     ofxColorSlider materialColor;
     ofParameter<float> scale;
