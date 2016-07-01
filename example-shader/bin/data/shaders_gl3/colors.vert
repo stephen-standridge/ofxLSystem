@@ -18,7 +18,7 @@ void main(){
     // Since the light is in world coordinates, i need the vertex position in world
     // coordinates too.
     vecPosition = modelViewProjectionMatrix * position;
-    height =  (modelViewProjectionMatrix * position).y / uMaxHeight;
+    height =  position.y / uMaxHeight;
 
     vecNormal = normal.xzy;
     gl_Position = vecPosition;

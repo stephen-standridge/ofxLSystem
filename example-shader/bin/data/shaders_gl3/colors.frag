@@ -32,20 +32,20 @@ void main(){
     vec4 color = uMaterialColor;
     vec4 colorA = vec4(0.149,0.141,0.912,1.0);
     vec4 colorB = vec4(1.000,0.833,0.224,1.0);
+
     #ifdef SIMPLE_MIX
         float pct = abs(sin(uTime));
         color = mix(colorA, colorB, pct);
     #endif
 
     #ifdef PLOT
-
-    vec2 st = gl_FragCoord.xy/uResolution.xy;
-    vec4 black = vec4(vec3(0.0),1.0);
-    vec4 pct = vec4(st.x);
-    color = mix(colorA, colorB, pct);
-    color = mix(color,vec4(1.0,0.0,0.0,1.0),plot(st,pct.r));
-    color = mix(color,vec4(0.0,1.0,0.0,1.0),plot(st,pct.g));
-    color = mix(color,vec4(0.0,0.0,1.0,1.o),plot(st,pct.b));
+        vec2 st = gl_FragCoord.xy/uResolution.xy;
+        vec4 black = vec4(vec3(0.0),1.0);
+        vec4 pct = vec4(st.x);
+        color = mix(colorA, colorB, pct);
+        color = mix(color,vec4(1.0,0.0,0.0,1.0),plot(st,pct.r));
+        color = mix(color,vec4(0.0,1.0,0.0,1.0),plot(st,pct.g));
+        color = mix(color,vec4(0.0,0.0,1.0,1.o),plot(st,pct.b));
     #endif
 
     #ifdef COLOR_DEPENDING_ON_MESH_HEIGHT
