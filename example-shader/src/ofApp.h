@@ -28,12 +28,16 @@ public:
     ofParameter<ofVec3f> lightPos;
     ofxColorSlider materialColor;
     ofParameter<float> scale;
+    ofParameter<float> thickness;
     bool       drawGui = true;
     ofLight    light;
     ofEasyCam  cam;
     ofShader   shader;
     ofVec2f    uResolution;
     ofVec2f    uTreeResolution;
+
+    ofVec2f    uMinTree;
+    ofVec2f    uMaxTree;
     float      maxHeight;
 
     
