@@ -33,6 +33,7 @@ public:
     ofEasyCam  cam;
     ofShader   shader;
     ofVec2f    uResolution;
+    ofVec2f    uTreeResolution;
     float      maxHeight;
 
     

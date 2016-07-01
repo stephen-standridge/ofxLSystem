@@ -20,15 +20,15 @@ void ofApp::setup(){
     tree.setConstants(constants);
     tree.setStep(8);
     tree.setScaleWidth(true);
-    tree.setStepWidth(21.5);
-    tree.setStepLength(100);
+    tree.setStepWidth(50.5);
+    tree.setStepLength(200);
     tree.build();
     uResolution = ofVec3f(ofGetWidth(), ofGetHeight());
 
     if(ofIsGLProgrammableRenderer()){
         //I'm using opengl 4.1 that support the programmable pipeline
         //shader.load("shaders_gl3/noise.vert", "shaders_gl3/noise.frag");
-        shader.load("shaders_gl3/shapes.vert", "shaders_gl3/shapes.frag");
+        shader.load("shaders_gl3/colors.vert", "shaders_gl3/colors.frag");
     }
 
     gui.setup();
@@ -39,13 +39,9 @@ void ofApp::setup(){
                                 ofColor(0, 255, 0), ofColor(0, 0), ofColor(255, 255)));
     ofSetVerticalSync(true);
     tree.computeBoundingBox();
-    maxHeight = tree.getBoundingBox().max.y;
-//    for(auto v:tree.getMesh().getVertices()){
-//        cout << v.y << endl;
-//        cout << "perc: " + ofToString(v.y/maxHeight) << endl;
-//    }
-//    cout << maxHeight << endl;
-
+    float treeWidth = abs(tree.getBoundingBox().min.x) + tree.getBoundingBox().max.x;
+    float treeHeight = abs(tree.getBoundingBox().min.y) + tree.getBoundingBox().max.y;
+    uTreeResolution = ofVec2f(treeWidth, treeHeight);
 }
 
 //--------------------------------------------------------------
@@ -59,12 +55,11 @@ void ofApp::draw(){
 
     shader.begin();
     shader.setUniform1f("uTime", ofGetElapsedTimef());
-    shader.setUniform1f("uMaxHeight", maxHeight);
     shader.setUniform2f("mouse", mouseX - ofGetWidth()/2, ofGetHeight()/2-mouseY );
-    shader.setUniform4f("uLightColor", ofColor(lightColor));
     shader.setUniform3f("uLightPosition", lightPos);
     shader.setUniform4f("uMaterialColor", ofColor(materialColor));
     shader.setUniform2f("uResolution", uResolution );
+    shader.setUniform2f("uTreeResolution", uTreeResolution );
 
     tree.draw();
 
