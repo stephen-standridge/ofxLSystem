@@ -88,7 +88,7 @@ constants.insert(make_pair("R", 1.456));
 
 tree.setAxiom("A(100)");
 tree.setRules({"A(s) -> F(s)[+A(s/R)][-A(s/R)]"});
-tree.setRandomZRotation(true);
+tree.setRandomYRotation(true);
 tree.setConstants(constants);
 tree.setStep(4);
 tree.setScaleWidth(true);
