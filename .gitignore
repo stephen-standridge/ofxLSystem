@@ -26,6 +26,15 @@ build-shaderExample-Desktop-Debug/
 build-example-shader-Desktop-Debug/
 example-shader/bin/example-shader_debug
 
+example-rings/bin/ringsExampleDebug.app
+example-rings/bin/example-ringsDebug
+example-rings/bin/example-ringsDebug.app
+build-ringsExample-Desktop-Debug/
+build-example-rings-Desktop-Debug/
+example-rings/bin/example-rings_debug
+
+
+
 
 
 
