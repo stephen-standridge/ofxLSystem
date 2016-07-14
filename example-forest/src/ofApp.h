@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxLSystem.h"
-#include "ofxFirstPersonCamera.h"
 
 class ofApp : public ofBaseApp{
 
@@ -23,10 +22,10 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
-    vector<ofxLSystem> treeContainer;
-    ofxLSystem lsystem;
+    ofMesh forest;
+    int nTree = 60;
     ofLight light;
-    ofxFirstPersonCamera cam;
+    ofEasyCam cam;
     ofPlanePrimitive plane;
     ofMaterial roadMaterial;
     ofMaterial treeMaterial;

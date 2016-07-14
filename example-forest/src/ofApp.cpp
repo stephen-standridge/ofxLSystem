@@ -2,35 +2,48 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    float halfScreen = ofGetWidth()/2;
     //light
     light.setPosition(500, 1000, 1600);
     light.enable();
 
     //camera
-    cam.setPosition(0, -640, 300);
+    cam.setPosition(0, 100, 600);
     cam.lookAt(ofVec3f(0, 0, 0));
     //cam.setNearClip(0.01f);
-    cam.setMovementMaxSpeed( 25.f );
+    //cam.setMovementMaxSpeed( 25.f );
 
     //plane
-    plane.setPosition(100, 50, 0);
+    plane.setPosition(100, 0, 0);
     plane.set(20000, 20000);
     plane.setResolution(20, 20);
+    plane.rotate(270, 1, 0 , 0);
 
     roadMaterial.setDiffuseColor(ofFloatColor::moccasin);
     roadMaterial.setShininess(0.01);
     treeMaterial.setAmbientColor(ofFloatColor::hotPink);
     treeMaterial.setSpecularColor(ofFloatColor::blueSteel);
     treeMaterial.setShininess(0.04);
-    for(unsigned int i =0; i<= 80; i++){
-        ofxLSystem lystem;
-        ofVec3f position = ofVec3f(ofRandom(-5000.f,5000.f), ofRandom(-5000.f,5000.f), 0);
-        lsystem.setStep(4);
-        lsystem.setTheta(36.f);
-        lsystem.setRules({"F -> FF[+F][-F]"});
-        lsystem.setPosition(position);
-        lsystem.build();
-        treeContainer.push_back(lsystem);
+    map<string, float> constants;
+    constants.insert(make_pair("R", 1.356));
+
+    for(int i = 0; i<nTree; i++){
+        ofxLSystem tree;
+        tree.setAxiom("A(100)");
+        tree.setRules({"A(s) -> F(s)[+A(s/R)][-A(s/R)]"});
+        tree.setRandomYRotation(true);
+        tree.setConstants(constants);
+        tree.setStep(abs(ofRandom(5, 10)));
+        tree.setScaleWidth(true);
+        tree.setStepWidth(abs(ofRandom(30.5, 40.5)));
+        tree.setStepLength(abs(ofRandom(150,300)));
+        tree.build();
+        auto pos = ofVec2f(ofRandom(-halfScreen, halfScreen),
+                           ofRandom(-halfScreen, halfScreen));
+        for (int i=0; i<tree.getMesh().getNumVertices(); i++) {
+            tree.getMesh().getVerticesPointer()[i] += ofVec3f(pos.x, 0, pos.y);
+        }
+        forest.append(tree.getMesh());
     }
     ofEnableDepthTest();
 }
@@ -46,11 +59,6 @@ void ofApp::draw(){
     ofDisableDepthTest();
     ofBackgroundGradient( ofFloatColor::indigo, ofFloatColor::lemonChiffon, OF_GRADIENT_CIRCULAR);
 
-    string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
-    //ofDrawBitmapStringHighlight(msg, 10, 10);
-    ofDrawBitmapStringHighlight("use a s d w  to move", 10, 15);
-    ofDrawBitmapStringHighlight("use q and z to look down or up", 10, 30);
-
     ofEnableDepthTest();
     ofEnableLighting();
     cam.begin();
@@ -58,9 +66,7 @@ void ofApp::draw(){
     plane.draw();
     roadMaterial.end();
     treeMaterial.begin();
-    for(auto tree : treeContainer){
-        tree.draw();
-    }
+    forest.draw();
     treeMaterial.end();
     cam.end();
 

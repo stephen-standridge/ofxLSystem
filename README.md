@@ -9,6 +9,7 @@ This addon can be used to generate meshes as the following ones:
 ![example](img/green.png)
 ![example](img/yellow.png)
 ![example](img/forest.png)
+![example](img/rings.gif)
 
 ## Supported platforms
 
@@ -28,7 +29,7 @@ ofxLSystem tree
 ofMaterial treeMaterial
 ```
 
-In your `ofApp.cpp` 
+In your `ofApp.cpp`
 
 ```cpp
 void ofApp::setup(){
