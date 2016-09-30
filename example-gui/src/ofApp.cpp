@@ -5,6 +5,7 @@ void ofApp::setup(){
     readFilesDirectory();
     selectedTheta.addListener(this, &ofApp::selectedThetaChanghed);
     selectedDepth.addListener(this, &ofApp::selectedDepthChanghed);
+    saveMesh.addListener(this, &ofApp::saveMeshPressed);
     // on writing xml files, take care of this
     // https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
     gui.loadFromFile("trees/bush-1.xml");
@@ -20,6 +21,7 @@ void ofApp::setup(){
     gui.add(selectedTheta.set("theta", 25.00, 0.00, 45.00));
     gui.add(bgColor.setup("bg color", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
     gui.add(treeColor.setup("tree color", ofColor(255, 0, 0), ofColor(0, 0), ofColor(255, 255)));
+    gui.add(saveMesh.setup("save meshe"));
     ofSetVerticalSync(true);
     oldDepth = selectedDepth;
 
@@ -241,4 +243,9 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){
     
+}
+
+void ofApp::saveMeshPressed(){
+    string randomFilename = ofGetTimestampString() + ".ply";
+    lsystem.save(randomFilename);
 }

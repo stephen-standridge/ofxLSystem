@@ -20,6 +20,7 @@ public:
     void mouseReleased(int x, int y, int button);
     void mouseEntered(int x, int y);
     void mouseExited(int x, int y);
+    void saveMeshPressed();
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
@@ -57,6 +58,7 @@ private:
     ofParameter<float>  selectedTheta;
     ofxColorSlider bgColor;
     ofxColorSlider treeColor;
+    ofxButton saveMesh;
 
     vector<string> fileNames;
     ofDirectory dir;
