@@ -62,6 +62,8 @@ void ofApp::startLSystem(string axiom,
     lsystem.setRules(rules);
     lsystem.setTheta(theta);
     lsystem.setStep(depth);
+    lsystem.setScaleWidth(true);
+    lsystem.setGeometry(TRIANGLES);
     lsystem.setConstants(constants);
     lsystem.setRandomYRotation(randomYRotation);
     lsystem.build();
@@ -75,7 +77,7 @@ void ofApp::draw(){
     ofEnableDepthTest();
     // scene
     cam.begin();
-    ofDrawAxis(100);
+    //ofDrawAxis(100);
     material.begin();
     lsystem.draw();
     //lsystem.drawWireframe();
@@ -210,7 +212,7 @@ void ofApp::maybeDrawGui(){
         for (unsigned i = 0; i < fileNames.size(); ++i){
             if (i == selected) ofSetColor(0, 255, 0);
             else ofSetColor(255, 0, 0);
-            ofDrawBitmapString(fileNames[i], 10, 400 +(20 * (i + 1)));
+            ofDrawBitmapString(fileNames[i], 10, 500 +(20 * (i + 1)));
         }
         ofEnableLighting();
         ofPopStyle();

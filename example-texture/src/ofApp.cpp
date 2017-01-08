@@ -10,6 +10,7 @@ void ofApp::setup(){
     //important, ofDisableArbText has to be called before the image is loaded
     ofDisableArbTex();
     string textureName = "texture.png";
+    //string textureName = "bark.jpg";
 
     // first texture
     ofLoadImage(bark, textureName);

@@ -45,6 +45,7 @@ void main(){
     //draw the rings
     for (int i = 0; i< nRing; i++) {
         float y = cubicPulse(mod(uThreshold*uScale, 1.0),uThickness,st.y-padding);
+        //float y = cubicPulse(mod(uTime * 0.5,0.99),uScale,st.y-padding);
         color += vec4(vec3(ringColor)*vec3(y), 1.0);
         padding += inc;
     }
