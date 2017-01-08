@@ -46,7 +46,7 @@ void ofApp::setup(){
     }
 
     gui.setup();
-    gui.add(scale.set("scale", 1.0, 0.06, 5.0));
+    gui.add(scale.set("scale", 1.0, 0.02, 5.0));
     gui.add(uNRing.set("uNRing", 1.0, 1.0, 15.0));
     gui.add(thickness.set("thickness", 0.001, 0.001, 0.1));
     gui.add(useLight.set("use light", false));
