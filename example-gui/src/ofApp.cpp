@@ -21,7 +21,8 @@ void ofApp::setup(){
     gui.add(selectedTheta.set("theta", 25.00, 0.00, 45.00));
     gui.add(bgColor.setup("bg color", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
     gui.add(treeColor.setup("tree color", ofColor(255, 0, 0), ofColor(0, 0), ofColor(255, 255)));
-    gui.add(saveMesh.setup("save meshe"));
+    gui.add(specularColor.setup("specular color", ofColor(255, 255, 0), ofColor(0, 0), ofColor(255, 255)));
+    gui.add(saveMesh.setup("save mesh"));
     ofSetVerticalSync(true);
     oldDepth = selectedDepth;
 
@@ -45,7 +46,8 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     material.setDiffuseColor(ofColor(treeColor));
-    //lsystem.roll(0.6);
+    material.setSpecularColor(ofColor(specularColor));
+    lsystem.pan(0.4);
 }
 
 void ofApp::startLSystem(string axiom,

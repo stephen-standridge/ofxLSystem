@@ -1,13 +1,16 @@
 <settings>
 <treed>
 <rule>
-A(s) -> F(s)[+A(s/R)][-A(s/R)];
+A(s) -&gt; F(s)[+A(s/R)][-A(s/R)];
 </rule>
 <axiom>A(100)</axiom>
 <constants>R=1.456</constants>
 <maxDepth>2</maxDepth>
 <theta>85</theta>
-<bg_color>100, 100, 140, 255</bg_color>
-		<tree_color>255, 0, 0, 255</tree_color>
+<bg_color>40, 31, 228, 255</bg_color>
+		<tree_color>104, 173, 0, 255</tree_color>
+	<Random_Y_Rotation>0</Random_Y_Rotation>
+		<depth>3</depth>
+		<specular_color>255, 45, 0, 255</specular_color>
 	</treed>
 </settings>

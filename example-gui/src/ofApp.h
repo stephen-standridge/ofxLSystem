@@ -58,6 +58,7 @@ private:
     ofParameter<float>  selectedTheta;
     ofxColorSlider bgColor;
     ofxColorSlider treeColor;
+    ofxColorSlider specularColor;
     ofxButton saveMesh;
 
     vector<string> fileNames;

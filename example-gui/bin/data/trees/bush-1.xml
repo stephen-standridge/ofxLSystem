@@ -1,10 +1,14 @@
 <settings>
 <treed>
-<rule>F -> FF+[+F-F-F]-[-F+F+F]</rule>
+<rule>F -&gt; FF+[+F-F-F]-[-F+F+F]</rule>
 <axiom>F</axiom>
 <maxDepth>2</maxDepth>
 <theta>25</theta>
-<bg_color>100, 100, 140, 255</bg_color>
-		<tree_color>255, 0, 0, 255</tree_color>
+<bg_color>140, 68, 45, 255</bg_color>
+		<tree_color>255, 188, 55, 255</tree_color>
+	<Random_Y_Rotation>0</Random_Y_Rotation>
+		<constants/>
+		<depth>2</depth>
+		<specular_color>10, 93, 252, 255</specular_color>
 	</treed>
 </settings>

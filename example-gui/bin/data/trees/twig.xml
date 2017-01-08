@@ -6,16 +6,17 @@ A(s) -&gt; F(s)[+A(s/R)][-A(s/R)];
 <axiom>A(100)</axiom>
 <maxDepth>3</maxDepth>
 <theta>24.3</theta>
-<bg_color>217, 163, 11, 255</bg_color>
-		<tree_color>255, 31, 0, 255</tree_color>
+<bg_color>61, 175, 255, 255</bg_color>
+		<tree_color>255, 84, 0, 255</tree_color>
 	<constants>R=1.456</constants>
 		<Random_Y_Rotation>0</Random_Y_Rotation>
 		<rotateY>0</rotateY>
 		<rotateZ>0</rotateZ>
 		<rotateX>0</rotateX>
-		<depth>6</depth>
+		<depth>7</depth>
 		<total>1</total>
 		<shiness>0.01</shiness>
 		<tree_spec_color>255, 0, 0, 255</tree_spec_color>
+	<specular_color>223, 191, 0, 255</specular_color>
 	</treed>
 </settings>

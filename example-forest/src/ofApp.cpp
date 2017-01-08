@@ -23,6 +23,7 @@ void ofApp::setup(){
     roadMaterial.setShininess(0.01);
     treeMaterial.setAmbientColor(ofFloatColor::hotPink);
     treeMaterial.setSpecularColor(ofFloatColor::blueSteel);
+    treeMaterial.setDiffuseColor(ofFloatColor::yellowGreen);
     treeMaterial.setShininess(0.04);
     map<string, float> constants;
     constants.insert(make_pair("R", 1.356));
