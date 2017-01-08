@@ -23,7 +23,7 @@ public:
     void gotMessage(ofMessage msg);
 
     ofMesh forest;
-    int nTree = 60;
+    int nTree = 30;
     ofLight light;
     ofEasyCam cam;
     ofPlanePrimitive plane;
