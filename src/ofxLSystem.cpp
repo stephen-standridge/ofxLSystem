@@ -29,7 +29,6 @@ void ofxLSystem::build(){
     }
     //clear the mesh
     mesh.clear();
-    normalsMesh.clear();
 
     // setup the turtle, the sentences and the geometry
     setMeshMode(geometry);
@@ -39,9 +38,10 @@ void ofxLSystem::build(){
 
     // populate the mesh
     turtle.generate(mesh, sentences.back(), depth);
-    getMesh() = mesh;
+    getMesh().clear();
+    getMesh().append(mesh);
     setBoundingBox(turtle.getBuildedBoundingBox());
-    //getMesh().enableNormals(); it does not work
+    getMesh().enableNormals();
 }
 
 void ofxLSystem::save(string filename){
@@ -66,42 +66,6 @@ void ofxLSystem::setMeshMode(ofxLSGeometryAvailable _geometry){
             mesh.setMode(OF_PRIMITIVE_TRIANGLES);
             break;
     }
-}
-
-//this code is copy&pastef from of3DPrimitive
-void ofxLSystem::drawNormals(float length, bool bFaceNormals) const{
-    const vector<ofVec3f>& normals    = mesh.getNormals();
-    const vector<ofVec3f>& vertices   = mesh.getVertices();
-    ofVec3f normal;
-    ofVec3f vert;
-
-    normalsMesh.setMode( OF_PRIMITIVE_LINES );
-    normalsMesh.getVertices().resize( normals.size() * 2);
-
-    if (bFaceNormals) {
-        for(int i = 0; i < (int)normals.size(); i++ ) {
-            if(i % 3 == 0) {
-                vert = (vertices[i]+vertices[i+1]+vertices[i+2]) / 3;
-            } else if (i % 3 == 1) {
-                vert = (vertices[i-1]+vertices[i]+vertices[i+1]) / 3;
-            } else if ( i % 3 == 2) {
-                vert = (vertices[i-2]+vertices[i-1]+vertices[i]) / 3;
-            }
-            normalsMesh.setVertex(i*2, vert);
-            normal = normals[i].getNormalized();
-            normal *= length;
-            normalsMesh.setVertex(i*2+1, normal+vert);
-        }
-    } else {
-        for(int i = 0; i < (int)normals.size(); i++) {
-            vert = vertices[i];
-            normal = normals[i].getNormalized();
-            normalsMesh.setVertex( i*2, vert);
-            normal *= length;
-            normalsMesh.setVertex(i*2+1, normal+vert);
-        }
-    }
-    normalsMesh.draw();
 }
 
 bool ofxLSystem::isAxiomInRules(string _axiom, vector<string> _rulesContainer){
