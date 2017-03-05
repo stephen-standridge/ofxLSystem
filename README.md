@@ -56,7 +56,7 @@ typedef map<string,float> Constants;
 
 vector<string>    rulesContainer = {"F -> F[+F][-F]"};
 string            axiom = "F";
-bool              randomZRotation = false;
+bool              randomYRotation = false;
 int               depth = 1;
 float             theta = 25.00;
 float             stepWidth = 10.00;
@@ -71,7 +71,7 @@ you can overwrite the default parameters using these methods:
 void setAxiom(string _axiom);
 void setRules(vector<string> _rulesContainer);
 void setTheta(float _theta);
-void setRandomZRotation(bool _randomZRotation);
+void setRandomZRotation(bool _randomYRotation);
 void setStep(int _depth);
 void setScaleWidth(bool _scaleWidht);
 void setStepWidth(float _stepWidth);
