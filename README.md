@@ -1,5 +1,9 @@
 # ofxLSystem
 
+[![Build status](https://travis-ci.org/edap/ofxLSystem.svg?branch=master)](https://travis-ci.org/edap/ofxLSystem)
+[![Build status](https://ci.appveyor.com/api/projects/status/etxh1ocwr7nbcf84?svg=true)](https://ci.appveyor.com/project/edap/ofxlsystem)
+
+
 This addon has a dependency on [ofxLSystemGrammar](https://github.com/edap/ofxLSystemGrammar). Download it and add it to your addon folder
 
 ofxLSystem is a 3D graphic turtle graphic interpretation of L-Syestems. In the readme of ofxLSystemGrammar you can find some information about L-System.
