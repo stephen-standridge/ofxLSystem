@@ -34,8 +34,10 @@ void ofApp::setup(){
         tree.setRules({"A(s) -> F(s)[+A(s/R)][-A(s/R)]"});
         tree.setRandomYRotation(true);
         tree.setConstants(constants);
-        tree.setStep(abs(ofRandom(5, 10)));
+        tree.setStep(abs(ofRandom(6, 9)));
         tree.setScaleWidth(true);
+        tree.setResolution(20);
+        tree.setStep(abs(ofRandom(5, 7)));
         tree.setStepWidth(abs(ofRandom(30.5, 40.5)));
         tree.setStepLength(abs(ofRandom(150,300)));
         tree.build();
@@ -75,6 +77,11 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    switch (key){
+        case 's':
+            saveMesh();
+            break;
+    }
 
 }
 
@@ -126,4 +133,9 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
     
+}
+
+void ofApp::saveMesh(){
+    string randomFilename = ofGetTimestampString() + ".ply";
+    forest.save(randomFilename);
 }

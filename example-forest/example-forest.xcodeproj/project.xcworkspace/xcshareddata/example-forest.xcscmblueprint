@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3998ED1A39B3A3908ED7716C4F9FB3DEAA7F29C2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3998ED1A39B3A3908ED7716C4F9FB3DEAA7F29C2" : 9223372036854775807,
+    "727ED838D711BA8796C3B24BEA5DBFF3FD89F4A5" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "255E18EA-DAAB-4670-AFBE-4C16260AF19D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3998ED1A39B3A3908ED7716C4F9FB3DEAA7F29C2" : "ofxLSystem\/",
+    "727ED838D711BA8796C3B24BEA5DBFF3FD89F4A5" : "ofxLSystemGrammar\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "example-forest",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "example-forest\/example-forest.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:edap\/ofxLSystem.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3998ED1A39B3A3908ED7716C4F9FB3DEAA7F29C2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:edap\/ofxLSystemGrammar.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "727ED838D711BA8796C3B24BEA5DBFF3FD89F4A5"
+    }
+  ]
+}

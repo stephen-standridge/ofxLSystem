@@ -21,9 +21,10 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+    void saveMesh();
 
     ofMesh forest;
-    int nTree = 30;
+    int nTree = 1;
     ofLight light;
     ofEasyCam cam;
     ofPlanePrimitive plane;
