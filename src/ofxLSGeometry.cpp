@@ -6,6 +6,7 @@ void ofxLSGeometry::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh,ofxLSG
     switch (_geometryType) {
         case TUBES:
             tube.setTextureRepeat(textureRepeat);
+            tube.setResolution(resolution);
             tube.generate(mesh, branch, length);
             break;
 //        case TUBES_DEFORMED:

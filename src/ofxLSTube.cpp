@@ -4,6 +4,14 @@ ofxLSTube::ofxLSTube(){
     
 }
 
+void ofxLSTube::setResolution(const int _res){
+    if(_res < 3){
+        resolution = 3;
+    } else {
+        resolution = _res;
+    }
+}
+
 void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const float length){
     bool cap = true;
     const int radius = branch.capSizes.first;
