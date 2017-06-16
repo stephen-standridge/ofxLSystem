@@ -19,25 +19,25 @@ void ofxLSystem::setTheta(float _theta){ theta = _theta;
 void ofxLSystem::build(){
     //check if axiom, rules and theta are ok,
     // if not, define some default
-    try {
-        validateInput(axiom, rulesContainer, theta);
-    } catch (ofxLSInputError& e) {
-        ofLogError(e.what());
-        theta = 25.00;
-        axiom = "F";
-        rulesContainer = {"F -> F[+F][-F]"};
-    }
-    //clear the mesh
+    validateInput(axiom, rulesContainer, theta);
+
+    //clear the sentences
     mesh.clear();
+    currentSentences.clear();
 
     // setup the turtle, the sentences and the geometry
     setMeshMode(geometry);
     turtle.setup(stepLength, stepWidth, theta, geometry, randomYRotation, scaleWidth, resolution, textureRepeat);
-    const vector<string> sentences =
-        ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
+    currentSentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
 
     // populate the mesh
-    turtle.generate(mesh, sentences.back(), depth);
+    buildSentence(currentSentences.size() - 1);
+}
+
+void ofxLSystem::buildSentence(int sentenceIndex){
+    mesh.clear();
+
+    turtle.generate(mesh, currentSentences[sentenceIndex], sentenceIndex);
     getMesh().clear();
     getMesh().append(mesh);
     setBoundingBox(turtle.getBuildedBoundingBox());
@@ -86,11 +86,18 @@ bool ofxLSystem::thetaValueIsinRange(float theta){
 }
 
 void ofxLSystem::validateInput(string _axiom, vector<string> _strRules, float theta){
-    if(!isAxiomInRules(_axiom, _strRules)){
-        throw ofxLSInputError("axiom is not in rules container");
-    }
-    if(!thetaValueIsinRange(theta)){
-        throw ofxLSInputError("theta has to be between -360.00 and 360.00");
+    try {
+        if(!isAxiomInRules(_axiom, _strRules)){
+            throw ofxLSInputError("axiom is not in rules container");
+        }
+        if(!thetaValueIsinRange(theta)){
+            throw ofxLSInputError("theta has to be between -360.00 and 360.00");
+        }
+    } catch (ofxLSInputError& e) {
+        ofLogError(e.what());
+        theta = 25.00;
+        axiom = "F";
+        rulesContainer = {"F -> F[+F][-F]"};
     }
 }
 

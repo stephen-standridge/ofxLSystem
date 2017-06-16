@@ -14,6 +14,7 @@ public:
                bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat);
     void generate(ofVboMesh& mesh, const string ruleStr, const int depth);
     BoundingBox getBuildedBoundingBox() const { return buildedBoundingBox; };
+    void reset();
 
 private:
     const ofVec3f     origin = ofVec3f(0,0,0);

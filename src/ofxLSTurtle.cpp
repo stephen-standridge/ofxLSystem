@@ -9,16 +9,21 @@ void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxL
     geometry = _geometry;
     randomYRotation = _randomYRotation;
     scaleWidth = _scaleWidth;
+    reset();
+}
+
+void ofxLSTurtle::reset() {
     bookmarks.clear();
     branchContainer.clear();
     historySizes.clear();
     shared_ptr<ofNode> root(new ofNode);
     root->setPosition(origin);
     branchContainer.push_back(root);
+    resetBoundingBox();
 }
 
 void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int _depth) {
-    resetBoundingBox();
+    reset();
     bool branching = false;
     auto instructions = getInstructionsFromString(_instruction);
 

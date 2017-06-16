@@ -39,6 +39,12 @@ void ofApp::setup(){
                          ofVec3f(400,300,200), ofVec3f(-800,-800,-800), ofVec3f(800,800,800)));
     gui.add(materialColor.setup("material color",
                                 ofColor(0, 255, 0), ofColor(0, 0), ofColor(255, 255)));
+    gui.add(drawNext.setup("next"));
+    gui.add(drawPrevious.setup("previous"));
+    
+    drawNext.addListener(this, &ofApp::buildNext);
+    drawPrevious.addListener(this, &ofApp::buildPrevious);
+
     ofSetVerticalSync(true);
     tree.computeBoundingBox();
     cout << abs(tree.getBoundingBox().min.x) << endl;
@@ -49,11 +55,28 @@ void ofApp::setup(){
     float treeWidth = abs(uMinTree.x) + uMaxTree.x;
     float treeHeight = abs(uMinTree.y) + uMaxTree.y;
     uTreeResolution = ofVec2f(treeWidth, treeHeight);
-
     for(auto v:tree.getMesh().getVertices()){
         //cout << v.x<< endl;
 
     }
+}
+
+void ofApp::buildPrevious() {
+    if(currentStep > 0) {
+        currentStep--;
+    } else {
+        currentStep = tree.getStep();
+    }
+    tree.buildSentence(currentStep);
+}
+
+void ofApp::buildNext() {
+    if(currentStep < tree.getStep()) {
+        currentStep++;
+    } else {
+        currentStep = 0;
+    }
+    tree.buildSentence(currentStep);
 }
 
 //--------------------------------------------------------------
@@ -77,8 +100,8 @@ void ofApp::draw(){
     shader.setUniform2f("uTreeResolution", uTreeResolution );
     shader.setUniform2f("uMinTree", uMinTree);
     shader.setUniform2f("uMaxTree", uMaxTree);
-
     tree.draw();
+    tree.drawNormals(10);
 
     shader.end();
     cam.end();

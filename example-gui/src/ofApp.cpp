@@ -79,9 +79,9 @@ void ofApp::draw(){
     cam.begin();
     //ofDrawAxis(100);
     material.begin();
-    lsystem.draw();
+//    lsystem.draw();
     //lsystem.drawWireframe();
-    //lsystem.drawNormals(20);
+    lsystem.drawNormals(20);
     material.end();
     cam.end();
     ofDisableDepthTest();

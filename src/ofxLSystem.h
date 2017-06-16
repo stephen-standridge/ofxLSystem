@@ -23,6 +23,7 @@ public:
     void setRandomYRotation(bool _randomYRotation)    { randomYRotation = _randomYRotation; };
     void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry; };
     void setStep(int _depth)                          { depth = _depth; };
+    int getStep()                                    { return depth; };
     void setScaleWidth(bool _scaleWidht);
     void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
     void setStepLength(float _stepLength)             { stepLength = _stepLength; };
@@ -32,10 +33,11 @@ public:
     void setBoundingBox(BoundingBox);
 
     void build();
+    void buildSentence(int sentenceIndex);
     void save(string filename);
 
 private:
-
+    vector<string>    currentSentences;
     vector<string>    rulesContainer = {"F -> F[+F][-F]"};
     string            axiom = "F";
     bool              randomYRotation = false;
