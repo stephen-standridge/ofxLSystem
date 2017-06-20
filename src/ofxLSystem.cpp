@@ -16,20 +16,23 @@ void ofxLSystem::setTheta(float _theta){ theta = _theta;
     theta = _theta;
 };
 
-void ofxLSystem::build(){
+void ofxLSystem::setup() {
     //check if axiom, rules and theta are ok,
     // if not, define some default
     validateInput(axiom, rulesContainer, theta);
-
+    
     //clear the sentences
     mesh.clear();
     currentSentences.clear();
-
+    
     // setup the turtle, the sentences and the geometry
     setMeshMode(geometry);
     turtle.setup(stepLength, stepWidth, theta, geometry, randomYRotation, scaleWidth, resolution, textureRepeat);
     currentSentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
+}
 
+void ofxLSystem::build(){
+    setup();
     // populate the mesh
     buildSentence(currentSentences.size() - 1);
 }

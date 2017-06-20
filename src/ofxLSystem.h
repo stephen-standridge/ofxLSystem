@@ -13,6 +13,7 @@ typedef map<string,float> Constants;
 class ofxLSystem  : public of3dPrimitive{
 public:
     ofxLSystem();
+    void setup();
 
     void setAxiom(string _axiom);
     void setRules(vector<string> _rulesContainer);
@@ -35,9 +36,10 @@ public:
     void build();
     void buildSentence(int sentenceIndex);
     void save(string filename);
+    vector<string>    currentSentences;
+
 
 private:
-    vector<string>    currentSentences;
     vector<string>    rulesContainer = {"F -> F[+F][-F]"};
     string            axiom = "F";
     bool              randomYRotation = false;

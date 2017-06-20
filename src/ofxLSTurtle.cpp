@@ -30,17 +30,18 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
     for (auto stringInstruction : instructions) {
         auto inst = ofxLSInstruction(stringInstruction);
         auto head = inst.getHead();
+
         if (head == "F") {
             branching =  true;
         }else if( head == "G") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->boom(inst.getLength(defaultLength));
+            newJoin->boom(inst.getParam(0, defaultLength));
             branchContainer.push_back(newJoin);
         }else if (head == "+") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->roll(+inst.getAngle(theta));
+            newJoin->roll(+inst.getParam(0, theta));
             if(randomYRotation){
                 newJoin->pan(ofRandom(30.00, 330.00));
             }
@@ -48,7 +49,7 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
         }else if (head == "-") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->roll(-inst.getAngle(theta));
+            newJoin->roll(-inst.getParam(0, theta));
             if(randomYRotation){
                 newJoin->pan(ofRandom(30.00, 330.00));
             }
@@ -56,30 +57,30 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
         }else if (head == "|") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->pan(+inst.getAngle(180.00));
+            newJoin->pan(+inst.getParam(0, 180.0));
             branchContainer.push_back(newJoin);
         }else if (head == "&") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->tilt(+inst.getAngle(theta));
+            newJoin->tilt(+inst.getParam(0, theta));
             branchContainer.push_back(newJoin);
         }
         else if (head == "^") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->tilt(-inst.getAngle(theta));
+            newJoin->tilt(-inst.getParam(0, theta));
             branchContainer.push_back(newJoin);
         }
         else if (head == "\\") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->pan(+inst.getAngle(theta));
+            newJoin->pan(+inst.getParam(0, theta));
             branchContainer.push_back(newJoin);
         }
         else if (head == "/") {
             shared_ptr<ofNode> newJoin(new ofNode);
             newJoin->setParent(*branchContainer.back());
-            newJoin->pan(-inst.getAngle(180.00));
+            newJoin->pan(-inst.getParam(0, 180.00));
             branchContainer.push_back(newJoin);
         }
         else if (head == "[") {
@@ -91,7 +92,7 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
         }
 
         if (branching) {
-            float length = inst.getLength(defaultLength);
+            float length = inst.getParam(0, defaultLength);
             auto beginBranch = branchContainer.back();
             shared_ptr<ofNode> endBranch(new ofNode);
             endBranch->setParent(*branchContainer.back());
