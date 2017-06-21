@@ -18,10 +18,9 @@ private:
     string msg;
 };
 
-
 class ofxLSTurtle : public of3dPrimitive {
 public:
-    ofxLSTurtle(float moveLength = 100.00, float width = 10.00, float turnAngle=25.00, ofxLSGeometryAvailable geometry=TUBES, bool randomYRotation=false, bool scaleWidth=false, int resolution=10, int textureRepeat=1);
+    ofxLSTurtle(float moveLength = 100.00, float width = 10.00, float turnAngle=25.00, ofxLSGeometryAvailable geometry=TUBES, bool randomYRotation=false, bool scaleWidth=false, int _resolution=10, int textureRepeat=1);
     void setup();
     void reset();
     void buildSentence(string _sentenceToBuild);
@@ -39,8 +38,11 @@ public:
     void computeBoundingBox();
     BoundingBox getBoundingBox() const                { return boundingBox; };
     
+    virtual void  createInstructions();
+    virtual void  createRoot();
+    ofxLSExecutor<ofNode>   executor;
+
 private:
-    ofxLSExecutor           executor;
     ofVboMesh               mesh;
     BoundingBox             boundingBox;
     BoundingBox             buildedBoundingBox;
@@ -68,7 +70,6 @@ private:
     pair<float, float> getPrevAndCurrentWidth(float currentLength);
     float getScaledWidth(float currentLength);
     
-    void  createInstructions();
     void  resetBoundingBox();
     void  maybeVectorExpandsBoundingBox(ofVec3f v);
     bool  validateInput(float theta);

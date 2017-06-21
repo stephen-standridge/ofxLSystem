@@ -25,6 +25,7 @@ public:
     
     void setAxiom(string _axiom);
     void setRules(vector<string> _rulesContainer);
+    
     void setConstants(map<string,float> _Constants)   { constants = _Constants; };
     void setStep(int _depth)                          { depth = _depth; };
     int  getStep()                                    { return depth; };

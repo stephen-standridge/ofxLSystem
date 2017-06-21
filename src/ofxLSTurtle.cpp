@@ -1,18 +1,18 @@
 #include "ofxLSTurtle.h"
 
-ofxLSTurtle::ofxLSTurtle(float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry, bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat){
+ofxLSTurtle::ofxLSTurtle(float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry, bool randomYRotation, bool scaleWidth, int _resolution, int textureRepeat){
     if (validateInput(theta)) {
         theta = turnAngle;
     }
 
     stepLength = moveLength;
     stepWidth = width;
-    resolution = resolution;
+    resolution = _resolution;
     textureRepeat = textureRepeat;
     geometry = geometry;
     randomYRotation = randomYRotation;
     scaleWidth = scaleWidth;
-}
+};
 
 void ofxLSTurtle::setup() {
     //check if axiom, rules and theta are ok,
@@ -26,21 +26,24 @@ void ofxLSTurtle::setup() {
     reset();
 
     createInstructions();
-}
+};
 
 void ofxLSTurtle::buildSentence(string _sentenceToBuild) {
     mesh.clear();
-    
     executor.generate(_sentenceToBuild);
-    shared_ptr<ofNode> root(new ofNode);
-    root->setPosition(origin);
-    executor.addNode(root);
+    createRoot();
     
     historySizes.clear();
     getMesh().clear();
     
     getMesh().append(mesh);
     getMesh().enableNormals();
+}
+
+void ofxLSTurtle::createRoot() {
+    shared_ptr<ofNode> root(new ofNode);
+    root->setPosition(origin);
+    executor.addNode(root);
 }
 
 void ofxLSTurtle::createInstructions() {
@@ -128,9 +131,7 @@ void ofxLSTurtle::reset() {
     executor.reset();
     historySizes.clear();
     
-    shared_ptr<ofNode> root(new ofNode);
-    root->setPosition(origin);
-    executor.addNode(root);
+    createRoot();
     
     resetBoundingBox();
 }
@@ -193,7 +194,7 @@ void ofxLSTurtle::maybeVectorExpandsBoundingBox(ofVec3f v){
     if (v.x > boundingBox.max.x) boundingBox.max.x = v.x;
     if (v.y > boundingBox.max.y) boundingBox.max.y = v.y;
     if (v.z > boundingBox.max.z) boundingBox.max.z = v.z;
-};
+}
 
 void ofxLSTurtle::computeBoundingBox(){
     for(auto v : mesh.getVertices()){
