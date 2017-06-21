@@ -3,12 +3,13 @@
 #include "ofMain.h"
 #include "ofxLSBranch.h"
 #include "ofxLSGeometry.h"
+#include "ofxLSExecutor.h"
 #include "ofxLSInstruction.h"
 #include "ofxLSUtils.h"
 #include "ofxLSGeometryAvailable.h"
 #include "ofxLSBoundingBox.h"
 
-class ofxLSTurtle {
+class ofxLSTurtle : public ofxLSExecutor {
 public:
     void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry,
                bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat);
@@ -17,6 +18,7 @@ public:
     void reset();
 
 private:
+    void createInstructions();
     const ofVec3f     origin = ofVec3f(0,0,0);
     float   defaultLength = 100;
     float   width;
@@ -32,8 +34,8 @@ private:
     void maybeVectorExpandsBoundingBox(ofVec3f v);
 
     ofxLSGeometry                    geometryBuilder;
-    std::vector<shared_ptr<ofNode> > bookmarks;
-    std::vector<shared_ptr<ofNode> > branchContainer;
+    
+    
     //std::vector<shared_ptr<ofxLSBranch> > rBranchContainer;
 
     map<float, float> historySizes;

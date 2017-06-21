@@ -29,9 +29,10 @@
 		B89B6D8C719572CD94F4CE89 /* ofxLSLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB9ABDB6C59F21AA1F957B2A /* ofxLSLine.cpp */; };
 		C3FB86F08340C809A8A3158A /* ofxLSGrammarParametric.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DDC4DA530A2AF9F9FF6ED2E /* ofxLSGrammarParametric.cpp */; };
 		C9EE6397DB9BA5915196A439 /* ofxLSTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C938877AB0A0EAF88DABBA61 /* ofxLSTriangle.cpp */; };
+		CBB5A1291EF9D9F10045EC33 /* ofxLSExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CBB5A1271EF9D9F10045EC33 /* ofxLSExecutor.cpp */; };
+		CBB5A12C1EF9DE430045EC33 /* ofxLSInstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CBB5A12A1EF9DE430045EC33 /* ofxLSInstruction.cpp */; };
 		D2EBCD44B035589016336EC8 /* ofxLSGModuleReaderParametric.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0462AE0977E1506928AE7D4B /* ofxLSGModuleReaderParametric.cpp */; };
 		DF1A217E77EBFC4F05E8859A /* ofxLSGrammarDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BEDEE489D1C7F70E28A13D1 /* ofxLSGrammarDetector.cpp */; };
-		E17A52D693CEEE4039650EBF /* ofxLSInstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567DFB2A61BCD6663D0CA3FE /* ofxLSInstruction.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
@@ -71,7 +72,6 @@
 		0166DA4C6B09A4119C3BB972 /* ofxLSInputError.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSInputError.h; path = ../../../addons/ofxLSystem/src/ofxLSInputError.h; sourceTree = SOURCE_ROOT; };
 		0462AE0977E1506928AE7D4B /* ofxLSGModuleReaderParametric.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLSGModuleReaderParametric.cpp; path = ../../../addons/ofxLSystemGrammar/src/ofxLSGModuleReaderParametric.cpp; sourceTree = SOURCE_ROOT; };
 		0A1DAC09F322AE313A40706D /* ofxToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxToggle.h; path = ../../../addons/ofxGui/src/ofxToggle.h; sourceTree = SOURCE_ROOT; };
-		0A2F46A9539A290D359A4BCA /* ofxLSInstruction.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSInstruction.h; path = ../../../addons/ofxLSystem/src/ofxLSInstruction.h; sourceTree = SOURCE_ROOT; };
 		0FF1C32432AA9E0F46C53F41 /* ofxLSTube.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSTube.h; path = ../../../addons/ofxLSystem/src/ofxLSTube.h; sourceTree = SOURCE_ROOT; };
 		15F2C6477A769C03A56D1401 /* ofxSlider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSlider.cpp; path = ../../../addons/ofxGui/src/ofxSlider.cpp; sourceTree = SOURCE_ROOT; };
 		17E65988300FBD9AAA2CD0CA /* ofxGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGui.h; path = ../../../addons/ofxGui/src/ofxGui.h; sourceTree = SOURCE_ROOT; };
@@ -94,7 +94,6 @@
 		462D337B7CB7768A291F5970 /* ofxLSTubeDeformed.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSTubeDeformed.h; path = ../../../addons/ofxLSystem/src/ofxLSTubeDeformed.h; sourceTree = SOURCE_ROOT; };
 		5150E9AE3B789BDE4CE84007 /* ofxLSGRuleParametric.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLSGRuleParametric.cpp; path = ../../../addons/ofxLSystemGrammar/src/ofxLSGRuleParametric.cpp; sourceTree = SOURCE_ROOT; };
 		52AFA1F08C420992CAAAE648 /* ofxSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSlider.h; path = ../../../addons/ofxGui/src/ofxSlider.h; sourceTree = SOURCE_ROOT; };
-		567DFB2A61BCD6663D0CA3FE /* ofxLSInstruction.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLSInstruction.cpp; path = ../../../addons/ofxLSystem/src/ofxLSInstruction.cpp; sourceTree = SOURCE_ROOT; };
 		5D9AFD9E0F65CC9B4DF92645 /* ofxLSUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSUtils.h; path = ../../../addons/ofxLSystem/src/ofxLSUtils.h; sourceTree = SOURCE_ROOT; };
 		668CF817DDA1B35A18F1095C /* ofxLSTriangle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSTriangle.h; path = ../../../addons/ofxLSystem/src/ofxLSTriangle.h; sourceTree = SOURCE_ROOT; };
 		6A3E93DEC7FCFF01D84D4235 /* ofxLSGrammarStandard.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSGrammarStandard.h; path = ../../../addons/ofxLSystemGrammar/src/ofxLSGrammarStandard.h; sourceTree = SOURCE_ROOT; };
@@ -139,6 +138,10 @@
 		C70D8946940288799E82131E /* ofxSliderGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSliderGroup.h; path = ../../../addons/ofxGui/src/ofxSliderGroup.h; sourceTree = SOURCE_ROOT; };
 		C88333E71C9457E441C33474 /* ofxButton.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxButton.cpp; path = ../../../addons/ofxGui/src/ofxButton.cpp; sourceTree = SOURCE_ROOT; };
 		C938877AB0A0EAF88DABBA61 /* ofxLSTriangle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLSTriangle.cpp; path = ../../../addons/ofxLSystem/src/ofxLSTriangle.cpp; sourceTree = SOURCE_ROOT; };
+		CBB5A1271EF9D9F10045EC33 /* ofxLSExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxLSExecutor.cpp; path = ../src/ofxLSExecutor.cpp; sourceTree = "<group>"; };
+		CBB5A1281EF9D9F10045EC33 /* ofxLSExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLSExecutor.h; path = ../src/ofxLSExecutor.h; sourceTree = "<group>"; };
+		CBB5A12A1EF9DE430045EC33 /* ofxLSInstruction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxLSInstruction.cpp; path = ../src/ofxLSInstruction.cpp; sourceTree = "<group>"; };
+		CBB5A12B1EF9DE430045EC33 /* ofxLSInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLSInstruction.h; path = ../src/ofxLSInstruction.h; sourceTree = "<group>"; };
 		CE267820A1D9A9FA83CFE85F /* ofxLSGOperation.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLSGOperation.cpp; path = ../../../addons/ofxLSystemGrammar/src/ofxLSGOperation.cpp; sourceTree = SOURCE_ROOT; };
 		DAB5C56D8B8D893D2666FBFB /* ofxLSystem.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLSystem.h; path = ../../../addons/ofxLSystem/src/ofxLSystem.h; sourceTree = SOURCE_ROOT; };
 		E112B3AEBEA2C091BF2B40AE /* ofxPanel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxPanel.cpp; path = ../../../addons/ofxGui/src/ofxPanel.cpp; sourceTree = SOURCE_ROOT; };
@@ -171,14 +174,14 @@
 		234F63E19AE2044D5E0E054E /* src */ = {
 			isa = PBXGroup;
 			children = (
+				CBB5A12A1EF9DE430045EC33 /* ofxLSInstruction.cpp */,
+				CBB5A12B1EF9DE430045EC33 /* ofxLSInstruction.h */,
 				9BD9F245C629DB7DA97B2686 /* ofxLSBoundingBox.h */,
 				1A7843EE75F92A697393DD67 /* ofxLSBranch.h */,
 				8A3DE88BFD13EB54745D9152 /* ofxLSGeometry.cpp */,
 				25F0065D15D1F9FF2662B0F5 /* ofxLSGeometry.h */,
 				2C7EB768B2FE4559EDD5A6DA /* ofxLSGeometryAvailable.h */,
 				0166DA4C6B09A4119C3BB972 /* ofxLSInputError.h */,
-				567DFB2A61BCD6663D0CA3FE /* ofxLSInstruction.cpp */,
-				0A2F46A9539A290D359A4BCA /* ofxLSInstruction.h */,
 				FB9ABDB6C59F21AA1F957B2A /* ofxLSLine.cpp */,
 				8FA86CEEC66C2A3A18AEF487 /* ofxLSLine.h */,
 				BBAF81DA93945235E95A66D5 /* ofxLSOption.h */,
@@ -190,6 +193,8 @@
 				462D337B7CB7768A291F5970 /* ofxLSTubeDeformed.h */,
 				2FAFD2BD68D51838E1CD6B56 /* ofxLSTurtle.cpp */,
 				83B55FDFF54A80AD0F7590F5 /* ofxLSTurtle.h */,
+				CBB5A1271EF9D9F10045EC33 /* ofxLSExecutor.cpp */,
+				CBB5A1281EF9D9F10045EC33 /* ofxLSExecutor.h */,
 				5D9AFD9E0F65CC9B4DF92645 /* ofxLSUtils.h */,
 				1AF438B5AEF283A42FEAE1E2 /* ofxLSystem.cpp */,
 				DAB5C56D8B8D893D2666FBFB /* ofxLSystem.h */,
@@ -455,7 +460,6 @@
 				B56FE57CC35806596D38118C /* ofxSliderGroup.cpp in Sources */,
 				1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */,
 				5C7E2B7BDDEEE905358FFBCD /* ofxLSGeometry.cpp in Sources */,
-				E17A52D693CEEE4039650EBF /* ofxLSInstruction.cpp in Sources */,
 				B89B6D8C719572CD94F4CE89 /* ofxLSLine.cpp in Sources */,
 				C9EE6397DB9BA5915196A439 /* ofxLSTriangle.cpp in Sources */,
 				6B1863C8E3583E5CFF747B38 /* ofxLSTube.cpp in Sources */,
@@ -465,8 +469,10 @@
 				B6F53513F3AFE5559FA9AD5F /* ofxLSGCondition.cpp in Sources */,
 				D2EBCD44B035589016336EC8 /* ofxLSGModuleReaderParametric.cpp in Sources */,
 				44737FA71BD44A8D8326AA02 /* ofxLSGOperation.cpp in Sources */,
+				CBB5A12C1EF9DE430045EC33 /* ofxLSInstruction.cpp in Sources */,
 				DF1A217E77EBFC4F05E8859A /* ofxLSGrammarDetector.cpp in Sources */,
 				C3FB86F08340C809A8A3158A /* ofxLSGrammarParametric.cpp in Sources */,
+				CBB5A1291EF9D9F10045EC33 /* ofxLSExecutor.cpp in Sources */,
 				89781C56C1EDCEE9189ECA47 /* ofxLSGrammarStandard.cpp in Sources */,
 				75FAC88317CB82EB99B08A61 /* ofxLSGrammarStochastic.cpp in Sources */,
 				62DF64DEF4627C992F002A29 /* ofxLSGRuleParametric.cpp in Sources */,

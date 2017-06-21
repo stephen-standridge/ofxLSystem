@@ -9,93 +9,98 @@ void ofxLSTurtle::setup( float _moveLength, float _width, float _turnAngle, ofxL
     geometry = _geometry;
     randomYRotation = _randomYRotation;
     scaleWidth = _scaleWidth;
+    createInstructions();
     reset();
 }
 
+void ofxLSTurtle::createInstructions() {
+    addInstruction("G", [this](vector<string> params){
+        shared_ptr<ofNode> newJoin(new ofNode);
+        newJoin->setParent(*back());
+        newJoin->boom(params.size() > 0 ? ofToFloat(params[0]) : defaultLength);
+        addNode(newJoin);
+    });
+    addInstruction("+", [this](vector<string> params){
+        shared_ptr<ofNode> newJoin(new ofNode);
+        newJoin->setParent(*back());
+        newJoin->roll(params.size() > 0 ? ofToFloat(params[0]) : theta);
+        if(randomYRotation){
+            newJoin->pan(ofRandom(30.00, 330.00));
+        }
+        addNode(newJoin);
+    });
+    addInstruction("-", [this](vector<string> params){
+        shared_ptr<ofNode> newJoin(new ofNode);
+        newJoin->setParent(*back());
+        newJoin->roll(-(params.size() > 0 ? ofToFloat(params[0]) : theta));
+        if(randomYRotation){
+            newJoin->pan(ofRandom(30.00, 330.00));
+        }
+        addNode(newJoin);
+    });
+    addInstruction("|", [this](vector<string> params){
+        shared_ptr<ofNode> newJoin(new ofNode);
+        newJoin->setParent(*back());
+        newJoin->pan(+(params.size() > 0 ? ofToFloat(params[0]) : 180.0));
+        addNode(newJoin);
+    });
+    addInstruction("&", [this](vector<string> params){
+        shared_ptr<ofNode> newJoin(new ofNode);
+        newJoin->setParent(*back());
+        newJoin->tilt(+(params.size() > 0 ? ofToFloat(params[0]) : theta));
+        addNode(newJoin);
+    });
+    addInstruction("^", [this](vector<string> params){
+        shared_ptr<ofNode> newJoin(new ofNode);
+        newJoin->setParent(*back());
+        newJoin->tilt(-(params.size() > 0 ? ofToFloat(params[0]) : theta));
+        addNode(newJoin);
+    });
+    addInstruction("\\", [this](vector<string> params){
+        shared_ptr<ofNode> newJoin(new ofNode);
+        newJoin->setParent(*back());
+        newJoin->pan(+(params.size() > 0 ? ofToFloat(params[0]) : theta));
+        addNode(newJoin);
+    });
+    addInstruction("/", [this](vector<string> params){
+        shared_ptr<ofNode> newJoin(new ofNode);
+        newJoin->setParent(*back());
+        newJoin->pan(-(params.size() > 0 ? ofToFloat(params[0]) : 180.0));
+        addNode(newJoin);
+    });
+    addInstruction("[", [this](vector<string> params){
+        pushNode();
+    });
+    addInstruction("]", [this](vector<string> params){
+        addNode(bookmark());
+        popNode();
+    });
+}
+
+
+
 void ofxLSTurtle::reset() {
-    bookmarks.clear();
-    branchContainer.clear();
+    ofxLSExecutor::reset();
     historySizes.clear();
     shared_ptr<ofNode> root(new ofNode);
     root->setPosition(origin);
-    branchContainer.push_back(root);
+    addNode(root);
     resetBoundingBox();
 }
 
 void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int _depth) {
     reset();
-    bool branching = false;
-    auto instructions = getInstructionsFromString(_instruction);
+    auto stringInstructions = getInstructionsFromString(_instruction);
 
-    for (auto stringInstruction : instructions) {
+    for (auto stringInstruction : stringInstructions) {
         auto inst = ofxLSInstruction(stringInstruction);
         auto head = inst.getHead();
 
         if (head == "F") {
-            branching =  true;
-        }else if( head == "G") {
-            shared_ptr<ofNode> newJoin(new ofNode);
-            newJoin->setParent(*branchContainer.back());
-            newJoin->boom(inst.getParam(0, defaultLength));
-            branchContainer.push_back(newJoin);
-        }else if (head == "+") {
-            shared_ptr<ofNode> newJoin(new ofNode);
-            newJoin->setParent(*branchContainer.back());
-            newJoin->roll(+inst.getParam(0, theta));
-            if(randomYRotation){
-                newJoin->pan(ofRandom(30.00, 330.00));
-            }
-            branchContainer.push_back(newJoin);
-        }else if (head == "-") {
-            shared_ptr<ofNode> newJoin(new ofNode);
-            newJoin->setParent(*branchContainer.back());
-            newJoin->roll(-inst.getParam(0, theta));
-            if(randomYRotation){
-                newJoin->pan(ofRandom(30.00, 330.00));
-            }
-            branchContainer.push_back(newJoin);
-        }else if (head == "|") {
-            shared_ptr<ofNode> newJoin(new ofNode);
-            newJoin->setParent(*branchContainer.back());
-            newJoin->pan(+inst.getParam(0, 180.0));
-            branchContainer.push_back(newJoin);
-        }else if (head == "&") {
-            shared_ptr<ofNode> newJoin(new ofNode);
-            newJoin->setParent(*branchContainer.back());
-            newJoin->tilt(+inst.getParam(0, theta));
-            branchContainer.push_back(newJoin);
-        }
-        else if (head == "^") {
-            shared_ptr<ofNode> newJoin(new ofNode);
-            newJoin->setParent(*branchContainer.back());
-            newJoin->tilt(-inst.getParam(0, theta));
-            branchContainer.push_back(newJoin);
-        }
-        else if (head == "\\") {
-            shared_ptr<ofNode> newJoin(new ofNode);
-            newJoin->setParent(*branchContainer.back());
-            newJoin->pan(+inst.getParam(0, theta));
-            branchContainer.push_back(newJoin);
-        }
-        else if (head == "/") {
-            shared_ptr<ofNode> newJoin(new ofNode);
-            newJoin->setParent(*branchContainer.back());
-            newJoin->pan(-inst.getParam(0, 180.00));
-            branchContainer.push_back(newJoin);
-        }
-        else if (head == "[") {
-            bookmarks.push_back(branchContainer.back());
-        }
-        else if (head == "]") {
-            branchContainer.push_back(bookmarks.back());
-            bookmarks.pop_back();
-        }
-
-        if (branching) {
             float length = inst.getParam(0, defaultLength);
-            auto beginBranch = branchContainer.back();
+            auto beginBranch = back();
             shared_ptr<ofNode> endBranch(new ofNode);
-            endBranch->setParent(*branchContainer.back());
+            endBranch->setParent(*back());
             endBranch->move(ofVec3f(0, length, 0));
 
             maybeVectorExpandsBoundingBox(endBranch->getGlobalPosition());
@@ -103,8 +108,9 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
             auto widths = getPrevAndCurrentWidth(length);
             auto newBranch = ofxLSBranch(*beginBranch, *endBranch, widths);
             geometryBuilder.putIntoMesh(newBranch, mesh, geometry, resolution, length, textureRepeat);
-            branchContainer.push_back(endBranch);
-            branching = false;
+            addNode(endBranch);
+        } else if (hasInstruction(head)) {
+            getInstruction(head)(inst.getParams());
         }
     }
 
@@ -125,8 +131,7 @@ void ofxLSTurtle::generate(ofVboMesh& mesh, const string _instruction, const int
 //        }
 //
 //    }
-    branchContainer.clear();
-    bookmarks.clear();
+    ofxLSExecutor::reset();
     historySizes.clear();
 }
 
