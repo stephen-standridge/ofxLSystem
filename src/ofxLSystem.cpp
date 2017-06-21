@@ -1,7 +1,11 @@
 #include "ofxLSystem.h"
 
-ofxLSystem::ofxLSystem(){
-
+ofxLSystem::ofxLSystem(string _axiom, vector<string> _rules, int _depth){
+    if(validateInput(_axiom, _rules)) {
+        axiom = _axiom;
+        rulesContainer = _rules;
+    }
+    depth = _depth;
 }
 
 void ofxLSystem::setAxiom(string _axiom){
@@ -12,63 +16,13 @@ void ofxLSystem::setRules(vector<string> _rulesContainer){
     rulesContainer = _rulesContainer;
 };
 
-void ofxLSystem::setTheta(float _theta){ theta = _theta;
-    theta = _theta;
-};
-
 void ofxLSystem::setup() {
     //check if axiom, rules and theta are ok,
     // if not, define some default
-    validateInput(axiom, rulesContainer, theta);
     
     //clear the sentences
-    mesh.clear();
     currentSentences.clear();
-    
-    // setup the turtle, the sentences and the geometry
-    setMeshMode(geometry);
-    turtle.setup(stepLength, stepWidth, theta, geometry, randomYRotation, scaleWidth, resolution, textureRepeat);
     currentSentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
-}
-
-void ofxLSystem::build(){
-    setup();
-    // populate the mesh
-    buildSentence(currentSentences.size() - 1);
-}
-
-void ofxLSystem::buildSentence(int sentenceIndex){
-    mesh.clear();
-
-    turtle.generate(mesh, currentSentences[sentenceIndex], sentenceIndex);
-    getMesh().clear();
-    getMesh().append(mesh);
-    setBoundingBox(turtle.getBuildedBoundingBox());
-    getMesh().enableNormals();
-}
-
-void ofxLSystem::save(string filename){
-    mesh.save(filename);
-}
-
-void ofxLSystem::setMeshMode(ofxLSGeometryAvailable _geometry){
-    switch (_geometry) {
-        case LINES:
-            mesh.setMode(OF_PRIMITIVE_LINES);
-            break;
-        case TUBES:
-            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            break;
-        case TUBES_DEFORMED:
-            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            break;
-        case TRIANGLES:
-            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            break;
-        default:
-            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            break;
-    }
 }
 
 bool ofxLSystem::isAxiomInRules(string _axiom, vector<string> _rulesContainer){
@@ -84,54 +38,16 @@ bool ofxLSystem::isAxiomInRules(string _axiom, vector<string> _rulesContainer){
     return false;
 }
 
-bool ofxLSystem::thetaValueIsinRange(float theta){
-    return (theta >= -360.00 && theta <= 360.00) ? true : false;
-}
-
-void ofxLSystem::validateInput(string _axiom, vector<string> _strRules, float theta){
+bool ofxLSystem::validateInput(string _axiom, vector<string> _strRules){
     try {
         if(!isAxiomInRules(_axiom, _strRules)){
             throw ofxLSInputError("axiom is not in rules container");
         }
-        if(!thetaValueIsinRange(theta)){
-            throw ofxLSInputError("theta has to be between -360.00 and 360.00");
-        }
     } catch (ofxLSInputError& e) {
         ofLogError(e.what());
-        theta = 25.00;
         axiom = "F";
         rulesContainer = {"F -> F[+F][-F]"};
+        return false;
     }
+    return true;
 }
-
-void ofxLSystem::setScaleWidth(bool _setScaleWidth){
-    if(
-       ofxLSystemGrammar::detectGrammarType(rulesContainer) != "parametric" &&
-       _setScaleWidth == true
-    ){
-        ofLogError("only parametric grammar supports setScale=true");
-        scaleWidth = false;
-    }else{
-        scaleWidth = _setScaleWidth;
-    }
-}
-
-void ofxLSystem::computeBoundingBox(){
-    for(auto v : mesh.getVertices()){
-        if (v.x < boundingBox.min.x) boundingBox.min.x = v.x;
-        if (v.y < boundingBox.min.y) boundingBox.min.y = v.y;
-        if (v.z < boundingBox.min.z) boundingBox.min.z = v.z;
-
-        if (v.x > boundingBox.max.x) boundingBox.max.x = v.x;
-        if (v.y > boundingBox.max.y) boundingBox.max.y = v.y;
-        if (v.z > boundingBox.max.z) boundingBox.max.z = v.z;
-    }
-}
-
-BoundingBox ofxLSystem::getBoundingBox() const {
-    return boundingBox;
-};
-
-void ofxLSystem::setBoundingBox(BoundingBox _boundingBox) {
-    boundingBox = _boundingBox;
-};

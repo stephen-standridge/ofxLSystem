@@ -1,47 +1,68 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxLSystem.h"
 #include "ofxLSBranch.h"
 #include "ofxLSGeometry.h"
 #include "ofxLSExecutor.h"
-#include "ofxLSInstruction.h"
 #include "ofxLSUtils.h"
 #include "ofxLSGeometryAvailable.h"
 #include "ofxLSBoundingBox.h"
 
-class ofxLSTurtle : public ofxLSExecutor {
+class ofxLSTurtle : public of3dPrimitive{
 public:
-    void setup( float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry,
-               bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat);
-    void generate(ofVboMesh& mesh, const string ruleStr, const int depth);
-    BoundingBox getBuildedBoundingBox() const { return buildedBoundingBox; };
+    ofxLSTurtle(float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry,
+                bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat);
+    void setup();
     void reset();
+    void save(string filename);
+    
+    void setTheta(float _theta)                       { theta = _theta; };
+    void setResolution(int _resolution)               { resolution = _resolution; };
+    void setTextureRepeat(int _n)                     { textureRepeat = _n; };
+    void setRandomYRotation(bool _randomYRotation)    { randomYRotation = _randomYRotation; };
+    void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry; };
+    void setScaleWidth(bool _scaleWidht);
+    void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
+    void setStepLength(float _stepLength)             { stepLength = _stepLength; };
+    
+    void computeBoundingBox();
+    BoundingBox getBoundingBox() const                { return boundingBox; };
+    
+    void build(int sentenceIndex=-1);
 
 private:
-    void createInstructions();
-    const ofVec3f     origin = ofVec3f(0,0,0);
-    float   defaultLength = 100;
-    float   width;
-    float   theta;
-    ofxLSGeometryAvailable  geometry;
+    ofxLSExecutor           executor;
+    ofxLSystem              lsystem;
+    ofVboMesh               mesh;
+    BoundingBox             boundingBox;
+    BoundingBox             buildedBoundingBox;
+    ofxLSGeometryAvailable  geometry = TUBES;
+    ofxLSGeometry           geometryBuilder;
+
+    map<float, float>       historySizes;
+
+    // geometry/space
+    const ofVec3f origin = ofVec3f(0,0,0);
+    float         stepWidth = 10.00;
+    float         stepLength = 100.00;
+    float         theta = 25.00;
+    
+    // options
+    
     bool    debug = false;
     bool    randomYRotation = false;
     bool    scaleWidth = false;
-    int     resolution = 4;
-    int     textureRepeat;
-    ofVec3f position; // it can be removed?
-    vector<string> getInstructionsFromString(string sentence);
-    void maybeVectorExpandsBoundingBox(ofVec3f v);
+    int     resolution = 10;
+    int     textureRepeat = 1;
 
-    ofxLSGeometry                    geometryBuilder;
+    void  setMeshMode(ofxLSGeometryAvailable geometry);
     
-    
-    //std::vector<shared_ptr<ofxLSBranch> > rBranchContainer;
-
-    map<float, float> historySizes;
     pair<float, float> getPrevAndCurrentWidth(float currentLength);
     float getScaledWidth(float currentLength);
-
-    void resetBoundingBox();
-    BoundingBox buildedBoundingBox;
+    
+    void  createInstructions();
+    void  resetBoundingBox();
+    void  maybeVectorExpandsBoundingBox(ofVec3f v);
+    bool  validateInput(float theta);
 };

@@ -6,6 +6,7 @@
 //
 //
 #include "ofMain.h"
+#include "ofxLSInstruction.h"
 
 class ofxLSExecutor {
 typedef const std::function<void(vector<string>)> Lambda;
@@ -14,6 +15,7 @@ public:
     void popNode();
     void addNode(shared_ptr<ofNode> node);
     void reset();
+    void generate(const string ruleStr);
     shared_ptr<ofNode> back();
     shared_ptr<ofNode> bookmark();
     
@@ -32,5 +34,6 @@ private:
     vector<shared_ptr<ofNode> > bookmarks;
 
     std::map <string, Lambda> instructions;
+    vector<string> getInstructionsFromString(string sentence);
 };
 
