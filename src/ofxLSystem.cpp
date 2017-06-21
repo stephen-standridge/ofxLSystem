@@ -1,53 +1,25 @@
 #include "ofxLSystem.h"
 
-ofxLSystem::ofxLSystem(string _axiom, vector<string> _rules, int _depth){
-    if(validateInput(_axiom, _rules)) {
-        axiom = _axiom;
-        rulesContainer = _rules;
-    }
-    depth = _depth;
+void ofxLSystem::reset() {
+    lsystem.setup();
+    ofxLSTurtle::setup();
 }
 
-void ofxLSystem::setAxiom(string _axiom){
-    axiom = _axiom;
-};
-
-void ofxLSystem::setRules(vector<string> _rulesContainer){
-    rulesContainer = _rulesContainer;
-};
-
-void ofxLSystem::setup() {
-    //check if axiom, rules and theta are ok,
-    // if not, define some default
+void ofxLSystem::build(int _sentenceIndex) {
+    string sentence;
     
-    //clear the sentences
-    currentSentences.clear();
-    currentSentences = ofxLSystemGrammar::buildSentences(rulesContainer, depth, axiom, constants);
-}
-
-bool ofxLSystem::isAxiomInRules(string _axiom, vector<string> _rulesContainer){
-    auto lettersInAxiom = ofxLSUtils::matchesInRegex(_axiom, "[a-zA-Z]");
-    for(auto letter : lettersInAxiom){
-        for(string rule : _rulesContainer){
-            if(ofxLSUtils::countSubstring(rule, letter) > 0){
-                return true;
-            }
+    if (_sentenceIndex < 0) {
+        //by default build the last sentence
+        if(lsystem.size() != getStep()) {
+            lsystem.build();
+        }
+        sentence = lsystem.back();
+    } else {
+        sentence = lsystem.at(_sentenceIndex);
+        if (sentence.length() <= 0 && getStep() > _sentenceIndex) {
+            lsystem.build();
+            sentence = lsystem.at(_sentenceIndex);
         }
     }
-
-    return false;
-}
-
-bool ofxLSystem::validateInput(string _axiom, vector<string> _strRules){
-    try {
-        if(!isAxiomInRules(_axiom, _strRules)){
-            throw ofxLSInputError("axiom is not in rules container");
-        }
-    } catch (ofxLSInputError& e) {
-        ofLogError(e.what());
-        axiom = "F";
-        rulesContainer = {"F -> F[+F][-F]"};
-        return false;
-    }
-    return true;
+    buildSentence(sentence);
 }

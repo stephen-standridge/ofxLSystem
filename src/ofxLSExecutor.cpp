@@ -38,13 +38,15 @@ void ofxLSExecutor::addNode(shared_ptr<ofNode> node) {
 }
 
 void ofxLSExecutor::generate(const string _instruction) {
-    reset();
+    bookmarks.clear();
     auto stringInstructions = getInstructionsFromString(_instruction);
     
     for (auto stringInstruction : stringInstructions) {
         auto inst = ofxLSInstruction(stringInstruction);
         auto head = inst.getHead();
-        getInstruction(head)(inst.getParams());
+        if (hasInstruction(head)){
+            getInstruction(head)(inst.getParams());
+        }
     }
     
     //TODO, separate the generation of the node skeleton to mesh construction
@@ -64,7 +66,7 @@ void ofxLSExecutor::generate(const string _instruction) {
     //        }
     //
     //    }
-    ofxLSExecutor::reset();
+    reset();
 }
 
 vector<string> ofxLSExecutor::getInstructionsFromString(string _str){

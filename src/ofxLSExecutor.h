@@ -11,14 +11,17 @@
 class ofxLSExecutor {
 typedef const std::function<void(vector<string>)> Lambda;
 public:
-    void pushNode(shared_ptr<ofNode> node = NULL);
+    void pushNode(shared_ptr<ofNode> const node = NULL);
     void popNode();
-    void addNode(shared_ptr<ofNode> node);
+    void addNode(shared_ptr<ofNode> const node);
     void reset();
     void generate(const string ruleStr);
+    int size() { return branchContainer.size(); };
+    
     shared_ptr<ofNode> back();
     shared_ptr<ofNode> bookmark();
-    
+    vector<shared_ptr<ofNode> > branchContainer;
+    vector<shared_ptr<ofNode> > bookmarks;
     void addInstruction(string identifier, Lambda &lambda){
         instructions.emplace(identifier, lambda);
     };
@@ -30,8 +33,7 @@ public:
     }
     
 private:
-    vector<shared_ptr<ofNode> > branchContainer;
-    vector<shared_ptr<ofNode> > bookmarks;
+
 
     std::map <string, Lambda> instructions;
     vector<string> getInstructionsFromString(string sentence);

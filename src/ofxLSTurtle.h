@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxLSystem.h"
 #include "ofxLSBranch.h"
 #include "ofxLSGeometry.h"
 #include "ofxLSExecutor.h"
@@ -9,52 +8,60 @@
 #include "ofxLSGeometryAvailable.h"
 #include "ofxLSBoundingBox.h"
 
-class ofxLSTurtle : public of3dPrimitive{
+class ofxLSTurtleError : public exception {
 public:
-    ofxLSTurtle(float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry,
-                bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat);
+    ofxLSTurtleError(string m="exception!") : msg(m) {}
+    ofxLSTurtleError() throw() {}
+    const char* what() const throw() { return msg.c_str(); }
+    
+private:
+    string msg;
+};
+
+
+class ofxLSTurtle : public of3dPrimitive {
+public:
+    ofxLSTurtle(float moveLength = 100.00, float width = 10.00, float turnAngle=25.00, ofxLSGeometryAvailable geometry=TUBES, bool randomYRotation=false, bool scaleWidth=false, int resolution=10, int textureRepeat=1);
     void setup();
     void reset();
-    void save(string filename);
+    void buildSentence(string _sentenceToBuild);
+    void save(string _filename);
     
     void setTheta(float _theta)                       { theta = _theta; };
     void setResolution(int _resolution)               { resolution = _resolution; };
     void setTextureRepeat(int _n)                     { textureRepeat = _n; };
     void setRandomYRotation(bool _randomYRotation)    { randomYRotation = _randomYRotation; };
     void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry; };
-    void setScaleWidth(bool _scaleWidht);
+    void setScaleWidth(bool _scaleWidth)              { scaleWidth = _scaleWidth; };
     void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
     void setStepLength(float _stepLength)             { stepLength = _stepLength; };
     
     void computeBoundingBox();
     BoundingBox getBoundingBox() const                { return boundingBox; };
     
-    void build(int sentenceIndex=-1);
-
 private:
     ofxLSExecutor           executor;
-    ofxLSystem              lsystem;
     ofVboMesh               mesh;
     BoundingBox             boundingBox;
     BoundingBox             buildedBoundingBox;
-    ofxLSGeometryAvailable  geometry = TUBES;
+    ofxLSGeometryAvailable  geometry;
     ofxLSGeometry           geometryBuilder;
 
     map<float, float>       historySizes;
 
     // geometry/space
     const ofVec3f origin = ofVec3f(0,0,0);
-    float         stepWidth = 10.00;
-    float         stepLength = 100.00;
-    float         theta = 25.00;
+    float         stepWidth;
+    float         stepLength;
+    float         theta;
     
     // options
     
     bool    debug = false;
-    bool    randomYRotation = false;
-    bool    scaleWidth = false;
-    int     resolution = 10;
-    int     textureRepeat = 1;
+    bool    randomYRotation;
+    bool    scaleWidth;
+    int     resolution;
+    int     textureRepeat;
 
     void  setMeshMode(ofxLSGeometryAvailable geometry);
     

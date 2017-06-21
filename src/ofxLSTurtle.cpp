@@ -1,7 +1,6 @@
 #include "ofxLSTurtle.h"
 
-ofxLSTurtle::ofxLSTurtle(float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry,
-                         bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat){
+ofxLSTurtle::ofxLSTurtle(float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry, bool randomYRotation, bool scaleWidth, int resolution, int textureRepeat){
     if (validateInput(theta)) {
         theta = turnAngle;
     }
@@ -24,9 +23,24 @@ void ofxLSTurtle::setup() {
     
     // setup the turtle, the sentences and the geometry
     setMeshMode(geometry);
+    reset();
 
     createInstructions();
-    reset();
+}
+
+void ofxLSTurtle::buildSentence(string _sentenceToBuild) {
+    mesh.clear();
+    
+    executor.generate(_sentenceToBuild);
+    shared_ptr<ofNode> root(new ofNode);
+    root->setPosition(origin);
+    executor.addNode(root);
+    
+    historySizes.clear();
+    getMesh().clear();
+    
+    getMesh().append(mesh);
+    getMesh().enableNormals();
 }
 
 void ofxLSTurtle::createInstructions() {
@@ -95,7 +109,8 @@ void ofxLSTurtle::createInstructions() {
         float length = params.size() > 0 ? ofToFloat(params[0]) : stepLength;
         auto beginBranch = executor.back();
         shared_ptr<ofNode> endBranch(new ofNode);
-        endBranch->setParent(*executor.back());
+        
+        endBranch->setParent(*beginBranch);
         endBranch->move(ofVec3f(0, length, 0));
         
         maybeVectorExpandsBoundingBox(endBranch->getGlobalPosition());
@@ -120,16 +135,7 @@ void ofxLSTurtle::reset() {
     resetBoundingBox();
 }
 
-void ofxLSTurtle::build(int sentenceIndex) {
-    mesh.clear();
-    
-    executor.generate(sentenceIndex > 0 ? lsystem.at(sentenceIndex) : lsystem.back());
-    historySizes.clear();
-    getMesh().clear();
-    
-    getMesh().append(mesh);
-    getMesh().enableNormals();
-}
+
 
 // In case there is the need to keep track of the differents branches width and lenght,
 // as in the case when scaleWidth is set to true, this method does 2 things:
@@ -175,15 +181,6 @@ float ofxLSTurtle::getScaledWidth(float currentLength){
     }
 }
 
-void ofxLSTurtle::setScaleWidth(bool _setScaleWidth){
-    if( lsystem.isParametric() && _setScaleWidth == true){
-        ofLogError("only parametric grammar supports setScale=true");
-        scaleWidth = false;
-    }else{
-        scaleWidth = _setScaleWidth;
-    }
-}
-
 // keep in mind that this method does not consider the thikness of a branch, but just the position of the vertices
 // that will be used later to generate the cylinder. Therefore, it is not accurate, but is is usefull to get the UV
 // if you want higher precision, call ofxLSystem.computeBoundingBox(), that iterates on all the vertices composing the
@@ -211,8 +208,8 @@ void ofxLSTurtle::computeBoundingBox(){
 }
 
 
-void ofxLSTurtle::save(string filename){
-    mesh.save(filename);
+void ofxLSTurtle::save(string _filename){
+    mesh.save(_filename);
 }
 
 
@@ -244,9 +241,9 @@ void ofxLSTurtle::resetBoundingBox(){
 bool ofxLSTurtle::validateInput(float theta){
     try {
         if(!(theta >= -360.00 && theta <= 360.00)){
-            throw ofxLSInputError("theta has to be between -360.00 and 360.00");
+            throw ofxLSTurtleError("theta has to be between -360.00 and 360.00");
         }
-    } catch (ofxLSInputError& e) {
+    } catch (ofxLSTurtleError& e) {
         ofLogError(e.what());
         theta = 25.00;
         return false;
