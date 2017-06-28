@@ -7,6 +7,10 @@
 #include "ofxLSUtils.h"
 #include "ofxLSGeometryAvailable.h"
 #include "ofxLSBoundingBox.h"
+#include "ofxLSTube.h"
+#include "ofxLSTubeDeformed.h"
+#include "ofxLSTriangle.h"
+#include "ofxLSLine.h"
 
 class ofxLSTurtleError : public exception {
 public:
@@ -30,47 +34,62 @@ public:
     void setResolution(int _resolution)               { resolution = _resolution; };
     void setTextureRepeat(int _n)                     { textureRepeat = _n; };
     void setRandomYRotation(bool _randomYRotation)    { randomYRotation = _randomYRotation; };
-    void setGeometry(ofxLSGeometryAvailable _geometry){ geometry = _geometry; };
     void setScaleWidth(bool _scaleWidth)              { scaleWidth = _scaleWidth; };
     void setStepWidth(float _stepWidth)               { stepWidth = _stepWidth; };
     void setStepLength(float _stepLength)             { stepLength = _stepLength; };
     
-    void computeBoundingBox();
-    BoundingBox getBoundingBox() const                { return boundingBox; };
+    float getTheta()                                   { return theta; };
+    int   getResolution()                              { return resolution; };
+    bool  getTextureRepeat()                           { return textureRepeat; };
+    bool  getRandomYRotation()                         { return randomYRotation; };
+    bool  getScaleWidth()                              { return scaleWidth; };
+    float getStepWidth()                               { return stepWidth; };
+    float getStepLength()                              { return stepLength; };
+    ofxLSGeometryAvailable getGeometryType()           { return geometry; };
     
-    virtual void  createInstructions();
-    virtual void  createRoot();
+    void  computeBoundingBox();
+    void  resetBoundingBox();
+    void  maybeVectorExpandsBoundingBox(ofVec3f v);
+    BoundingBox getBoundingBox() const                { return boundingBox; };
+    void  setMeshMode(ofxLSGeometryAvailable geometry);
+    pair<float, float> getPrevAndCurrentWidth(float currentLength);
+    float getScaledWidth(float currentLength);
+    
+    bool  validateInput(float theta);
+
+    void createInstructions();
+    void createRoot();
+    
     ofxLSExecutor<ofNode>   executor;
+    ofxLSGeometry           geometryBuilder;
+    ofVboMesh               mesh;
 
 private:
-    ofVboMesh               mesh;
+    //bounding box
     BoundingBox             boundingBox;
     BoundingBox             buildedBoundingBox;
+    
+    //geometry generation
     ofxLSGeometryAvailable  geometry;
-    ofxLSGeometry           geometryBuilder;
+    ofxLSTube tube;
+    ofxLSTubeDeformed tubeDeformed;
+    ofxLSLine line;
+    ofxLSTriangle triangle;
+    void putIntoMesh(const ofxLSBranch branch);
 
     map<float, float>       historySizes;
 
     // geometry/space
-    const ofVec3f origin = ofVec3f(0,0,0);
     float         stepWidth;
     float         stepLength;
     float         theta;
     
     // options
-    
     bool    debug = false;
     bool    randomYRotation;
     bool    scaleWidth;
     int     resolution;
     int     textureRepeat;
 
-    void  setMeshMode(ofxLSGeometryAvailable geometry);
-    
-    pair<float, float> getPrevAndCurrentWidth(float currentLength);
-    float getScaledWidth(float currentLength);
-    
-    void  resetBoundingBox();
-    void  maybeVectorExpandsBoundingBox(ofVec3f v);
-    bool  validateInput(float theta);
+
 };

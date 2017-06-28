@@ -5,7 +5,7 @@
 //  Created by kevin ambrosia on 6/20/17.
 //
 //
-#pragma once;
+#pragma once
 #include "ofMain.h"
 #include "ofxLSInstruction.h"
 
@@ -14,6 +14,8 @@ template <class Node>
 class ofxLSExecutor {
 typedef const std::function<void(vector<string>)> Lambda;
 public:
+    vector<shared_ptr<Node> > branchContainer;
+
     void popNode()          { bookmarks.pop_back(); };
     void pushNode(shared_ptr<Node> const node = NULL) {
         if(node != NULL) {
@@ -40,7 +42,6 @@ public:
     bool hasInstruction(string identifier) {
         return instructions.count(identifier) > 0;
     }
-    
     void generate(const string _instruction) {
         bookmarks.clear();
         auto stringInstructions = getInstructionsFromString(_instruction);
@@ -52,7 +53,6 @@ public:
                 getInstruction(head)(inst.getParams());
             }
         }
-        reset();
     }
     
     vector<string> getInstructionsFromString(string _str) { return ofxLSUtils::matchesInRegex(_str, parametricMatching); };
@@ -88,7 +88,6 @@ public:
     string parametricMatching = "([A-Z\\^&\\+\\-\\?\\|/\\]\\[\\\\](\\([0-9\\.,]+\\))*)";
 
 private:
-    vector<shared_ptr<Node> > branchContainer;
     vector<shared_ptr<Node> > bookmarks;
     std::map <string, Lambda> instructions;
 };

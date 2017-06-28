@@ -13,6 +13,7 @@ void ofxLSTube::setResolution(const int _res){
 }
 
 void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const float length){
+
     bool cap = true;
     const int radius = branch.capSizes.first;
     const int scaledRadius = branch.capSizes.second;
