@@ -4,6 +4,7 @@
 
 class ofxLSTubeDeformed {
 public:
+    static const ofPrimitiveMode meshMode = OF_PRIMITIVE_TRIANGLES;
     ofxLSTubeDeformed();
     void generate(ofMesh& mesh, const ofxLSBranch branch, const int radius);
 private:

@@ -5,14 +5,16 @@
 #include "ofxLSUtils.h"
 
 #include "ofxLSBuilder.h"
+#include "ofxLSTube.h"
 #include "ofxLSTurtle.h"
+#include "ofxLSTurtle.cpp"
 
-class ofxLSystem : public ofxLSTurtle {
+class ofxLSystem : public ofxLSTurtle<ofxLSTube, ofNode> {
 private:
     ofxLSBuilder            lsystem;
     
 public:
-    void reset();
+    void setup();
     void build(int _sentenceIndex = -1);
     
     void setAxiom(string _axiom)                    { lsystem.setAxiom(_axiom); };

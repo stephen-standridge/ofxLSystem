@@ -4,6 +4,11 @@ ofxLSTriangle::ofxLSTriangle(){
     
 }
 
+void ofxLSTriangle::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, int resolution, float length, int textureRepeat) {
+    setResolution(resolution);
+    generate(mesh, branch, length);
+}
+
 void ofxLSTriangle::generate(ofMesh& mesh, const ofxLSBranch branch, const float length){
     //if you set offsetBetweenBranches to 0, all the triangles composing
     // the branch will start exactly where the previous one finish,

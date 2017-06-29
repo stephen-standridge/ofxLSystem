@@ -1,8 +1,9 @@
 #include "ofxLSystem.h"
 
-void ofxLSystem::reset() {
+void ofxLSystem::setup() {
     lsystem.setup();
     ofxLSTurtle::setup();
+    
 }
 
 void ofxLSystem::build(int _sentenceIndex) {

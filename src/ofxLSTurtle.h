@@ -2,15 +2,10 @@
 
 #include "ofMain.h"
 #include "ofxLSBranch.h"
-#include "ofxLSGeometry.h"
 #include "ofxLSExecutor.h"
 #include "ofxLSUtils.h"
 #include "ofxLSGeometryAvailable.h"
 #include "ofxLSBoundingBox.h"
-#include "ofxLSTube.h"
-#include "ofxLSTubeDeformed.h"
-#include "ofxLSTriangle.h"
-#include "ofxLSLine.h"
 
 class ofxLSTurtleError : public exception {
 public:
@@ -22,9 +17,11 @@ private:
     string msg;
 };
 
+template <class GeometryType, class NodeType>
+
 class ofxLSTurtle : public of3dPrimitive {
 public:
-    ofxLSTurtle(float moveLength = 100.00, float width = 10.00, float turnAngle=25.00, ofxLSGeometryAvailable geometry=TUBES, bool randomYRotation=false, bool scaleWidth=false, int _resolution=10, int textureRepeat=1);
+    ofxLSTurtle(float moveLength = 100.00, float width = 10.00, float turnAngle=25.00, bool randomYRotation=false, bool scaleWidth=false, int _resolution=10, int textureRepeat=1);
     void setup();
     void reset();
     void buildSentence(string _sentenceToBuild);
@@ -45,24 +42,25 @@ public:
     bool  getScaleWidth()                              { return scaleWidth; };
     float getStepWidth()                               { return stepWidth; };
     float getStepLength()                              { return stepLength; };
-    ofxLSGeometryAvailable getGeometryType()           { return geometry; };
     
     void  computeBoundingBox();
     void  resetBoundingBox();
     void  maybeVectorExpandsBoundingBox(ofVec3f v);
     BoundingBox getBoundingBox() const                { return boundingBox; };
-    void  setMeshMode(ofxLSGeometryAvailable geometry);
     pair<float, float> getPrevAndCurrentWidth(float currentLength);
     float getScaledWidth(float currentLength);
     
     bool  validateInput(float theta);
 
     void createInstructions();
-    void createRoot();
-    
-    ofxLSExecutor<ofNode>   executor;
-    ofxLSGeometry           geometryBuilder;
     ofVboMesh               mesh;
+
+    ofxLSExecutor<NodeType>   executor;
+    void createRoot() {
+        shared_ptr<NodeType> root(new NodeType);
+        root->setPosition(ofVec3f(0.0, 0.0, 0.0));
+        executor.addNode(root);
+    }
 
 private:
     //bounding box
@@ -70,11 +68,7 @@ private:
     BoundingBox             buildedBoundingBox;
     
     //geometry generation
-    ofxLSGeometryAvailable  geometry;
-    ofxLSTube tube;
-    ofxLSTubeDeformed tubeDeformed;
-    ofxLSLine line;
-    ofxLSTriangle triangle;
+    GeometryType            geometryBuilder;
     void putIntoMesh(const ofxLSBranch branch);
 
     map<float, float>       historySizes;

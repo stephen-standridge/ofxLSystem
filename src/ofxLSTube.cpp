@@ -12,6 +12,12 @@ void ofxLSTube::setResolution(const int _res){
     }
 }
 
+void ofxLSTube::putIntoMesh(const ofxLSBranch branch, ofVboMesh& mesh, int resolution, float length, int textureRepeat) {
+    setTextureRepeat(textureRepeat);
+    setResolution(resolution);
+    generate(mesh, branch, length);
+}
+
 void ofxLSTube::generate(ofMesh& mesh, const ofxLSBranch branch, const float length){
 
     bool cap = true;

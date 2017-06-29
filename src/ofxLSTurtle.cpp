@@ -1,20 +1,21 @@
 #include "ofxLSTurtle.h"
 
-ofxLSTurtle::ofxLSTurtle(float moveLength, float width, float turnAngle, ofxLSGeometryAvailable geometry, bool randomYRotation, bool scaleWidth, int _resolution, int textureRepeat){
+template <class GeometryType, class NodeType>
+ofxLSTurtle<GeometryType, NodeType>::ofxLSTurtle(float moveLength, float width, float turnAngle, bool randomYRotation, bool scaleWidth, int _resolution, int textureRepeat){
     if (validateInput(theta)) {
         theta = turnAngle;
     }
-
+    mesh.setMode(GeometryType::meshMode);
     stepLength = moveLength;
     stepWidth = width;
     resolution = _resolution;
     textureRepeat = textureRepeat;
-    geometry = geometry;
     randomYRotation = randomYRotation;
     scaleWidth = scaleWidth;
 };
 
-void ofxLSTurtle::setup() {
+template <class GeometryType, class NodeType>
+void ofxLSTurtle<GeometryType, NodeType>::setup() {
     //check if axiom, rules and theta are ok,
     // if not, define some default
     
@@ -23,17 +24,17 @@ void ofxLSTurtle::setup() {
     
     // setup the turtle, the sentences and the geometry
     
-    setMeshMode(getGeometryType());
     reset();
-
+    
     createInstructions();
 };
 
-void ofxLSTurtle::buildSentence(string _sentenceToBuild) {
-    mesh.clear();
-
-    executor.generate(_sentenceToBuild);
+template <class GeometryType, class NodeType>
+void ofxLSTurtle<GeometryType, NodeType>::buildSentence(string _sentenceToBuild) {
+    reset();
     createRoot();
+    
+    executor.generate(_sentenceToBuild);
     
     historySizes.clear();
     getMesh().clear();
@@ -42,21 +43,16 @@ void ofxLSTurtle::buildSentence(string _sentenceToBuild) {
     getMesh().enableNormals();
 }
 
-void ofxLSTurtle::createRoot() {
-    shared_ptr<ofNode> root(new ofNode);
-    root->setPosition(ofVec3f(0.0, 0.0, 0.0));
-    executor.addNode(root);
-}
-
-void ofxLSTurtle::createInstructions() {
+template <class GeometryType, class NodeType>
+void ofxLSTurtle<GeometryType, NodeType>::createInstructions() {
     executor.addInstruction("G", [this](vector<string> params){
-        shared_ptr<ofNode> newJoin(new ofNode);
+        shared_ptr<NodeType> newJoin(new NodeType);
         newJoin->setParent(*executor.back());
         newJoin->boom(params.size() > 0 ? ofToFloat(params[0]) : getStepLength());
         executor.addNode(newJoin);
     });
     executor.addInstruction("+", [this](vector<string> params){
-        shared_ptr<ofNode> newJoin(new ofNode);
+        shared_ptr<NodeType> newJoin(new NodeType);
         newJoin->setParent(*executor.back());
         newJoin->roll(params.size() > 0 ? ofToFloat(params[0]) : getTheta());
         if(getRandomYRotation()){
@@ -65,7 +61,7 @@ void ofxLSTurtle::createInstructions() {
         executor.addNode(newJoin);
     });
     executor.addInstruction("-", [this](vector<string> params){
-        shared_ptr<ofNode> newJoin(new ofNode);
+        shared_ptr<NodeType> newJoin(new NodeType);
         newJoin->setParent(*executor.back());
         newJoin->roll(-(params.size() > 0 ? ofToFloat(params[0]) : getTheta()));
         if(getRandomYRotation()){
@@ -74,31 +70,31 @@ void ofxLSTurtle::createInstructions() {
         executor.addNode(newJoin);
     });
     executor.addInstruction("|", [this](vector<string> params){
-        shared_ptr<ofNode> newJoin(new ofNode);
+        shared_ptr<NodeType> newJoin(new NodeType);
         newJoin->setParent(*executor.back());
         newJoin->pan(+(params.size() > 0 ? ofToFloat(params[0]) : 180.0));
         executor.addNode(newJoin);
     });
     executor.addInstruction("&", [this](vector<string> params){
-        shared_ptr<ofNode> newJoin(new ofNode);
+        shared_ptr<NodeType> newJoin(new NodeType);
         newJoin->setParent(*executor.back());
         newJoin->tilt(+(params.size() > 0 ? ofToFloat(params[0]) : getTheta()));
         executor.addNode(newJoin);
     });
     executor.addInstruction("^", [this](vector<string> params){
-        shared_ptr<ofNode> newJoin(new ofNode);
+        shared_ptr<NodeType> newJoin(new NodeType);
         newJoin->setParent(*executor.back());
         newJoin->tilt(-(params.size() > 0 ? ofToFloat(params[0]) : getTheta()));
         executor.addNode(newJoin);
     });
     executor.addInstruction("\\", [this](vector<string> params){
-        shared_ptr<ofNode> newJoin(new ofNode);
+        shared_ptr<NodeType> newJoin(new NodeType);
         newJoin->setParent(*executor.back());
         newJoin->pan(+(params.size() > 0 ? ofToFloat(params[0]) : getTheta()));
         executor.addNode(newJoin);
     });
     executor.addInstruction("/", [this](vector<string> params){
-        shared_ptr<ofNode> newJoin(new ofNode);
+        shared_ptr<NodeType> newJoin(new NodeType);
         newJoin->setParent(*executor.back());
         newJoin->pan(-(params.size() > 0 ? ofToFloat(params[0]) : 180.0));
         executor.addNode(newJoin);
@@ -111,9 +107,10 @@ void ofxLSTurtle::createInstructions() {
         executor.popNode();
     });
     executor.addInstruction("F", [this](vector<string> params){
-        float length = params.size() > 0 ? ofToFloat(params[0]) : getStepLength();
+        float length = params.size() > 1 ? ofToFloat(params[1]) : getStepLength();
+        float shouldDraw = params.size() > 0 && params[0] == "1" ? false : true;
         auto beginBranch = executor.back();
-        shared_ptr<ofNode> endBranch(new ofNode);
+        shared_ptr<NodeType> endBranch(new NodeType);
         
         endBranch->setParent(*beginBranch);
         endBranch->move(ofVec3f(0, length, 0));
@@ -121,46 +118,21 @@ void ofxLSTurtle::createInstructions() {
         maybeVectorExpandsBoundingBox(endBranch->getGlobalPosition());
         
         auto widths = getPrevAndCurrentWidth(length);
+        
         auto newBranch = ofxLSBranch(*beginBranch, *endBranch, widths);
-        putIntoMesh(newBranch);
+        geometryBuilder.putIntoMesh(newBranch, mesh, getResolution(), getStepLength(), getTextureRepeat());
         executor.addNode(endBranch);
     });
 }
 
-void ofxLSTurtle::putIntoMesh(const ofxLSBranch branch){
-    switch (getGeometryType()) {
-        case TUBES:
-            tube.setTextureRepeat(getTextureRepeat());
-            tube.setResolution(getResolution());
-            tube.generate(mesh, branch, getStepLength());
-            break;
-            //        case TUBES_DEFORMED:
-            //            tubeDeformed.generate(mesh, branch, width);
-            //            break;
-            //        case LINES:
-            //            tubeDeformed.generate(mesh, branch, width);
-            //            break;
-        case TRIANGLES:
-            triangle.setResolution(getResolution());
-            triangle.generate(mesh, branch, getStepLength());
-            break;
-        default:
-            line.generate(mesh, branch);
-            break;
-    }
-}
 
-
-
-void ofxLSTurtle::reset() {
+template <class GeometryType, class NodeType>
+void ofxLSTurtle<GeometryType, NodeType>::reset() {
     executor.reset();
     historySizes.clear();
-    
-    createRoot();
-    
+    mesh.clear();
     resetBoundingBox();
 }
-
 
 
 // In case there is the need to keep track of the differents branches width and lenght,
@@ -170,12 +142,13 @@ void ofxLSTurtle::reset() {
 // 2) It returns the current width and the previous one, as the method name says.
 // If there is no need to keep track of the branch  width, just returns a pair containing
 // the default width, both for the prev and current width.
-pair<float, float> ofxLSTurtle::getPrevAndCurrentWidth(float currentLength){
+template <class GeometryType, class NodeType>
+pair<float, float> ofxLSTurtle<GeometryType, NodeType>::getPrevAndCurrentWidth(float currentLength){
     if(!scaleWidth){
         return make_pair(getStepWidth(), getStepWidth());
     }
-
-
+    
+    
     float currentWidth = (getScaleWidth()) ? getScaledWidth(currentLength) : getStepWidth();
     if (historySizes.empty()) {
         historySizes.insert(make_pair(currentLength, currentWidth));
@@ -196,7 +169,8 @@ pair<float, float> ofxLSTurtle::getPrevAndCurrentWidth(float currentLength){
 
 //it scales the with proportionally to the scaled length
 //
-float ofxLSTurtle::getScaledWidth(float currentLength){
+template <class GeometryType, class NodeType>
+float ofxLSTurtle<GeometryType, NodeType>::getScaledWidth(float currentLength){
     auto ratio = (getStepLength() / currentLength );
     float currentWidth = getStepWidth() / ratio;
     return currentWidth;
@@ -211,17 +185,19 @@ float ofxLSTurtle::getScaledWidth(float currentLength){
 // that will be used later to generate the cylinder. Therefore, it is not accurate, but is is usefull to get the UV
 // if you want higher precision, call ofxLSystem.computeBoundingBox(), that iterates on all the vertices composing the
 // mesh
-void ofxLSTurtle::maybeVectorExpandsBoundingBox(ofVec3f v){
+template <class GeometryType, class NodeType>
+void ofxLSTurtle<GeometryType, NodeType>::maybeVectorExpandsBoundingBox(ofVec3f v){
     if (v.x < boundingBox.min.x) boundingBox.min.x = v.x;
     if (v.y < boundingBox.min.y) boundingBox.min.y = v.y;
     if (v.z < boundingBox.min.z) boundingBox.min.z = v.z;
-
+    
     if (v.x > boundingBox.max.x) boundingBox.max.x = v.x;
     if (v.y > boundingBox.max.y) boundingBox.max.y = v.y;
     if (v.z > boundingBox.max.z) boundingBox.max.z = v.z;
 }
 
-void ofxLSTurtle::computeBoundingBox(){
+template <class GeometryType, class NodeType>
+void ofxLSTurtle<GeometryType, NodeType>::computeBoundingBox(){
     for(auto v : mesh.getVertices()){
         if (v.x < boundingBox.min.x) boundingBox.min.x = v.x;
         if (v.y < boundingBox.min.y) boundingBox.min.y = v.y;
@@ -233,38 +209,19 @@ void ofxLSTurtle::computeBoundingBox(){
     }
 }
 
-
-void ofxLSTurtle::save(string _filename){
+template <class GeometryType, class NodeType>
+void ofxLSTurtle<GeometryType, NodeType>::save(string _filename){
     mesh.save(_filename);
 }
 
-
-void ofxLSTurtle::setMeshMode(ofxLSGeometryAvailable _geometry){
-    switch (_geometry) {
-        case LINES:
-            mesh.setMode(OF_PRIMITIVE_LINES);
-            break;
-        case TUBES:
-            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            break;
-        case TUBES_DEFORMED:
-            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            break;
-        case TRIANGLES:
-            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            break;
-        default:
-            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            break;
-    }
-}
-
-void ofxLSTurtle::resetBoundingBox(){
+template <class GeometryType, class NodeType>
+void ofxLSTurtle<GeometryType, NodeType>::resetBoundingBox(){
     boundingBox.min = ofVec3f(0,0,0);
     boundingBox.max = ofVec3f(0,0,0);
 }
 
-bool ofxLSTurtle::validateInput(float _theta){
+template <class GeometryType, class NodeType>
+bool ofxLSTurtle<GeometryType, NodeType>::validateInput(float _theta){
     try {
         if(!(_theta >= -360.00 && _theta <= 360.00)){
             throw ofxLSTurtleError("theta has to be between -360.00 and 360.00");
